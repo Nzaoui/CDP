@@ -87,6 +87,20 @@ function get_projects($mysql){
 }
 
 /*
+	Get the project's informations
+*/
+function get_project($mysql, $id_project){ 
+	$rqt = "SELECT * FROM Project WHERE id=? ;";
+	$stmt = $mysql->stmt_init();
+	$stmt = $mysql->prepare($rqt);
+	$stmt->bind_param("i", $id_project);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	$stmt->close();
+	return $result;
+}
+
+/*
 	Insert into table, a new project following the arguments
 	=> Return True if the project is stored
 */
@@ -94,7 +108,7 @@ function add_project($mysql,$name,$description,$laguage,$owner){
 	$rqt = "INSERT INTO Project(name,description,laguage,owner) VALUES(?,?,?,?);";
 	$stmt = $mysql->stmt_init();
 	$stmt = $mysql->prepare($rqt);
-	$stmt->bind_param("ssss", $name,$description,$language,$owner);
+	$stmt->bind_param("sssi", $name,$description,$language,$owner);
 	$stmt->execute();
 	$result = $mysql->error;
 	$stmt-> close();
@@ -104,11 +118,101 @@ function add_project($mysql,$name,$description,$laguage,$owner){
 }
 
 /*
+	Return all developers's informations working on a project, PO included
+*/
+function get_developers($mysql, $id_project){
+	$rqt = "SELECT first_name,last_name,login,email 
+				FROM Project 
+				JOIN User ON Project.owner=User.id
+				WHERE Project.id = ? 
+				UNION 
+				SELECT first_name,last_name,login,email 
+				FROM User 
+				JOIN WorkOn ON WorkOn.id_user=User.id 
+				WHERE WorkOn.id_project = ? ;";
+	$stmt = $mysql->stmt_init();
+	$stmt = $mysql->prepare($rqt);
+	$stmt->bind_param("ii", $id_project, $id_project);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	$stmt->close();
+	return $result;
+}
+
+/*
+	Return all projects owned by a user
+*/
+function get_user_projects($mysql, $id_user){
+	$rqt = "SELECT * 
+				FROM Project 
+				WHERE owner = ? ;";
+	$stmt = $mysql->stmt_init();
+	$stmt = $mysql->prepare($rqt);
+	$stmt->bind_param("i", $id_user);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	$stmt->close();
+	return $result;
+}
+
+/*
+	Return all projects where a user work on, without his projects
+*/
+function get_user_participations($mysql, $id_user){
+	$rqt = "SELECT id, name, description, language, owner 
+				FROM Project 
+				JOIN WorkOn ON WorkOn.id_project=Project.id 
+				WHERE WorkOn.id_user = ? AND Project.owner != ?;";
+	$stmt = $mysql->stmt_init();
+	$stmt = $mysql->prepare($rqt);
+	$stmt->bind_param("ii", $id_user, $id_user);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	$stmt->close();
+	return $result;
+}
+
+/*
+	Try to add a developer in a project
+	=> Return false if the developer is already  working in the project or,
+	 if the developer is the owner of the project
+	=> Return true if the insertion was a success
+*/
+function add_user_to_project ($mysql, $id_user, $id_project){
+	$ok = true;
+	$rqt = "SELECT owner 
+			FROM Project 
+			WHERE id = ? ;";
+	$stmt = $mysql->stmt_init();
+	$stmt = $mysql->prepare($rqt);
+	$stmt->bind_param("i", $id_project);
+	$stmt->execute();
+	$result = $stmt->get_result()->fetch_array(MYSQLI_ASSOC);
+	if ($result["owner"] == $id_user){
+		$ok = false;
+	}
+	else{
+		$rqt = "INSERT INTO WorkOn 
+				VALUES (?,?);";
+		$stmt = $mysql->prepare($rqt);
+		$stmt->bind_param("ii", $id_user, $id_project);
+		$stmt->execute();
+		$result = $mysql->error;
+		if ($result != "")
+			$ok = false;
+	}
+	$stmt->close();
+	return $ok;
+}
+
+
+/*
 Example of use functions
-
-$mysql = connect();
-
-while ($row = $result->fetch_array(MYSQLI_NUM))
+*/
+/*$mysql = connect();
+$result = add_user_to_project($mysql,3,1);
+if ($result == true){echo "ok";}else {echo "ko";};
+/*while ($row = $result->fetch_array(MYSQLI_NUM))
         {
             foreach ($row as $r)
             {
