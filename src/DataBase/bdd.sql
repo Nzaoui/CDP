@@ -43,6 +43,7 @@ CREATE TABLE UserStory (
 	description TEXT NOT NULL,
 	priority INT NULL,
 	achievement DATE NULL,
+	commit TEXT NULL,
 	PRIMARY KEY (id),
 	FOREIGN KEY (id_project) REFERENCES Project(id));
 
