@@ -21,11 +21,23 @@ function close($mysql){
 }
 
 /*Return the user corresponding with login AND password */
-function get_user ($mysql,$login,$passwd){
-	$rqt = "SELECT * FROM User WHERE login=? AND password=?;";
+function check_user_informations ($mysql,$login,$passwd){
+	$rqt = "SELECT first_name,last_name,login,email FROM User WHERE login=? AND password=?;";
 	$stmt = $mysql->stmt_init();
 	$stmt = $mysql->prepare($rqt);
 	$stmt->bind_param("ss", $login,hash("sha256", $passwd));
+	$stmt->execute();
+	$result = $stmt->get_result();
+	$stmt->close();
+	return $result;
+}
+
+/*Return the user corresponding with id */
+function get_user ($mysql,$id){
+	$rqt = "SELECT first_name,last_name,login,email FROM User WHERE id=? ;";
+	$stmt = $mysql->stmt_init();
+	$stmt = $mysql->prepare($rqt);
+	$stmt->bind_param("i", $id);
 	$stmt->execute();
 	$result = $stmt->get_result();
 	$stmt->close();
