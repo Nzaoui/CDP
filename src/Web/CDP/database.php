@@ -1,5 +1,10 @@
 <?php
 
+/* WARNING */
+/* THIS code requires the mysqlnd driver */
+/* ON DEBIAN/UBUNTU => sudo apt-get install php5-mysqlnd */
+/* ON WINDOWS => download driver on dev.mysql.com */
+
 $MYSQL_HOST = "localhost";
 $MYSQL_USER = "gestionProjet";
 $MYSQL_PASSWD = "M2-CDP";
