@@ -21,12 +21,7 @@ if(isset($_POST['submit'])){
 		else{
 			echo "Error : Reessayer  ";
 		}
-		/*while ($row = $check_info_result->fetch_assoc()) {
-        echo 'First Name: '.$row['first_name'].'<br>';
-        echo 'Last Name: '.$row['last_name'].'<br>';
-        echo 'Login: '.$row['login'].'<br>';
-		echo 'Email: '.$row['email'].'<br>';
-		}*/
+		
 	}
 	close($mysql);
 }
