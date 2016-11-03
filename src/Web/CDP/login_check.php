@@ -1,12 +1,16 @@
 <?php
 
+session_start();
+
 $pseudo = $password = "";
 
-if(isset($_POST['submit'])){
+if(!empty($_POST['pseudo']) and !empty ($_POST['password'])){
 	include("database.php");
 	
 	$pseudo = $_POST["pseudo"];
+
 	$password = $_POST["password"];
+	
 
 	$mysql = connect();
 	
@@ -16,18 +20,18 @@ if(isset($_POST['submit'])){
 	else{
 		$check_info_result = check_user_informations($mysql,$pseudo,$password);
 		if($check_info_result->fetch_assoc()){
-			echo '<META HTTP-EQUIV="Refresh" Content="0; URL=index.html">';
+			echo '<META HTTP-EQUIV="Refresh" Content="0; URL=myprofil.php">';
+			$_SESSION['pseudo'] = $pseudo;
+			$_SESSION['password'] = $password;
+			
 		}
 		else{
 			echo "Error : Reessayer  ";
 		}
-		/*while ($row = $check_info_result->fetch_assoc()) {
-        echo 'First Name: '.$row['first_name'].'<br>';
-        echo 'Last Name: '.$row['last_name'].'<br>';
-        echo 'Login: '.$row['login'].'<br>';
-		echo 'Email: '.$row['email'].'<br>';
-		}*/
+	
 	}
+	
+	
 	close($mysql);
 }
 ?>
