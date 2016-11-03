@@ -1,8 +1,3 @@
-<?php
-
-session_start();
-
-?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -13,6 +8,9 @@ session_start();
 <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <link href="css/animate.css" rel="stylesheet" type="text/css" />
 <link href="css/admin.css" rel="stylesheet" type="text/css" />
+<style>
+textarea { resize: vertical; }
+</style>
 </head>
 <body class="light_theme  fixed_header left_nav_fixed">
 <div class="wrapper">
@@ -40,10 +38,10 @@ session_start();
       </div>
       <div class="left_nav_slidebar">
         <ul>
-          <li><a href="index.html"><i class="fa fa-home"></i> Acceuil <span class="left_nav_pointer"></span>  </a></li>
-          <li> <a href="inscription.php"> <i class="fa fa-edit"></i> S'inscrire </a></li> 
-          <li class="left_nav_active theme_border"> <a href="login.php"> <i class="fa fa-tasks"></i> S'authentifier </a></li>
-		  <li> <a href="projects.php"> <i class="fa fa-tasks"></i> Tout les Projets </a></li>
+          <li> <a href="myprofil.php"><i class="fa fa-home"></i> Mon Profil <span class="left_nav_pointer"></span>  </a></li>
+          <li class="left_nav_active theme_border"> <a href="createProject.php"> <i class="fa fa-edit"></i> Créer un projet </a></li> 
+          <li> <a href="projects.php"> <i class="fa fa-tasks"></i> Tout les Projets </a></li>
+		  <li> <a href="logout.php"> <i class="fa fa-power-off"></i> Se déconnecter </a></li>
         </ul>
       </div>
     </div>
@@ -53,7 +51,7 @@ session_start();
 	       <div class="row center">
        <div class="col-lg-12 ">
        <section class="panel default blue_title h2">
-       <div class="panel-heading border">Page d'Authentification</div>
+       <div class="panel-heading border">Creation Projet</div>
        </section>
        </div>
        </div>
@@ -62,36 +60,35 @@ session_start();
        <div class="col-md-12">
        <section class="panel default blue_title h2">
        <div class="panel-body">
-		  <div class="login_content">
-		 <form role="form" class="form-horizontal" action="login_check.php" method="Post">
+		  <div class="registration" >	
+		 <form role="form" class="form-horizontal" action="createProject.php" method="Post">
 			  <div class="form-group">
-				
-				<div class="col-sm-10">
-				  <input type="text" placeholder="Pseudo" id="Pseudo" class="form-control" name="pseudo">
+			  <div class="col-sm-10">
+				  <input type="text" placeholder="Nom" id="inputEmail3" class="form-control" name="name">
 				</div>
 			  </div>
 			  <div class="form-group">
-				
-				<div class="col-sm-10">
-				  <input type="password" placeholder="Password" id="password" class="form-control" name="password">
+			  <div class="col-sm-10">
+				  <textarea placeholder="Description" id="inputEmail3" class="form-control" name="description"></textarea>
+				</div>
+			  </div>
+			  <div class="form-group">
+			  <div class="col-sm-10">
+				  <input type="email" placeholder="Langage" id="inputEmail3" class="form-control" name="language">
 				</div>
 			  </div>
 			  <div class="form-group">
 				<div class=" col-sm-10">
-				  <div class="checkbox checkbox_margin">
-					<label class="lable_margin">
-					  <input type="checkbox"><p class="pull-left"> Remember me</p></label>
-	
-					  <button class="btn btn-default pull-right" type="submit" name="submit">Se connecter</button>
-					  </div>
-					   
+					  <button class="btn btn-default pull-center" type="submit" name="submit">OK</button>
 				</div>
 				<br>
-				
+				<?php 
+					include("createProject_check.php"); 
+				?>
+				</div>
 			  </div>
-			  
 			</form>
- </div>
+		 </div>
        
       
        </div>

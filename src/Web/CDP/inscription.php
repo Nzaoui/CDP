@@ -38,6 +38,7 @@
           <li><a href="index.html"><i class="fa fa-home"></i> Acceuil <span class="left_nav_pointer"></span>  </a></li>
           <li class="left_nav_active theme_border"> <a href="inscription.php"> <i class="fa fa-edit"></i> S'inscrire </a></li> 
           <li> <a href="login.php"> <i class="fa fa-tasks"></i> S'authentifier </a></li>
+		  <li> <a href="projects.php"> <i class="fa fa-tasks"></i> Tout les Projets </a></li>
         </ul>
       </div>
     </div>
@@ -93,9 +94,8 @@
 			  <div class="form-group">
 				<div class=" col-sm-10">
 				  <div class="checkbox checkbox_margin">
-					  <a href="index.html">
 					  <button class="btn btn-default pull-center" type="submit" name="submit">OK</button>
-					  </a></div>
+					  </div>
 					  <br>
 					  <?php 
 						include("inscription_check.php"); 

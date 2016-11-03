@@ -40,15 +40,18 @@
       </div>
       <div class="left_nav_slidebar">
         <ul>
-          <li class="left_nav_active theme_border"><a href="index.html"><i class="fa fa-home"></i> Acceuil <span class="left_nav_pointer"></span>  </a></li>
-          <li> <a href="inscription.html"> <i class="fa fa-edit"></i> S'inscrire </a></li> 
+          <li><a href="index.html"><i class="fa fa-home"></i> Acceuil <span class="left_nav_pointer"></span>  </a></li>
+		  <li class="left_nav_active theme_border"> <a href="projects.php"> <i class="fa fa-tasks"></i> Tout les Projets </a></li>
           <?php
-            if (isset($_SESSION['login']) && isset($_SESSION['pwd'])) {
-              printf("<li> <a href=\"add_project.php\"> <i class=\"fa fa-edit\"></i> Créer un projet </a></li>");
-              printf("<li> <a href=\"logout.php\"> <i class=\"fa fa-tasks\"></i> Se déconnecter </a></li>");
+            if (isset($_SESSION['pseudo']) && isset($_SESSION['password'])) {
+				printf("<li> <a href=\"myprofil.php\"> <i class=\"fa fa-edit\"></i> Mon Profil </a></li>");
+				printf("<li> <a href=\"createProject.php\"> <i class=\"fa fa-edit\"></i> Créer un projet </a></li>");
+				printf("<li> <a href=\"logout.php\"> <i class=\"fa fa-tasks\"></i> Se déconnecter </a></li>");
             }
-            else
-              printf("<li> <a href=\"login.html\"> <i class=\"fa fa-tasks\"></i> S'authentifier </a></li>");
+            else{
+              printf("<li> <a href=\"login.php\"> <i class=\"fa fa-tasks\"></i> S'authentifier </a></li>");
+			  printf("<li> <a href=\"inscription.php\"> <i class=\"fa fa-tasks\"></i> S'inscrire </a></li>");
+			  }
           ?>
           
         </ul>
