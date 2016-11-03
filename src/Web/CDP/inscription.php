@@ -36,7 +36,7 @@
       <div class="left_nav_slidebar">
         <ul>
           <li><a href="index.html"><i class="fa fa-home"></i> Acceuil <span class="left_nav_pointer"></span>  </a></li>
-          <li class="left_nav_active theme_border"> <a href="inscription.html"> <i class="fa fa-edit"></i> S'inscrire </a></li> 
+          <li class="left_nav_active theme_border"> <a href="inscription.php"> <i class="fa fa-edit"></i> S'inscrire </a></li> 
           <li> <a href="login.html"> <i class="fa fa-tasks"></i> S'authentifier </a></li>
         </ul>
       </div>
@@ -57,48 +57,51 @@
        <section class="panel default blue_title h2">
        <div class="panel-body">
 		  <div class="registration" >	
-		 <form role="form" class="form-horizontal" >
+		 <form role="form" class="form-horizontal" action="inscription.php" method="Post">
 			  <div class="form-group">
 				<div class="col-sm-10">
-				  <input type="text" placeholder="pseudo" id="Pseudo" class="form-control">
+				  <input type="text" placeholder="pseudo" id="Pseudo" class="form-control" name="pseudo">
 				</div>
 			  </div>
 			  <div class="form-group">
 			  <div class="col-sm-10">
-				  <input type="text" placeholder="Nom" id="inputEmail3" class="form-control">
+				  <input type="text" placeholder="Nom" id="inputEmail3" class="form-control" name="nom">
 				</div>
 			  </div>
 			  <div class="form-group">
 			  <div class="col-sm-10">
-				  <input type="text" placeholder="Prenom" id="inputEmail3" class="form-control">
+				  <input type="text" placeholder="Prenom" id="inputEmail3" class="form-control" name="prenom">
 				</div>
 			  </div>
 			  <div class="form-group">
 			  <div class="col-sm-10">
-				  <input type="email" placeholder="Email" id="inputEmail3" class="form-control">
+				  <input type="email" placeholder="Email" id="inputEmail3" class="form-control" name="email">
 				</div>
 			  </div>
 			  <div class="form-group">
 				
 				<div class="col-sm-10">
-				  <input type="password" placeholder="Password" id="password" class="form-control">
+				  <input type="password" placeholder="Password" id="password" class="form-control" name="password">
 				</div>
 			  </div>
 			    <div class="form-group">
 				
 				<div class="col-sm-10">
-				  <input type="password" placeholder="Repeat Password" id="repassword" class="form-control">
+				  <input type="password" placeholder="Repeat Password" id="repassword" class="form-control" name="re_password">
 				</div>
 			  </div>
 			  <div class="form-group">
 				<div class=" col-sm-10">
 				  <div class="checkbox checkbox_margin">
 					  <a href="index.html">
-					  <button class="btn btn-default pull-center" type="submit">OK</button>
+					  <button class="btn btn-default pull-center" type="submit" name="submit">OK</button>
 					  </a></div>
+					  <br>
+					  <?php 
+						include("inscription_check.php"); 
+						?>
 				</div>
 			  </div>
-			  
 			</form>
 		 </div>
        

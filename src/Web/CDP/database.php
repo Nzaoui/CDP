@@ -6,9 +6,9 @@
 /* ON WINDOWS => download driver on dev.mysql.com */
 
 $MYSQL_HOST = "localhost";
-$MYSQL_USER = "gestionProjet";
-$MYSQL_PASSWD = "M2-CDP";
-$MYSQL_DATABASE = "GestionDeProjet";
+$MYSQL_USER = "root";
+$MYSQL_PASSWD = "";
+$MYSQL_DATABASE = "gestiondeprojet";
 
 //Return a mysql connection
 function connect (){
@@ -30,7 +30,8 @@ function check_user_informations ($mysql,$login,$passwd){
 	$rqt = "SELECT first_name,last_name,login,email FROM User WHERE login=? AND password=?;";
 	$stmt = $mysql->stmt_init();
 	$stmt = $mysql->prepare($rqt);
-	$stmt->bind_param("ss", $login,hash("sha256", $passwd));
+	$hash_passwd = hash("sha256", $passwd);
+	$stmt->bind_param("ss", $login,$hash_passwd);
 	$stmt->execute();
 	$result = $stmt->get_result();
 	$stmt->close();
@@ -57,7 +58,8 @@ function add_user($mysql,$first_name,$last_name,$login,$email,$passwd){
 	$rqt = "INSERT INTO User(first_name,last_name,login,email,password) VALUES(?,?,?,?,?);";
 	$stmt = $mysql->stmt_init();
 	$stmt = $mysql->prepare($rqt);
-	$stmt->bind_param("sssss", $first_name,$last_name,$login,$email,hash("sha256", $passwd));
+	$hash_passwd = hash("sha256", $passwd);
+	$stmt->bind_param("sssss", $first_name,$last_name,$login,$email,$hash_passwd);
 	$stmt->execute();
 	$result = $mysql->error;
 	$stmt->close();
@@ -73,13 +75,12 @@ function add_user($mysql,$first_name,$last_name,$login,$email,$passwd){
 */
 function check_already_use ($mysql,$login,$email){
 	$stmt = $mysql->stmt_init();
-
 	$rqt = "SELECT * FROM User WHERE login=? ;";
 	$stmt = $mysql->prepare($rqt);
 	$stmt->bind_param("s", $login);
 	$stmt->execute();
 	$result["login"] = $stmt->get_result()->num_rows;
-
+	
 	$rqt = "SELECT * FROM User WHERE email=? ;";
 	$stmt = $mysql->prepare($rqt);
 	$stmt->bind_param("s", $email);
