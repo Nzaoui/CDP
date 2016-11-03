@@ -24,7 +24,7 @@ if(isset($_POST['submit'])){
 			if(($check_result["login"]==0)&&($check_result["email"]==0)){
 				$add_result = add_user($mysql,$first_name,$last_name,$pseudo,$email,$password);
 				if($add_result == TRUE){
-				echo '<META HTTP-EQUIV="Refresh" Content="0; URL=login.html">';  
+				echo '<META HTTP-EQUIV="Refresh" Content="0; URL=login.php">';  
 				}
 				else{
 				echo "Error : Ajout User ";

@@ -37,7 +37,7 @@
         <ul>
           <li><a href="index.html"><i class="fa fa-home"></i> Acceuil <span class="left_nav_pointer"></span>  </a></li>
           <li> <a href="inscription.php"> <i class="fa fa-edit"></i> S'inscrire </a></li> 
-          <li class="left_nav_active theme_border"> <a href="login.html"> <i class="fa fa-tasks"></i> S'authentifier </a></li>
+          <li class="left_nav_active theme_border"> <a href="login.php"> <i class="fa fa-tasks"></i> S'authentifier </a></li>
         </ul>
       </div>
     </div>
@@ -57,17 +57,17 @@
        <section class="panel default blue_title h2">
        <div class="panel-body">
 		  <div class="login_content">
-		 <form role="form" class="form-horizontal">
+		 <form role="form" class="form-horizontal" action="login.php" method="Post">
 			  <div class="form-group">
 				
 				<div class="col-sm-10">
-				  <input type="email" placeholder="Email" id="email" class="form-control">
+				  <input type="text" placeholder="Pseudo" id="Pseudo" class="form-control" name="pseudo">
 				</div>
 			  </div>
 			  <div class="form-group">
 				
 				<div class="col-sm-10">
-				  <input type="password" placeholder="Password" id="password" class="form-control">
+				  <input type="password" placeholder="Password" id="password" class="form-control" name="password">
 				</div>
 			  </div>
 			  <div class="form-group">
@@ -76,9 +76,14 @@
 					<label class="lable_margin">
 					  <input type="checkbox"><p class="pull-left"> Remember me</p></label>
 					  <a href="index.html">
-					  <button class="btn btn-default pull-right" type="submit">Se connecter</button>
+					  <button class="btn btn-default pull-right" type="submit" name="submit">Se connecter</button>
 					  </a></div>
+					   
 				</div>
+				<br>
+					  <?php 
+						include("login_check.php"); 
+						?>
 			  </div>
 			  
 			</form>

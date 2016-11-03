@@ -37,7 +37,7 @@
         <ul>
           <li><a href="index.html"><i class="fa fa-home"></i> Acceuil <span class="left_nav_pointer"></span>  </a></li>
           <li class="left_nav_active theme_border"> <a href="inscription.php"> <i class="fa fa-edit"></i> S'inscrire </a></li> 
-          <li> <a href="login.html"> <i class="fa fa-tasks"></i> S'authentifier </a></li>
+          <li> <a href="login.php"> <i class="fa fa-tasks"></i> S'authentifier </a></li>
         </ul>
       </div>
     </div>
@@ -60,7 +60,7 @@
 		 <form role="form" class="form-horizontal" action="inscription.php" method="Post">
 			  <div class="form-group">
 				<div class="col-sm-10">
-				  <input type="text" placeholder="pseudo" id="Pseudo" class="form-control" name="pseudo">
+				  <input type="text" placeholder="Pseudo" id="Pseudo" class="form-control" name="pseudo">
 				</div>
 			  </div>
 			  <div class="form-group">
