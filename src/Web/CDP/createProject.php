@@ -75,7 +75,7 @@ textarea { resize: vertical; }
 			  </div>
 			  <div class="form-group">
 			  <div class="col-sm-10">
-				  <input type="email" placeholder="Langage" id="inputEmail3" class="form-control" name="language">
+				  <input type="text" placeholder="Langage" id="inputEmail3" class="form-control" name="language">
 				</div>
 			  </div>
 			  <div class="form-group">

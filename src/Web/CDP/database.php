@@ -6,8 +6,8 @@
 /* ON WINDOWS => download driver on dev.mysql.com */
 
 $MYSQL_HOST = "localhost";
-$MYSQL_USER = "gestionProjet";
-$MYSQL_PASSWD = "M2-CDP";
+$MYSQL_USER = "root";
+$MYSQL_PASSWD = "";
 $MYSQL_DATABASE = "GestionDeProjet";
 
 //Return a mysql connection
@@ -40,7 +40,7 @@ function check_user_informations ($mysql,$login,$passwd){
 
 /*Return the user corresponding with id */
 function get_user_from_login ($mysql,$login){
-	$rqt = "SELECT first_name,last_name,login,email FROM User WHERE login=? ;";
+	$rqt = "SELECT id,first_name,last_name,login,email FROM User WHERE login=? ;";
 	$stmt = $mysql->stmt_init();
 	$stmt = $mysql->prepare($rqt);
 	$stmt->bind_param("s", $login);
@@ -134,8 +134,8 @@ function get_project($mysql, $id_project){
 	Insert into table, a new project following the arguments
 	=> Return True if the project is stored
 */
-function add_project($mysql,$name,$description,$laguage,$owner){
-	$rqt = "INSERT INTO Project(name,description,laguage,owner) VALUES(?,?,?,?);";
+function add_project($mysql,$name,$description,$language,$owner){
+	$rqt = "INSERT INTO Project(name,description,language,owner) VALUES(?,?,?,?);";
 	$stmt = $mysql->stmt_init();
 	$stmt = $mysql->prepare($rqt);
 	$stmt->bind_param("sssi", $name,$description,$language,$owner);
