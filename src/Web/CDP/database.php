@@ -6,9 +6,9 @@
 /* ON WINDOWS => download driver on dev.mysql.com */
 
 $MYSQL_HOST = "localhost";
-$MYSQL_USER = "root";
-$MYSQL_PASSWD = "";
-$MYSQL_DATABASE = "gestiondeprojet";
+$MYSQL_USER = "gestionProjet";
+$MYSQL_PASSWD = "M2-CDP";
+$MYSQL_DATABASE = "GestionDeProjet";
 
 //Return a mysql connection
 function connect (){
@@ -32,6 +32,18 @@ function check_user_informations ($mysql,$login,$passwd){
 	$stmt = $mysql->prepare($rqt);
 	$hash_passwd = hash("sha256", $passwd);
 	$stmt->bind_param("ss", $login,$hash_passwd);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	$stmt->close();
+	return $result;
+}
+
+/*Return the user corresponding with id */
+function get_user_from_login ($mysql,$login){
+	$rqt = "SELECT first_name,last_name,login,email FROM User WHERE login=? ;";
+	$stmt = $mysql->stmt_init();
+	$stmt = $mysql->prepare($rqt);
+	$stmt->bind_param("s", $login);
 	$stmt->execute();
 	$result = $stmt->get_result();
 	$stmt->close();
