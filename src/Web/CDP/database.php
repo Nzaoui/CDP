@@ -262,6 +262,17 @@ function add_user_to_project ($mysql, $id_user, $id_project){
 	return $ok;
 }
 
+function delete_user_participation($mysql, $id_user, $id_project){
+	$rqt = "DELETE FROM WorkOn 
+			WHERE id_user=? AND id_project=? ;";
+	$stmt = $mysql->prepare($rqt);
+	$stmt->bind_param("ii", $id_user, $id_project);
+	$stmt->execute();
+	$result = $mysql->affected_rows;
+	$stmt->close();
+	return $result==1;
+}
+
 /*
 	Check if a developer work on a project
 	A developer work on a project if he was invited or if he is the PO
@@ -297,27 +308,105 @@ function add_us($mysql, $id_project, $description){
 }
 
 /*
-	Add a User Story on a project
-	Return True if the US was inserted, False otherwise
+	Alter a User Story on a project
+	The 3 last parameters can be NULL
+	Return True if the US was altered, False otherwise
 */
-/*function alter_us($mysql, $id, $id_project, $description, ){
-	$rqt = "INSERT INTO UserStory(id_project,description)
-				VALUES (?,?);";
+function alter_us($mysql, $id, $id_project, $description, $priority, $achievement, $commit){
+	$rqt = "UPDATE UserStory SET id_project=?, description=?, priority=?, achievement=?, commit=? 
+			WHERE id=? ;";
 	$stmt = $mysql->prepare($rqt);
-	$stmt->bind_param("is", $id_project, $description);
+	$stmt->bind_param("isissi", $id_project, $description,$priority,$achievement,$commit,$id);
 	$stmt->execute();
-	$result = $mysql->error;
+	$result = $mysql->affected_rows;
 	$stmt->close();
+	return $result==1;
+}
+
+/*
+	Get all User Stories of a project
+*/
+function get_us($mysql, $id_project){
+	$rqt = "SELECT * 
+			FROM UserStory 
+			WHERE id_project=? 
+			ORDER BY id;";
+	$stmt = $mysql->prepare($rqt);
+	$stmt->bind_param("i", $id_project);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	$stmt->close();
+	return $result;
+}
+
+/*
+	Delete an User Story
+*/
+function delete_us ($mysql, $id){
+	$rqt = "DELETE FROM UserStory 
+			WHERE id=? ;";
+	$stmt = $mysql->prepare($rqt);
+	$stmt->bind_param("i", $id);
+	$stmt->execute();
+	$result = $mysql->affected_rows;
+	$stmt->close();
+	return $result==1;
+}
+
+/*
+	Add a sprint to a project if:
+		- start_date < end_date 
+		- the date interval is free
+*/
+function add_sprint ($mysql, $id_project, $start_date, $end_date){
+	$rqt = "INSERT INTO Sprint(id_project,start_date,end_date) 
+				VALUES (?,?,?);";
+	$s_date = new DateTime($start_date);
+	$e_date = new DateTime($end_date);
+	$result = "false";
+	if( $s_date < $e_date ){
+		$stmt = $mysql->prepare($rqt);
+		$stmt->bind_param("iss", $id_project, $start_date, $end_date);
+		$stmt->execute();
+		$result = $mysql->error;
+		$stmt->close();
+	}
 	return $result=="";
-}*/
+}
+
+function get_sprints($mysql, $id_project){
+	$rqt = "SELECT * 
+			FROM Sprint 
+			WHERE id_project=? 
+			ORDER BY start_date;";
+	$stmt = $mysql->prepare($rqt);
+	$stmt->bind_param("i", $id_project);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	$stmt->close();
+	return $result;
+}
+
+function get_currents_sprints ($mysql, $id_project){
+	$rqt = "SELECT * 
+			FROM Sprint 
+			WHERE id_project=? AND (start_date <= CURRENT_DATE AND end_date >= CURRENT_DATE)  
+			ORDER BY start_date;";
+	$stmt = $mysql->prepare($rqt);
+	$stmt->bind_param("i", $id_project);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	$stmt->close();
+	return $result;
+}
 
 /*
 Example of use functions
 */
 /*$mysql = connect();
-$result = add_us($mysql,1,"blabla");
-if ($result == true){echo "ok";}else {echo "ko";};
-/*while ($row = $result->fetch_array(MYSQLI_NUM))
+$result = get_currents_sprints($mysql,1);
+//if ($result == true){echo "ok";}else {echo "ko";};
+while ($row = $result->fetch_array(MYSQLI_NUM))
         {
             foreach ($row as $r)
             {
