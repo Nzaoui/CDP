@@ -1,12 +1,5 @@
 <?php
-	
-    session_start();
-		
-	if(!isset($_SESSION['pseudo']) or !isset($_SESSION['password']) or !isset($_SESSION['id'])){
-		header("location:login.php");
-	}
-
-
+  session_start();
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -46,10 +39,18 @@
       <div class="left_nav_slidebar">
         <ul>
 		  <li> <a href="index.html"><i class="fa fa-home"></i> Acceuil <span class="left_nav_pointer"></span>  </a></li>
-          <li> <a href="projects.php"> <i class="fa fa-tasks"></i> Tout les Projets </a></li>
-		  <li class="left_nav_active theme_border"><a href="myprofil.php"><i class="fa fa-home"></i> Mon Profil <span class="left_nav_pointer"></span>  </a></li>
-		  <li> <a href="createProject.php"> <i class="fa fa-edit"></i> Créer un projet </a></li> 
-		  <li> <a href="logout.php"> <i class="fa fa-power-off"></i> Se déconnecter </a></li>
+         <?php
+            if (isset($_SESSION['pseudo']) && isset($_SESSION['password'])) {
+				printf("<li> <a href=\"myprofil.php\"> <i class=\"fa fa-home\"></i> Mon Profil </a></li>");
+				printf("<li> <a href=\"createProject.php\"> <i class=\"fa fa-edit\"></i> Créer un projet </a></li>");
+				printf("<li> <a href=\"logout.php\"> <i class=\"fa fa-power-off\"></i> Se déconnecter </a></li>");
+            }
+            else{
+				printf("<li> <a href='projects.php'> <i class='fa fa-tasks'></i> Tout les Projets </a></li>");
+				printf("<li> <a href=\"inscription.php\"> <i class=\"fa fa-edit\"></i> S'inscrire </a></li>");
+				printf("<li> <a href=\"login.php\"> <i class=\"fa fa-tasks\"></i> S'authentifier </a></li>");
+			  }
+          ?>
         </ul>
       </div>
     </div>
@@ -70,15 +71,10 @@
 					  <?php 
 					    include("database.php");
 						$mysql = connect();
-						$result = get_user_from_login($mysql,$_SESSION['pseudo']);
-													if (!$result) {
-													echo 'Impossible d\'exécuter la requête : ' . mysql_error();
-													exit;
-													}
-													$row = $result->fetch_array(MYSQLI_NUM);
+						
 						?>
-                        <h4><strong><?php echo $row[2] ; echo " " ; echo $row[1] ;?> </strong></h4>
-                        <p><i class="fa fa-map-marker"></i><?php echo $row[4] ;?></p>
+                        <h4><strong><?php echo  $_GET['last_name']; echo " ";  echo $_GET['first_name'];?> </strong></h4>
+                        <p><i class="fa fa-map-marker"></i><?php echo $_GET['email'] ;?></p>
                       </div>
                     </div>
                   </div>
@@ -104,10 +100,13 @@
 									
 								</tr>
 								<?php 
-									
+									if(!isset($_SESSION['pseudo']) or !isset($_SESSION['password']) or !isset($_SESSION['id'])){
+		//header("location:login.php");
+	
 								require_once("database.php");
 								$mysql = connect();
-								$result = get_user_projects($mysql,$_SESSION['id']);
+								$id = $_GET['id'];
+								$result = get_user_projects($mysql,$id);
 									foreach($result as $row)
 										{
 								?>
@@ -132,7 +131,7 @@
 							
 								require_once("database.php");
 								$mysql = connect();
-								$result = get_user_participations($mysql,$_SESSION['id']);
+								$result = get_user_participations($mysql,$_GET['id']);
 									foreach($result as $row)
 										{
 								?>
@@ -141,7 +140,7 @@
 									<td><?php echo $row['name']; ?></td>
 									<td><?php echo $row['owner']; ?></td>
 								</tr>
-								<?php	} ?>
+									<?php	} } else if(isset($_SESSION['pseudo']) or isset($_SESSION['password']) or isset($_SESSION['id'])){?>
 	
 							</table>
                   </div>
@@ -169,6 +168,7 @@
                 <div style="height: 0px;" id="ac3-1" class="panel-collapse collapse">
                   <div class="panel-body">
 					      <div class="user-profile-content">
+
 						  <?php
 						require_once("database.php");
 						$mysql = connect();
@@ -200,7 +200,7 @@
                         
                         <button type='submit' class='btn btn-primary'>Save</button>
                       </form>";
-					  ?>
+	} ?>
 
 					  
                     </div>

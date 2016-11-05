@@ -91,9 +91,20 @@
             printf("<tr>");
             printf("<td data-title=\"Langage\">%s</td>",$row["language"]);
             printf("<td data-title=\"Nom\">%s</td>",$row["name"]);
+			
             $user = get_user($mysql,$row["owner"]);
             while ($row2 = $user->fetch_array(MYSQLI_ASSOC)){
-              printf ("<td data-title=\"Product Owner\">%s (%s %s)</td>",$row2["login"],$row2["last_name"],$row2["first_name"]);
+			  $id = $row2["id"];
+			  $last_name = $row2["last_name"];
+			  $first_name = $row2["first_name"];
+			  $email = $row2["email"];
+			
+			  echo "<form action = ''  method = 'GET' >";
+              printf ("<td data-title=\"Product Owner\">%s (%s %s)</td> 
+			  <td><a href = 'myprofil.php?id=$id&last_name=$last_name&first_name=$first_name&email=$email'> Voir Profil </a></td>"
+			  ,$row2["login"],$row2["last_name"],$row2["first_name"]);
+			  
+			  echo"</form>";
             }
             printf("</tr>");
           }
