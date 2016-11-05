@@ -6,8 +6,8 @@
 /* ON WINDOWS => download driver on dev.mysql.com */
 
 $MYSQL_HOST = "localhost";
-$MYSQL_USER = "root";
-$MYSQL_PASSWD = "";
+$MYSQL_USER = "gestionProjet";
+$MYSQL_PASSWD = "M2-CDP";
 $MYSQL_DATABASE = "GestionDeProjet";
 
 //Return a mysql connection
@@ -75,9 +75,23 @@ function add_user($mysql,$first_name,$last_name,$login,$email,$passwd){
 	$stmt->execute();
 	$result = $mysql->error;
 	$stmt->close();
-	if($result != "")
-		return false;
-	return true;
+	return $result == "";
+}
+
+/* 
+	Alter an user in the database 
+	=> Return true if the user was altered, false otherwise 
+*/
+function alter_user($mysql,$id,$first_name,$last_name,$login,$email,$passwd){
+	$rqt = "UPDATE User SET first_name=?, last_name=?, login=? ,email=? ,password=? WHERE id=? ;";
+	$stmt = $mysql->stmt_init();
+	$stmt = $mysql->prepare($rqt);
+	$hash_passwd = hash("sha256", $passwd);
+	$stmt->bind_param("sssssi", $first_name,$last_name,$login,$email,$hash_passwd,$id);
+	$stmt->execute();
+	$result = $mysql->affected_rows;
+	$stmt->close();
+	return $result==1;
 }
 
 /* 
@@ -142,9 +156,22 @@ function add_project($mysql,$name,$description,$language,$owner){
 	$stmt->execute();
 	$result = $mysql->error;
 	$stmt-> close();
-	if($result != "")
-		return false;
-	return true;
+	return $result == "";
+}
+
+/*
+	Alter project informations following the arguments
+	=> Return True if the project is altered, False otherwise
+*/
+function alter_project ($mysql,$id,$name,$description,$language,$owner){
+	$rqt = "UPDATE Project SET name=?, description=?, language=?,owner=? WHERE id=? ;";
+	$stmt = $mysql->stmt_init();
+	$stmt = $mysql->prepare($rqt);
+	$stmt->bind_param("sssii", $name,$description,$language,$owner,$id);
+	$stmt->execute();
+	$result = $mysql->affected_rows;
+	$stmt-> close();
+	return $result==1;
 }
 
 /*
@@ -235,12 +262,60 @@ function add_user_to_project ($mysql, $id_user, $id_project){
 	return $ok;
 }
 
+/*
+	Check if a developer work on a project
+	A developer work on a project if he was invited or if he is the PO
+	=> Return True if is the case, False otherwise
+*/
+function check_user_work_on_project ($mysql, $id_user, $id_project){
+	$rqt = "SELECT COUNT(id) 
+			FROM Project 
+			JOIN WorkOn ON Project.id=WorkOn.id_project 
+			WHERE (id_user = ? OR owner = ?) AND id_project = ?;";
+	$stmt = $mysql->stmt_init();
+	$stmt = $mysql->prepare($rqt);
+	$stmt->bind_param("iii", $id_user, $id_user, $id_project);
+	$stmt->execute();
+	$result = $stmt->get_result()->fetch_array(MYSQLI_NUM);
+	$stmt->close();
+	return $result[0]==1;
+}
+
+/*
+	Add a User Story on a project
+	Return True if the US was inserted, False otherwise
+*/
+function add_us($mysql, $id_project, $description){
+	$rqt = "INSERT INTO UserStory(id_project,description) 
+				VALUES (?,?);";
+	$stmt = $mysql->prepare($rqt);
+	$stmt->bind_param("is", $id_project, $description);
+	$stmt->execute();
+	$result = $mysql->error;
+	$stmt->close();
+	return $result=="";
+}
+
+/*
+	Add a User Story on a project
+	Return True if the US was inserted, False otherwise
+*/
+/*function alter_us($mysql, $id, $id_project, $description, ){
+	$rqt = "INSERT INTO UserStory(id_project,description)
+				VALUES (?,?);";
+	$stmt = $mysql->prepare($rqt);
+	$stmt->bind_param("is", $id_project, $description);
+	$stmt->execute();
+	$result = $mysql->error;
+	$stmt->close();
+	return $result=="";
+}*/
 
 /*
 Example of use functions
 */
 /*$mysql = connect();
-$result = add_user_to_project($mysql,3,1);
+$result = add_us($mysql,1,"blabla");
 if ($result == true){echo "ok";}else {echo "ko";};
 /*while ($row = $result->fetch_array(MYSQLI_NUM))
         {
