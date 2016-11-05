@@ -52,7 +52,7 @@ function get_user_from_login ($mysql,$login){
 
 /*Return the user corresponding with id */
 function get_user ($mysql,$id){
-	$rqt = "SELECT first_name,last_name,login,email FROM User WHERE id=? ;";
+	$rqt = "SELECT id,first_name,last_name,login,email FROM User WHERE id=? ;";
 	$stmt = $mysql->stmt_init();
 	$stmt = $mysql->prepare($rqt);
 	$stmt->bind_param("i", $id);

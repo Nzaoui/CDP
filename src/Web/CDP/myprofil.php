@@ -2,7 +2,7 @@
 	
     session_start();
 		
-	if(!isset($_SESSION['pseudo']) or !isset($_SESSION['password'])){
+	if(!isset($_SESSION['pseudo']) or !isset($_SESSION['password']) or !isset($_SESSION['id'])){
 		header("location:login.php");
 	}
 
@@ -68,20 +68,15 @@
                     <div class="col-md-8">
                       <div class="user-identity">
 					  <?php 
-					
-						 @mysql_connect("localhost","root","");
-						@mysql_select_db("gestiondeprojet");
-						$result = @mysql_query("SELECT * FROM user WHERE login = '".$_SESSION['pseudo']."'");
+					    include("database.php");
+						$mysql = connect();
+						$result = get_user_from_login($mysql,$_SESSION['pseudo']);
 													if (!$result) {
 													echo 'Impossible d\'exécuter la requête : ' . mysql_error();
 													exit;
 													}
-													$row = mysql_fetch_row($result);
-						
- 
-
-
-	  ?>
+													$row = $result->fetch_array(MYSQLI_NUM);
+						?>
                         <h4><strong><?php echo $row[2] ; echo " " ; echo $row[1] ;?> </strong></h4>
                         <p><i class="fa fa-map-marker"></i><?php echo $row[4] ;?></p>
                       </div>
@@ -108,10 +103,20 @@
 									<td><div style="width : 200px; overflow:auto;">Nom Projet</div></td>
 									
 								</tr>
-							
+								<?php 
+									
+								require_once("database.php");
+								$mysql = connect();
+								$result = get_user_projects($mysql,$_SESSION['id']);
+									foreach($result as $row)
+										{
+								?>
 
-								
-							</table>
+								<tr class='active'>
+									<td><?php echo $row['name']; ?></td>
+								</tr>
+								<?php	} ?>
+					</table>
                     </div>
                   </div>
          
@@ -123,17 +128,94 @@
 									<td><div style="width : 200px; overflow:auto;">Auteur Projet</div></td>
 									
 								</tr>
+								<?php 
 							
-							
-								
+								require_once("database.php");
+								$mysql = connect();
+								$result = get_user_participations($mysql,$_SESSION['id']);
+									foreach($result as $row)
+										{
+								?>
+
+								<tr class='active'>
+									<td><?php echo $row['name']; ?></td>
+									<td><?php echo $row['owner']; ?></td>
+								</tr>
+								<?php	} ?>
+	
 							</table>
                   </div>
+				  
+				  
                 </div>
                 <!--/tab-content-->
               </div>
               <!--/block-web-->
+			  
             </div>
             <!--/col-md-8-->
+			    
+        <div class="row">
+          <div class="col-lg-12">
+            <section class="panel default blue_title h2">
+              <div class="panel-heading"><i class="fa fa-pencil"></i> Editer mes  <span class="semi-bold">Infos</span> </div>
+              <div class="panel-body">
+               
+               <div class="panel-group accordion accordion-semi" id="accordion3">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title"> <a class="collapsed" data-toggle="collapse" data-parent="#accordion3" href="#ac3-1"> <i class="fa fa-angle-right"></i> Modifier mes infos </a> </h4>
+                </div>
+                <div style="height: 0px;" id="ac3-1" class="panel-collapse collapse">
+                  <div class="panel-body">
+					      <div class="user-profile-content">
+						  <?php
+						require_once("database.php");
+						$mysql = connect();
+						$result = get_user($mysql,$_SESSION['id']);
+						$row = $result->fetch_array(MYSQLI_NUM);
+                        echo "<form method='post' action='ModProfil.php' enctype='multipart/form-data'>
+                        <div class='form-group'>
+                          <label for='FirstName'>First Name</label>
+						  <input type='hidden' class='form-control' id='ID' name='ID' value='".$row[0]."'>
+                          <input type='text' class='form-control' id='FirstName' name='FirstName' value='".$row[1]."'>
+                        </div> 
+						<div class='form-group'>
+                          <label for='LastName'>Last Name</label>
+                          <input type='text' class='form-control' id='LastName' name='LastName' value='".$row[2]."'>
+                        </div>
+                        <div class='form-group'>
+                          <label for='Email'>Email</label>
+                          <input type='email' class='form-control' id='Email' name='Email' value='".$row[4]."'>
+                        </div>
+                        <div class='form-group'>
+                          <label for='pseudo'>Pseudo</label>
+                          <input type='text' class='form-control' id='Pseudo'  name='Pseudo' value='".$row[3]."'>
+                        </div> 
+                        <div class='form-group'>
+                          <label for='Password'>Password</label>
+                          <input type='password' class='form-control' id='Password' name='Password' placeholder='6 - 15 Characters'>
+                        </div>
+                       
+                        
+                        <button type='submit' class='btn btn-primary'>Save</button>
+                      </form>";
+					  ?>
+
+					  
+                    </div>
+				  </div>
+                </div>
+              </div>
+            </div>
+               
+              </div>
+            </section>
+          </div>
+     
+            </section>
+          </div>
+        </div>
           </div>
           <!--/row-->
         </div>
