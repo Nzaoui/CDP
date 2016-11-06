@@ -1,6 +1,10 @@
 <?php
 
 session_start();
+if (!isset($_SESSION['pseudo']) || !isset($_SESSION['password'])){
+    echo '<META HTTP-EQUIV="Refresh" Content="0; URL=restricted.php">';
+    exit();
+}
 
 include("database.php");
 
@@ -19,5 +23,5 @@ $result = alter_user($mysql,$id,$FirstName,$LastName,$Pseudo,$Email,$Password );
  
 close($mysql);
 
- header("location:myprofil.php");
+ header("location:myprofil.php?id=".$_SESSION['id']);
 ?>

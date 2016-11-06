@@ -178,12 +178,12 @@ function alter_project ($mysql,$id,$name,$description,$language,$owner){
 	Return all developers's informations working on a project, PO included
 */
 function get_developers($mysql, $id_project){
-	$rqt = "SELECT first_name,last_name,login,email 
+	$rqt = "SELECT User.id, first_name,last_name,login,email 
 				FROM Project 
 				JOIN User ON Project.owner=User.id
 				WHERE Project.id = ? 
 				UNION 
-				SELECT first_name,last_name,login,email 
+				SELECT User.id,first_name,last_name,login,email 
 				FROM User 
 				JOIN WorkOn ON WorkOn.id_user=User.id 
 				WHERE WorkOn.id_project = ? ;";

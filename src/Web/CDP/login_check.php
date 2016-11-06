@@ -25,7 +25,7 @@ if(!empty($_POST['pseudo']) and !empty ($_POST['password'])){
 	else{
 		$check_info_result = check_user_informations($mysql,$pseudo,$password);
 		if($check_info_result->fetch_assoc()){
-			echo '<META HTTP-EQUIV="Refresh" Content="0; URL=myprofil.php">';
+			printf("<META HTTP-EQUIV=\"Refresh\" Content=\"0; URL=myprofil.php?id=%d\">",$id_user);
 			$_SESSION['pseudo'] = $pseudo;
 			$_SESSION['password'] = $password;
 			$_SESSION['id'] = $id_user;
