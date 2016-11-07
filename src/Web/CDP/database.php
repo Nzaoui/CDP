@@ -279,13 +279,19 @@ function delete_user_participation($mysql, $id_user, $id_project){
 	=> Return True if is the case, False otherwise
 */
 function check_user_work_on_project ($mysql, $id_user, $id_project){
-	$rqt = "SELECT COUNT(id) 
+	/*$rqt = "SELECT COUNT(id) 
 			FROM Project 
 			JOIN WorkOn ON Project.id=WorkOn.id_project 
-			WHERE (id_user = ? OR owner = ?) AND id_project = ?;";
+			WHERE (id_user = ? OR owner = ?) AND id_project = ?;";*/
+	$rqt = "SELECT COUNT(id) 
+			FROM Project 
+			WHERE (id = ? AND owner = ?) OR 
+				(? IN (SELECT id_user FROM WorkOn WHERE id_project=?));";
+
 	$stmt = $mysql->stmt_init();
 	$stmt = $mysql->prepare($rqt);
-	$stmt->bind_param("iii", $id_user, $id_user, $id_project);
+	//$stmt->bind_param("iii", $id_user, $id_user, $id_project);
+	$stmt->bind_param("iiii", $id_project, $id_user, $id_user, $id_project);
 	$stmt->execute();
 	$result = $stmt->get_result()->fetch_array(MYSQLI_NUM);
 	$stmt->close();
