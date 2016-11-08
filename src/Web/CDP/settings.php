@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start ();
 include("database.php");
 if( !$_GET["id"] ) {
@@ -29,6 +29,10 @@ else{
     <link href="css/animate.css" rel="stylesheet" type="text/css" />
     <link href="css/admin.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/bs-3.3.5/jq-2.1.4,dt-1.10.8/datatables.min.css"/>
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
+	<style>
+      textarea { resize: vertical; }
+	</style>
   </head>
   <body class="light_theme  fixed_header left_nav_fixed">
     <div class="wrapper">
@@ -133,39 +137,10 @@ else{
 							</div><!--/form-group--> 
 						</div>
 						<div id="sprints" class="tab-pane fade">
-						<div id="user" class="tab-pane fade active in">
-							<div class="form-group">
-							  <br><br><label class="col-sm-2 control-label">Ajout Sprint : Numéro</label>
-							  <div class="col-sm-2">
-							  <select class="form-control" id="source">
-							  <option value="one"> 1 </option>
-							  <option value="two"> 2 </option>
-							  <option value="two"> 3 </option>
-							  <option value="two"> 4 </option>
-							  <option value="two"> 5 </option>
-							  </select>
-							  </div>
-							  <br><br><label class="col-sm-2 control-label">Ajout Sprint date</label>
-							  <div class="col-sm-3">
-								<input type="text" class="form-control">
-							  </div>
-							 
-							  <button type="submit" class="btn btn-primary">Valider</button>
-							  
-							</div><!--/form-group--> 
-							
-							
-						</div>
+							<?php include("sprints.php"); ?>
 						</div>
 						<div id="us" class="tab-pane fade">
-						<div class="form-group">
-							  <br><br><label class="col-sm-2 control-label">Ajout User Story</label>
-							  <div class="col-sm-3">
-								<input type="text" class="form-control">
-							  </div>
-							  <button type="submit" class="btn btn-primary">Valider</button>
-							</div><!--/form-group--> 
-
+							<?php include("userStory.php"); ?>
 						</div>
 					
 					</div>
@@ -180,10 +155,14 @@ else{
 <!--\\\\\\\ inner end\\\\\\-->
 </div>
 <!--\\\\\\\ wrapper end\\\\\\-->
-<!-- Modal -->
+
+<!-- The Modals -->
+<?php include("modals.php"); ?>
+
+
 <script type="text/javascript" src="https://cdn.datatables.net/r/bs-3.3.5/jqc-1.11.3,dt-1.10.8/datatables.min.js"></script>
 
-<script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap.js"></script>
 <script src="js/common-script.js"></script>
 <script src="js/jquery.slimscroll.min.js"></script>
 <script src="js/jPushMenu.js"></script> 

@@ -157,7 +157,7 @@ else{
 
             </div>
             <!--/col-md-8-->
-            <?php if ($_SESSION['id'] == $user["id"]){?>
+           <?php if (isset($_SESSION['id']) && ($_SESSION['id'] == $user["id"])){?>
             <div class="row">
               <div class="col-lg-12">
                 <section class="panel default blue_title h2">
