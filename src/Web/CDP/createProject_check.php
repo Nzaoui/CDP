@@ -1,5 +1,4 @@
 <?php
-	session_start();
 	if (!isset($_SESSION['pseudo']) || !isset($_SESSION['password'])){
     	echo '<META HTTP-EQUIV="Refresh" Content="0; URL=restricted.php">';
     	exit();

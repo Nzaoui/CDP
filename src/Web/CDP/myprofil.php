@@ -57,7 +57,7 @@ else{
               <li> <a href="index.html"><i class="fa fa-home"></i> Acceuil <span class="left_nav_pointer"></span>  </a></li>
               <?php
               if (isset($_SESSION['pseudo']) && isset($_SESSION['password'])) {
-                printf("<li> <a href=\"myprofil.php?id=%d\"> <i class=\"fa fa-home\"></i> Mon Profil </a></li>",$_SESSION['id']);
+                printf("<li class=\"left_nav_active theme_border\"> <a href=\"myprofil.php?id=%d\"> <i class=\"fa fa-home\"></i> Mon Profil </a></li>",$_SESSION['id']);
                 printf("<li> <a href=\"createProject.php\"> <i class=\"fa fa-edit\"></i> Créer un projet </a></li>");
                 printf("<li> <a href='projects.php'> <i class='fa fa-tasks'></i> Tout les Projets </a></li>");
                 printf("<li> <a href=\"logout.php\"> <i class=\"fa fa-power-off\"></i> Se déconnecter </a></li>");
