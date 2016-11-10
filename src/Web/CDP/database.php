@@ -320,11 +320,11 @@ function check_user_work_on_project ($mysql, $id_user, $id_project){
 	Add a User Story on a project
 	Return True if the US was inserted, False otherwise
 */
-function add_us($mysql, $id_project, $description){
-	$rqt = "INSERT INTO UserStory(id_project,description) 
-				VALUES (?,?);";
+function add_us($mysql, $id_project, $description,$priority){
+	$rqt = "INSERT INTO UserStory(id_project,description,priority) 
+				VALUES (?,?,?);";
 	$stmt = $mysql->prepare($rqt);
-	$stmt->bind_param("is", $id_project, $description);
+	$stmt->bind_param("isi", $id_project, $description, $priority);
 	$stmt->execute();
 	$result = $mysql->error;
 	$stmt->close();
@@ -409,6 +409,20 @@ function get_sprints($mysql, $id_project){
 	$result = $stmt->get_result();
 	$stmt->close();
 	return $result;
+}
+
+/*
+	Delete a Sprint
+*/
+function delete_spint ($mysql, $id){
+	$rqt = "DELETE FROM Sprint 
+			WHERE id=? ;";
+	$stmt = $mysql->prepare($rqt);
+	$stmt->bind_param("i", $id);
+	$stmt->execute();
+	$result = $mysql->affected_rows;
+	$stmt->close();
+	return $result==1;
 }
 
 function get_currents_sprints ($mysql, $id_project){
