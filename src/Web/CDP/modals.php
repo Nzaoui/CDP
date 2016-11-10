@@ -31,9 +31,13 @@
 				<div class="modal-body">
 					<form action="#" method="post">
 						<input type='hidden' class='form-control' id='update_id' name='update_id'>
+						<label for="update_description">Description:</label>
 						<textarea class="form-control" name="update_description" id="update_description"></textarea><br>
+						<label for="update_priority">Priorite:</label>
 						<input type="text" class="form-control" name="update_priority" id="update_priority"><br>
+						<label for="update_achievement">Date de Realisation:</label>
 						<input type="date" class="form-control" name="update_achievement" id="update_achievement"><br>
+						<label for="update_commit">#Commit:</label>
 						<input type="text" class="form-control" name="update_commit" id="update_commit"><br>
 						<input class="btn btn-primary" type="submit" value="Valider" name="modale_update_submit">
 					</form>

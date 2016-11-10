@@ -58,7 +58,7 @@ session_start();
         <div class="contentpanel">
          <div class="row center">
          <div class="col-lg-12 ">
-           <img src="images/404.jpg" class="img-responsive" alt="404" style="margin: 0 auto;"> 
+           <img src="images/404.png" class="img-responsive" alt="404" style="margin: 0 auto; width: 50%"> 
            </div>
          </div>
        </div>
