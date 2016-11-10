@@ -119,7 +119,7 @@ function check_already_use ($mysql,$login,$email){
 
  /* Get all users by id and login */
 function get_all_user ($mysql){
-	$rqt = "SELECT id ,login FROM user ;";
+	$rqt = "SELECT id ,login FROM User ;";
 	$stmt = $mysql->stmt_init();
 	$stmt = $mysql->prepare($rqt);
 	$stmt->execute();
