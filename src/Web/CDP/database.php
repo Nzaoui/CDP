@@ -295,15 +295,21 @@ function check_user_work_on_project ($mysql, $id_user, $id_project){
 			FROM Project 
 			JOIN WorkOn ON Project.id=WorkOn.id_project 
 			WHERE (id_user = ? OR owner = ?) AND id_project = ?;";*/
-	$rqt = "SELECT COUNT(id) 
-			FROM Project 
-			WHERE (id = ? AND owner = ?) OR 
-				(? IN (SELECT id_user FROM WorkOn WHERE id_project=?));";
+	$rqt = "SELECT COUNT(idt) 
+			FROM( 
+				SELECT DISTINCT owner AS idt 
+				FROM Project  
+				WHERE Project.id = ? AND owner = ? 
+				UNION ALL 
+				SELECT DISTINCT id_user AS idt 
+				FROM WorkOn 
+				WHERE id_project = ? AND id_user = ? 
+			) x";
 
 	$stmt = $mysql->stmt_init();
 	$stmt = $mysql->prepare($rqt);
 	//$stmt->bind_param("iii", $id_user, $id_user, $id_project);
-	$stmt->bind_param("iiii", $id_project, $id_user, $id_user, $id_project);
+	$stmt->bind_param("iiii", $id_project, $id_user, $id_project, $id_user);
 	$stmt->execute();
 	$result = $stmt->get_result()->fetch_array(MYSQLI_NUM);
 	$stmt->close();
