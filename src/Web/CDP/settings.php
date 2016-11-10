@@ -131,9 +131,46 @@ else{
 							<div class="form-group">
 							  <br><br><label class="col-sm-2 control-label">Ajout User par login</label>
 							  <div class="col-sm-3">
-								<input type="text" class="form-control">
+							   <form action="#" method="post" enctype="multipart/form-data">
+								<select class="selectpicker" data-style="btn-inverse" name="name">
+							    
+												  <?php
+                                                  
+												  $mysql = connect();
+												  $result = get_all_user($mysql); 
+												  while ($row = $result->fetch_array(MYSQLI_ASSOC)) { 
+
+													$id=$row["id"];   
+													$thing=$row["login"];   
+
+													  echo "<OPTION VALUE=$id>$thing</option>";
+													} 
+												  ?>
+												
+                                                </select>
+												
 							  </div>
-							  <button type="submit" class="btn btn-primary">Valider</button>
+							  <button type="submit" class="btn btn-primary" name ="submit" value ="submit">Ajouter</button>
+							  </form>
+							  <?php 
+							  if((isset($_POST['submit']))){
+							  $name = $_POST["name"];
+							  $project = $project["id"];
+							  
+							  $mysql = connect();
+							  $result = add_user_to_project($mysql,$name,$project); 
+							  	if($result == true){
+											echo "<div class=\"alert alert-success\">";
+											echo "<strong>Ajout avec Succes!</strong>";
+											echo "</div>";
+										}
+										else{
+											echo "<div class=\"alert alert-danger\">";
+											echo "<strong>Echec d'ajout!</strong>";
+											echo "</div>";
+										}
+							  }
+							  ?>
 							</div><!--/form-group--> 
 						</div>
 						<div id="sprints" class="tab-pane fade">

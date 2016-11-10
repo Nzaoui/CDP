@@ -117,6 +117,17 @@ function check_already_use ($mysql,$login,$email){
 	return $result;
 }
 
+ /* Get all users by id and login */
+function get_all_user ($mysql){
+	$rqt = "SELECT id ,login FROM user ;";
+	$stmt = $mysql->stmt_init();
+	$stmt = $mysql->prepare($rqt);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	$stmt->close();
+	return $result;
+}
+
 /*
 	Get all projects in the Table
 */
@@ -211,6 +222,7 @@ function get_user_projects($mysql, $id_user){
 	$stmt->close();
 	return $result;
 }
+
 
 /*
 	Return all projects where a user work on, without his projects
