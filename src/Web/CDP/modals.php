@@ -83,8 +83,8 @@
 				</div>
 				<div class="modal-body">
 					<form action="#" method="post">
-						<input type="date" placeholder="Debut"  class="form-control" name="add_start_Sprint"><br>
-						<input type="date" placeholder="Fin"  class="form-control" name="add_end_Sprint"><br>
+						<input type="date" placeholder="Debut (aaaa-mm-jj)"  class="form-control" name="add_start_Sprint"><br>
+						<input type="date" placeholder="Fin (aaaa-mm-jj)"  class="form-control" name="add_end_Sprint"><br>
 						<input class="btn btn-primary" type="submit" value="Ajouter" name="modale_addSprint_submit">
 					</form>
 				</div>
