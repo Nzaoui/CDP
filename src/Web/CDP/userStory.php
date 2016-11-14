@@ -29,6 +29,9 @@
 										$description = $_POST["update_description"];
 										$priority = $_POST["update_priority"];
 										$achievement = $_POST["update_achievement"];
+										if($achievement ==  ""){
+											$achievement = null;
+										}
 										$commit = $_POST["update_commit"];
 										$id_project = $project["id"];
 										$check_updateResult = alter_us($mysql, $id_US, $id_project, $description, $priority, $achievement, $commit);
