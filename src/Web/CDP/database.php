@@ -286,6 +286,23 @@ function delete_user_participation($mysql, $id_user, $id_project){
 }
 
 /*
+	Get all users not working on a project
+*/
+function get_potential_user_for_project ($mysql, $id_project){
+	$rqt = "SELECT id, first_name, last_name, login 
+				FROM User 
+				WHERE id NOT IN (SELECT id_user FROM WorkOn WHERE id_project=?) AND
+					id NOT IN (SELECT owner FROM Project WHERE id = ?);";
+	$stmt = $mysql->stmt_init();
+	$stmt = $mysql->prepare($rqt);
+	$stmt->bind_param("ii", $id_project, $id_project);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	$stmt->close();
+	return $result;
+}
+
+/*
 	Check if a developer work on a project
 	A developer work on a project if he was invited or if he is the PO
 	=> Return True if is the case, False otherwise
