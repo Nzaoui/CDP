@@ -455,6 +455,19 @@ function get_currents_sprints ($mysql, $id_project){
 	return $result;
 }
 
+function get_tasks ($mysql, $id_sprint){
+	$rqt = "SELECT * 
+			FROM Task 
+			WHERE id_sprint=? 
+			ORDER BY id;";
+	$stmt = $mysql->prepare($rqt);
+	$stmt->bind_param("i", $id_sprint);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	$stmt->close();
+	return $result;
+}
+
 /*
 Example of use functions
 */
