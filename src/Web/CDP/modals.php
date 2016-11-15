@@ -8,9 +8,22 @@
 				</div>
 				<div class="modal-body">
 					<form action="#" method="post">
-						<textarea placeholder="Description" id="inputEmail3" class="form-control" name="add_description"></textarea>
+						<textarea placeholder="Description" class="form-control" name="add_description"></textarea>
 						<br>
-						<input type="text" placeholder="Priorite" id="inputEmail3" class="form-control" name="add_priority"><br>
+						<input type="text" placeholder="Priorite"  class="form-control" name="add_priority"><br>
+						<input type="text" placeholder="Difficulte"  class="form-control" name="add_difficulty"><br>
+						<select class="selectpicker" data-style="btn-inverse" name="add_sprint">
+							<?php                
+								$mysql = connect();
+								$id_project = $project["id"];
+								$result = get_sprints($mysql, $id_project); 
+								$i=0;
+								while ($row = $result->fetch_array(MYSQLI_ASSOC)) { 
+									$i = $i+1;
+									printf("<option value=\"%d\">Sprint #%d</option>",$row["id"],$i);
+								} 
+							?>	
+                        </select>
 						<input class="btn btn-primary" type="submit" value="Ajouter" name="modale_addUS_submit">
 					</form>
 				</div>
@@ -35,6 +48,22 @@
 						<textarea class="form-control" name="update_description" id="update_description"></textarea><br>
 						<label for="update_priority">Priorite:</label>
 						<input type="text" class="form-control" name="update_priority" id="update_priority"><br>
+						<label for="update_difficulty">Difficulte:</label>
+						<input type="text" class="form-control" name="update_difficulty" id="update_difficulty"><br>
+						<label for="update_sprint">#Sprint:</label>
+						<!--<input type="text" class="form-control" name="update_sprint" id="update_sprint"><br>-->
+						<select class="selectpicker form-control" data-style="btn-inverse" name="update_sprint" id="update_sprint">
+							<?php                
+								$mysql = connect();
+								$id_project = $project["id"];
+								$result = get_sprints($mysql, $id_project); 
+								$i=0;
+								while ($row = $result->fetch_array(MYSQLI_ASSOC)) { 
+									$i = $i+1;
+									printf("<option value=\"%d\">Sprint #%d</option>",$row["id"],$i);
+								} 
+							?>	
+                        </select><br>
 						<label for="update_achievement">Date de Realisation:</label>
 						<input type="date" class="form-control" name="update_achievement" id="update_achievement" placeholder="aaaa-mm-jj"><br>
 						<label for="update_commit">#Commit:</label>

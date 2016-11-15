@@ -337,11 +337,11 @@ function check_user_work_on_project ($mysql, $id_user, $id_project){
 	Add a User Story on a project
 	Return True if the US was inserted, False otherwise
 */
-function add_us($mysql, $id_project, $id_sprint, $description, $priority){
-	$rqt = "INSERT INTO UserStory(id_project,description,priority,id_sprint) 
-				VALUES (?,?,?,?);";
+function add_us($mysql, $id_project, $id_sprint, $description, $priority, $difficulty){
+	$rqt = "INSERT INTO UserStory(id_project,description,priority,id_sprint,difficulty) 
+				VALUES (?,?,?,?,?);";
 	$stmt = $mysql->prepare($rqt);
-	$stmt->bind_param("isii", $id_project, $description, $priority, $id_sprint);
+	$stmt->bind_param("isiii", $id_project, $description, $priority, $id_sprint, $difficulty);
 	$stmt->execute();
 	$result = $mysql->error;
 	$stmt->close();
@@ -353,11 +353,11 @@ function add_us($mysql, $id_project, $id_sprint, $description, $priority){
 	The 3 last parameters can be NULL
 	Return True if the US was altered, False otherwise
 */
-function alter_us($mysql, $id, $id_project, $id_sprint, $description, $priority, $achievement, $commit){
-	$rqt = "UPDATE UserStory SET id_project=?, description=?, priority=?, achievement=?, commit=?, id_sprint=? 
+function alter_us($mysql, $id, $id_project, $id_sprint, $description, $priority, $difficulty, $achievement, $commit){
+	$rqt = "UPDATE UserStory SET id_project=?, description=?, priority=?, difficulty=?, achievement=?, commit=?, id_sprint=? 
 			WHERE id=? ;";
 	$stmt = $mysql->prepare($rqt);
-	$stmt->bind_param("isissii", $id_project, $description,$priority,$achievement,$commit,$id_sprint,$id);
+	$stmt->bind_param("isiissii", $id_project, $description, $priority, $difficulty, $achievement, $commit, $id_sprint, $id);
 	$stmt->execute();
 	$result = $mysql->affected_rows;
 	$stmt->close();

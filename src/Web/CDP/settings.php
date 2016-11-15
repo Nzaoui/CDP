@@ -211,12 +211,17 @@ $('#UpdateUSModal').on('show.bs.modal', function (event) {
 	var description = button.data('description') // Getting data from data-* attributes on the button
 	var id_UserStory = button.data('id')
 	var priority = button.data('priority')
+	var difficulty = button.data('difficulty')
+	var id_Sprint = button.data('sprint')
 	var achievement = button.data('achievement')
 	var commit = button.data('commit')
 	var modal = $(this)
 	modal.find('.modal-body #update_description').val(description) //Setting the values to the values that has been sent
 	modal.find('.modal-body #update_id').val(id_UserStory)
 	modal.find('.modal-body #update_priority').val(priority)
+	modal.find('.modal-body #update_difficulty').val(difficulty)
+	modal.find('.modal-body #update_sprint').val(id_Sprint)
+	//modal.find('.modal-body #update_sprint option[value='+id_sprint+']').attr('selected','selected')
 	modal.find('.modal-body #update_achievement').val(achievement)
 	modal.find('.modal-body #update_commit').val(commit)
 })

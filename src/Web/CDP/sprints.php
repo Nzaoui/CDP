@@ -50,30 +50,26 @@
 									}
 								}
 							?>
-							  <br><br><label class="col-sm-2 control-label">Parametres User Story</label>
+							  <br><br><label class="col-sm-2 control-label">Liste des Sprints</label>
 								<div class="col-sm-7" id="sprints">
-									<table class="table table-striped table-bordered" id="sprints">
+									<table class="table table-striped table-bordered table-hover" id="sprints">
 										<thead>
 											<tr>
 												<th>#Sprint</th>
 												<th>Debut</th>
 												<th>Fin</th>
-												<th>Action</th>
 											</tr>
 										</thead>
 											<tbody>
 												<?php
 													$sprints = get_sprints($mysql, $project["id"]);
+													$i=0;
 													while ($row = $sprints->fetch_array(MYSQLI_ASSOC)){
+														$i = $i+1;
 														printf("<tr>");
-														printf("<td data-title=\"#Sprint\">%d",$row['id']);
+														printf("<td data-title=\"#Sprint\">%d",$i);
 														printf("<td data-title=\"Debut\">%s",$row['start_date']);
 														printf("<td data-title=\"Fin\">%s",$row['end_date']);
-														printf("<td data-title=\"Action\">");
-														printf("<button type=\"button\" class=\"btn btn-info\" data-toggle=\"modal\" data-target=\"#UpdateSprintModal\" data-id=\"%d\" data-start=\"%s\" data-end=\"%s\">Modifier</button>",$row['id'],$row['start_date'],$row['end_date']);
-														printf("&emsp;");
-														printf("<button type=\"button\" class=\"btn btn-info\" data-toggle=\"modal\" data-target=\"#DeleteSprintModal\" data-id=\"%d\" data-start=\"%s\" data-end=\"%s\">Supprimer</button>",$row['id'],$row['start_date'],$row['end_date']);
-														printf("</td>");
 														printf("<tr>");
 													}
 												?>
