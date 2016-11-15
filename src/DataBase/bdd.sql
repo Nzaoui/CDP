@@ -40,17 +40,20 @@ CREATE TABLE Sprint (
 CREATE TABLE UserStory (
 	id INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	id_project INT UNSIGNED NOT NULL,
+	id_sprint INT UNSIGNED NOT NULL,
 	description TEXT NOT NULL,
 	priority INT NULL,
+	difficulty INT NOT NULL,
 	achievement DATE NULL,
 	commit TEXT NULL,
 	PRIMARY KEY (id),
-	FOREIGN KEY (id_project) REFERENCES Project(id));
+	FOREIGN KEY (id_project) REFERENCES Project(id),
+	FOREIGN KEY (id_sprint) REFERENCES Sprint(id));
 
 CREATE TABLE Task (
 	id INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	id_sprint INT UNSIGNED NOT NULL,
-	id_us INT UNSIGNED NOT NULL,
+	id_us INT UNSIGNED NULL,
 	id_user INT UNSIGNED NULL,
 	description TEXT NOT NULL,
 	state VARCHAR(20) NOT NULL,
