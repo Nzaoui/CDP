@@ -125,6 +125,7 @@ else{
 					  <li class="active"><a data-toggle="tab" href="#user">AddUser</a></li>
 					  <li class=""><a data-toggle="tab" href="#sprints">Sprints</a></li>
 					  <li class=""><a data-toggle="tab" href="#us">User Story</a></li>
+					   <li class=""><a data-toggle="tab" href="#tache">Tâches</a></li>
 					</ul>
 					<div class="tab-content" id="myTabContent">
 						<div id="user" class="tab-pane fade active in">
@@ -178,6 +179,9 @@ else{
 						</div>
 						<div id="us" class="tab-pane fade">
 							<?php include("userStory.php"); ?>
+						</div>
+						<div id="tache" class="tab-pane fade">
+							<?php include("task.php"); ?>
 						</div>
 					
 					</div>
@@ -243,6 +247,30 @@ $('#UpdateSprintModal').on('show.bs.modal', function (event) {
 	modal.find('.modal-body #update_start_Sprint').val(start)
 	modal.find('.modal-body #update_end_Sprint').val(end)
 })
+
+$('#UpdateTaskModal').on('show.bs.modal', function (event) {
+	var button = $(event.relatedTarget) //Getting the Button that launched the event
+	var description = button.data('description') // Getting data from data-* attributes on the button
+	var id_Sprint = button.data('sprint')
+	var id_UserStory = button.data('us')
+	var id_User = button.data('user')
+	var modal = $(this)
+	modal.find('.modal-body #update_description').val(description) //Setting the values to the values that has been sent
+	modal.find('.modal-body #update_sprint').val(id_Sprint)
+	modal.find('.modal-body #update_us').val(id_UserStory)
+	modal.find('.modal-body #update_user').val(id_User)
+
+})
+
+$('#DeleteTaskModal').on('show.bs.modal', function (event) {
+	var button = $(event.relatedTarget)
+	var id_UserStory = button.data('id')
+	var description = button.data('description')
+	var modal = $(this)
+	modal.find('.modal-body #delete_id').val(id_UserStory)
+	modal.find('.modal-body #delete_description').val(description)
+})
+
 $('#DeleteSprintModal').on('show.bs.modal', function (event) {
 	var button = $(event.relatedTarget)
 	var id_Sprint = button.data('id')
