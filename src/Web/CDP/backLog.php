@@ -105,6 +105,8 @@ else{
                   <th class="col-md-1">id</th>
                     <th class="col-md-3">Description</th>
                     <th class="col-md-1">Priorité</th>
+                    <th class="col-md-1">Difficulté</th>
+                    <th class="col-md-1">Sprint</th>
                     <th class="col-md-1">Commit</th>
                   </tr>
                 </thead>
@@ -118,6 +120,8 @@ else{
                     printf("<td data-title=\"id\">%s</td>",$num++);
                     printf("<td data-title=\"Description\">%s</td>",$row["description"]);
                     printf("<td data-title=\"Priorité\">%s</td>",$row["priority"]);
+                    printf("<td data-title=\"Difficulté\">%s</td>",$row["difficulty"]);
+                    printf("<td data-title=\"Sprint\">%s</td>",$row["id_sprint"]);
                     printf("<td data-title=\"commit\">%s</td>",$row["commit"]);
                     printf("</tr>");
                   }
