@@ -76,5 +76,4 @@
 											</tbody>
 									</table>
 								</div>
-								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddSprintModal">Ajouter</button>
 							</div><!--/form-group--> 
