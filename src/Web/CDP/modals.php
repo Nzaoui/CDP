@@ -102,8 +102,74 @@
 	<!-- End Modal Delete User Story -->
 <!-- End User Storie Modals -->
 
-
-
+<!-- End Sprint Modals -->
+	<!-- Modal Add Sprint --> 
+	<div id="AddSprintModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Ajout Sprint</h4>
+				</div>
+				<div class="modal-body">
+					<form action="#" method="post">
+						<input type="date" placeholder="Debut (aaaa-mm-jj)"  class="form-control" name="add_start_Sprint"><br>
+						<input type="date" placeholder="Fin (aaaa-mm-jj)"  class="form-control" name="add_end_Sprint"><br>
+						<input class="btn btn-primary" type="submit" value="Ajouter" name="modale_addSprint_submit">
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--End Modal Add Sprint --> 
+	<!-- Modal Update Sprint --> 
+	<div id="UpdateSprintModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Modifier Sprint</h4>
+				</div>
+				<div class="modal-body">
+					<form action="#" method="post">
+						<input type="hidden" id="update_numSprint" name="update_numSprint">
+						<input type="date" placeholder="Debut" id="update_start_Sprint" class="form-control" name="update_start_Sprint"><br>
+						<input type="date" placeholder="Fin" id="update_end_Sprint" class="form-control" name="update_end_Sprint"><br>
+						<input class="btn btn-primary" type="submit" value="Modifier" name="modale_updateSprint_submit">
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--End Modal Update Sprint --> 
+	<!-- Modal Delete Sprint --> 
+	<div id="DeleteSprintModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Supprimer Sprint</h4>
+				</div>
+				<form action="#" method="post">
+					<div class="modal-body">
+						<input type='hidden' id='delete_numSprint' name='delete_numSprint'>
+						<label>Est ce que vous etes sur de vouloir supprimer le Sprint de la periode:</label>
+						<input type="date" placeholder="Debut" id="delete_start_Sprint" class="form-control" name="delete_start_Sprint" readonly><br>
+						<input type="date" placeholder="Fin" id="delete_end_Sprint" class="form-control" name="delete_end_Sprint" readonly><br>					
+					</div>
+					<div class="modal-footer">
+						<input class="btn btn-primary" type="submit" value="Supprimer" name="modale_deleteSprint_submit">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!--End Modal Delete Sprint --> 
+<!-- End Sprint Modals -->
 	<div id="AddTaskModal" class="modal fade" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -176,10 +242,10 @@
 				</div>
 				<div class="modal-body">
 					<form action="#" method="post">
+						<input type='hidden' class='form-control' id='update_id' name='update_id' />
 						<label for="update_description">Description:</label>
 						<textarea class="form-control" name="update_description" id="update_description"></textarea><br>
 						<label for="update_sprint">#Sprint:</label>
-						<!--<input type="text" class="form-control" name="update_sprint" id="update_sprint"><br>-->
 						<select class="selectpicker form-control" data-style="btn-inverse" name="update_sprint" id="update_sprint">
 							<?php                
 								$mysql = connect();
@@ -247,79 +313,3 @@
 			</div>
 		</div>
 	</div>
-	
-	
-	<!-- Sprint Modals -->
-	<!-- Modal Add Sprint --> 
-	<!--
-	<div id="AddSprintModal" class="modal fade" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">Ajout Sprint</h4>
-				</div>
-				<div class="modal-body">
-					<form action="#" method="post">
-						<input type="date" placeholder="Debut (aaaa-mm-jj)"  class="form-control" name="add_start_Sprint"><br>
-						<input type="date" placeholder="Fin (aaaa-mm-jj)"  class="form-control" name="add_end_Sprint"><br>
-						<input class="btn btn-primary" type="submit" value="Ajouter" name="modale_addSprint_submit">
-					</form>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	-->
-	<!--End Modal Add Sprint --> 
-	<!-- Modal Update Sprint --> 
-	<!--
-	<div id="UpdateSprintModal" class="modal fade" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">Modifier Sprint</h4>
-				</div>
-				<div class="modal-body">
-					<form action="#" method="post">
-						<input type="hidden" id="update_numSprint" name="update_numSprint">
-						<input type="date" placeholder="Debut" id="update_start_Sprint" class="form-control" name="update_start_Sprint"><br>
-						<input type="date" placeholder="Fin" id="update_end_Sprint" class="form-control" name="update_end_Sprint"><br>
-						<input class="btn btn-primary" type="submit" value="Modifier" name="modale_updateSprint_submit">
-					</form>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	-->
-	<!--End Modal Update Sprint --> 
-	<!-- Modal Delete Sprint --> 
-	<!--
-	<div id="DeleteSprintModal" class="modal fade" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">Supprimer Sprint</h4>
-				</div>
-				<form action="#" method="post">
-					<div class="modal-body">
-						<input type='hidden' id='delete_numSprint' name='delete_numSprint'>
-						<label>Est ce que vous etes sur de vouloir supprimer le Sprint de la periode:</label>
-						<input type="date" placeholder="Debut" id="delete_start_Sprint" class="form-control" name="delete_start_Sprint" readonly><br>
-						<input type="date" placeholder="Fin" id="delete_end_Sprint" class="form-control" name="delete_end_Sprint" readonly><br>					
-					</div>
-					<div class="modal-footer">
-						<input class="btn btn-primary" type="submit" value="Supprimer" name="modale_deleteSprint_submit">
-						<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div> 
-	-->
-	<!--End Modal Delete Sprint --> 
-<!-- End Sprint Modals -->
