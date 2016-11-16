@@ -231,6 +231,7 @@ $('#UpdateUSModal').on('show.bs.modal', function (event) {
 	modal.find('.modal-body #update_achievement').val(achievement)
 	modal.find('.modal-body #update_commit').val(commit)
 })
+
 $('#DeleteUSModal').on('show.bs.modal', function (event) {
 	var button = $(event.relatedTarget)
 	var id_UserStory = button.data('id')
@@ -239,16 +240,7 @@ $('#DeleteUSModal').on('show.bs.modal', function (event) {
 	modal.find('.modal-body #delete_id').val(id_UserStory)
 	modal.find('.modal-body #delete_description').val(description)
 })
-$('#UpdateSprintModal').on('show.bs.modal', function (event) {
-	var button = $(event.relatedTarget)
-	var id_Sprint = button.data('id')
-	var start = button.data('start')
-	var end = button.data('end')
-	var modal = $(this)
-	modal.find('.modal-body #update_id').val(id_Sprint)
-	modal.find('.modal-body #update_start_Sprint').val(start)
-	modal.find('.modal-body #update_end_Sprint').val(end)
-})
+
 
 $('#UpdateTaskModal').on('show.bs.modal', function (event) {
 	var button = $(event.relatedTarget) //Getting the Button that launched the event
@@ -272,7 +264,7 @@ $('#DeleteTaskModal').on('show.bs.modal', function (event) {
 	modal.find('.modal-body #delete_id').val(id_UserStory)
 	modal.find('.modal-body #delete_description').val(description)
 })
-
+/*
 $('#DeleteSprintModal').on('show.bs.modal', function (event) {
 	var button = $(event.relatedTarget)
 	var id_Sprint = button.data('id')
@@ -283,6 +275,18 @@ $('#DeleteSprintModal').on('show.bs.modal', function (event) {
 	modal.find('.modal-body #delete_start_Sprint').val(start)
 	modal.find('.modal-body #delete_end_Sprint').val(end)
 })
+
+$('#UpdateSprintModal').on('show.bs.modal', function (event) {
+	var button = $(event.relatedTarget)
+	var id_Sprint = button.data('id')
+	var start = button.data('start')
+	var end = button.data('end')
+	var modal = $(this)
+	modal.find('.modal-body #update_id').val(id_Sprint)
+	modal.find('.modal-body #update_start_Sprint').val(start)
+	modal.find('.modal-body #update_end_Sprint').val(end)
+})
+*/
 </script>
 </body>
 </html>
