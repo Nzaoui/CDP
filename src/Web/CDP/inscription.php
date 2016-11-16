@@ -35,7 +35,7 @@
       </div>
       <div class="left_nav_slidebar">
         <ul>
-          <li><a href="index.html"><i class="fa fa-home"></i> Acceuil <span class="left_nav_pointer"></span>  </a></li>
+          <li><a href="index.php"><i class="fa fa-home"></i> Acceuil <span class="left_nav_pointer"></span>  </a></li>
 		  <li> <a href="projects.php"> <i class="fa fa-tasks"></i> Tout les Projets </a></li>
           <li class="left_nav_active theme_border"> <a href="inscription.php"> <i class="fa fa-edit"></i> S'inscrire </a></li> 
           <li> <a href="login.php"> <i class="fa fa-tasks"></i> S'authentifier </a></li>

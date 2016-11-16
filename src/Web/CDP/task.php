@@ -1,8 +1,8 @@
 							<div class="form-group">
 							<?php 
 								if(isset($_POST["modale_addTask_submit"])){
-									if(!empty($_POST["add_description"])){
-										$description = $_POST["add_description"];
+									if(!empty($_POST["add_Tdescription"])){
+										$description = $_POST["add_Tdescription"];
 										$id_us = $_POST["add_us"];
 										$id_user = $_POST["add_user"];
 										$id_sprint = $_POST["add_sprint"];

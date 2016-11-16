@@ -21,7 +21,7 @@
 		else{
 			$check_result = add_project($mysql,$name,$description,$language,$owner);
 			if($check_result == true){
-				echo '<META HTTP-EQUIV="Refresh" Content="0; URL=index.html">';
+				echo '<META HTTP-EQUIV="Refresh" Content="0; URL=index.php">';
 			}
 			else{
 				echo "Error : Ajout Projet  ";

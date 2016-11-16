@@ -46,7 +46,7 @@ if (!isset($_SESSION['pseudo']) || !isset($_SESSION['password'])){
           </div>
           <div class="left_nav_slidebar">
             <ul>
-            <li> <a href="index.html"><i class="fa fa-home"></i> Acceuil <span class="left_nav_pointer"></span>  </a></li>
+            <li> <a href="index.php"><i class="fa fa-home"></i> Acceuil <span class="left_nav_pointer"></span>  </a></li>
               <?php
               printf("<li> <a href=\"myprofil.php?id=%d\"> <i class=\"fa fa-home\"></i> Mon Profil </a></li>",$_SESSION['id']);
               printf("<li class=\"left_nav_active theme_border\"> <a href=\"createProject.php\"> <i class=\"fa fa-edit\"></i> Créer un projet </a></li>");
