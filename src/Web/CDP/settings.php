@@ -138,7 +138,10 @@ else{
 												  <?php
                                                   
 												  $mysql = connect();
-												  $result = get_all_user($mysql); 
+												 // $id_user = $_SESSION["id"];
+												  $id_project= $project["id"];
+												  
+												  $result = get_potential_user_for_project($mysql,$id_project); 
 												  while ($row = $result->fetch_array(MYSQLI_ASSOC)) { 
 
 													$id=$row["id"];   
