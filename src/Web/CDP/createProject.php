@@ -46,7 +46,7 @@ if (!isset($_SESSION['pseudo']) || !isset($_SESSION['password'])){
           </div>
           <div class="left_nav_slidebar">
             <ul>
-            <li> <a href="index.html"><i class="fa fa-home"></i> Acceuil <span class="left_nav_pointer"></span>  </a></li>
+            <li> <a href="index.php"><i class="fa fa-home"></i> Acceuil <span class="left_nav_pointer"></span>  </a></li>
               <?php
               printf("<li> <a href=\"myprofil.php?id=%d\"> <i class=\"fa fa-home\"></i> Mon Profil </a></li>",$_SESSION['id']);
               printf("<li class=\"left_nav_active theme_border\"> <a href=\"createProject.php\"> <i class=\"fa fa-edit\"></i> Créer un projet </a></li>");
@@ -67,57 +67,47 @@ if (!isset($_SESSION['pseudo']) || !isset($_SESSION['password'])){
            </div>
          </div>
 
-        <div class="row">
-			<div class="col-md-12">
-				<section class="panel default blue_title h2">
-					<div class="panel-body">
-						<div class="registration" >	
-							<form role="form" class="form-horizontal" action="createProject.php" method="Post">
-								<div class="form-group">
-									<div class="col-sm-10">
-										<input type="text" placeholder="Nom" class="form-control" name="name">
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="col-sm-10">
-										<textarea placeholder="Description" class="form-control" name="description"></textarea>
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="col-sm-10">
-										<input type="text" placeholder="Langage de Programmation" class="form-control" name="language">
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="col-sm-10">
-										<input type="text" placeholder="Nombre de Sprint" class="form-control" name="nbrSprint">
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="col-sm-10">
-										<input type="text" placeholder="Duree d'un Sprint en jours" class="form-control" name="lenghtSprint">
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="col-sm-10">
-										<label class="col-sm-10">Date de debut du projet</label>
-										<input type="date" placeholder="aaaa-mm-jj" class="form-control" name="startDate">
-									</div>
-								</div>
-								<div class="form-group">
-									<div class=" col-sm-10">
-										<button class="btn btn-default pull-center" type="submit" name="submit">OK</button>
-									</div>
-								</div>
-								<?php 
-									include("createProject_check.php"); 
-								?>
-							</form>
-						</div>
-					</div>
-				</section>
-			</div>
-		</div>
+         <div class="row">
+           <div class="col-md-12">
+             <section class="panel default blue_title h2">
+               <div class="panel-body">
+                <div class="registration" >	
+                 <form role="form" class="form-horizontal" action="createProject.php" method="Post">
+                   <div class="form-group">
+                     <div class="col-sm-10">
+                      <input type="text" placeholder="Nom" id="inputEmail3" class="form-control" name="name">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                   <div class="col-sm-10">
+                    <textarea placeholder="Description" id="inputEmail3" class="form-control" name="description"></textarea>
+                  </div>
+                </div>
+                <div class="form-group">
+                 <div class="col-sm-10">
+                  <input type="text" placeholder="Langage" id="inputEmail3" class="form-control" name="language">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class=" col-sm-10">
+                 <button class="btn btn-default pull-center" type="submit" name="submit">OK</button>
+               </div>
+               <br>
+               <?php 
+               include("createProject_check.php"); 
+               ?>
+             </div>
+           </div>
+         </form>
+       </div>
+       
+
+     </div>
+   </section>
+ </div>
+
+
+</div>
 <!--\\\\\\\ container  end \\\\\\-->
 </div>
 <!--\\\\\\\ content panel end \\\\\\-->

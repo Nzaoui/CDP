@@ -170,3 +170,146 @@
 	</div>
 	<!--End Modal Delete Sprint --> 
 <!-- End Sprint Modals -->
+	<div id="AddTaskModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Ajout Taches</h4>
+				</div>
+				<div class="modal-body">
+					<form action="#" method="post">
+						<textarea placeholder="Description" class="form-control" name="add_Tdescription"></textarea>
+						
+						<br>
+						<select class="selectpicker" data-style="btn-inverse" name="add_sprint">
+							<?php                
+								$mysql = connect();
+								$id_project = $project["id"];
+								$result = get_sprints($mysql, $id_project); 
+								$i=0;
+								while ($row = $result->fetch_array(MYSQLI_ASSOC)) { 
+									$i = $i+1;
+									printf("<option value=\"%d\">Sprint #%d</option>",$row["id"],$i);
+								} 
+							?>	
+                        </select>
+						<br>
+						<br>
+						<select class="selectpicker" data-style="btn-inverse" name="add_us">
+							<?php                
+								$mysql = connect();
+								$id_project = $project["id"];
+								$result = get_us($mysql, $id_project); 
+								$i=0;
+								while ($row = $result->fetch_array(MYSQLI_ASSOC)) { 
+									$i = $i+1;
+									printf("<option value=\"%d\">US #%d</option>",$row["id"],$i);
+								} 
+							?>	
+                        </select>
+						<br>
+						<br>
+						<select class="selectpicker" data-style="btn-inverse" name="add_user">
+							<?php                
+								$mysql = connect();
+								$result = get_all_user($mysql); 
+								$i=0;
+								while ($row = $result->fetch_array(MYSQLI_ASSOC)) { 
+									
+									$id=$row["id"];   
+									$thing=$row["login"];   
+
+									 echo "<OPTION VALUE=$id>$thing</option>";
+								} 
+							?>	
+                        </select>
+						<input class="btn btn-primary" type="submit" value="Ajouter" name="modale_addTask_submit">
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+		<div id="UpdateTaskModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Modifier Taches</h4>
+				</div>
+				<div class="modal-body">
+					<form action="#" method="post">
+						<label for="update_description">Description:</label>
+						<textarea class="form-control" name="update_description" id="update_description"></textarea><br>
+						<label for="update_sprint">#Sprint:</label>
+						<!--<input type="text" class="form-control" name="update_sprint" id="update_sprint"><br>-->
+						<select class="selectpicker form-control" data-style="btn-inverse" name="update_sprint" id="update_sprint">
+							<?php                
+								$mysql = connect();
+								$id_project = $project["id"];
+								$result = get_sprints($mysql, $id_project); 
+								$i=0;
+								while ($row = $result->fetch_array(MYSQLI_ASSOC)) { 
+									$i = $i+1;
+									printf("<option value=\"%d\">Sprint #%d</option>",$row["id"],$i);
+								} 
+							?>	
+                        </select><br>
+						<select class="selectpicker form-control" data-style="btn-inverse" name="update_us" id="update_us">
+							<?php                
+								$mysql = connect();
+								$id_project = $project["id"];
+								$result = get_us($mysql, $id_project); 
+								$i=0;
+								while ($row = $result->fetch_array(MYSQLI_ASSOC)) { 
+									$i = $i+1;
+									printf("<option value=\"%d\">US #%d</option>",$row["id"],$i);
+								} 
+							?>	
+                        </select><br>
+						<select class="selectpicker form-control" data-style="btn-inverse" name="update_user" id="update_user">
+							<?php                
+								$mysql = connect();
+								$result = get_all_user($mysql); 
+								$i=0;
+								while ($row = $result->fetch_array(MYSQLI_ASSOC)) { 
+									$id=$row["id"];   
+									$thing=$row["login"];   
+
+									 echo "<OPTION VALUE=$id>$thing</option>";
+								} 
+							?>	
+                        </select><br>
+						<input class="btn btn-primary" type="submit" value="Valider" name="modale_updateTask_submit">
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div id="DeleteTaskModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Supprimer Tache</h4>
+				</div>
+				<form action="#" method="post">
+					<div class="modal-body">
+							<input type='hidden' class='form-control' id='delete_id' name='delete_id'>
+							<label for="update_description">Est ce que vous etes sur de vouloir supprimer la tache:</label>
+							<textarea class="form-control" name="delete_description" id="delete_description" readonly></textarea><br>					
+					</div>
+					<div class="modal-footer">
+						<input class="btn btn-primary" type="submit" value="Supprimer" name="modale_deleteTask_submit">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>

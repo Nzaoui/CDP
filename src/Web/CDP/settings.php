@@ -60,9 +60,7 @@ else{
           </div>
           <div class="left_nav_slidebar">
             <ul>
-              <li><a href="index.html"><i class="fa fa-home"></i> Acceuil <span class="left_nav_pointer"></span>  </a></li>
-              
-             <?php
+                <?php
               if (isset($_SESSION['pseudo']) && isset($_SESSION['password'])) {
                 printf("<li> <a href=\"myprofil.php?id=%d\"> <i class=\"fa fa-home\"></i> Mon Profil </a></li>",$_SESSION['id']);
                 printf("<li> <a href=\"createProject.php\"> <i class=\"fa fa-edit\"></i> Créer un projet </a></li>");
@@ -70,7 +68,8 @@ else{
                 printf("<li> <a href=\"logout.php\"> <i class=\"fa fa-power-off\"></i> Se déconnecter </a></li>");
               }
               else{
-                printf("<li class=\"left_nav_active theme_border\"> <a href='projects.php'> <i class='fa fa-tasks'></i> Tout les Projets </a></li>");
+			    printf("<li class=\"left_nav_active theme_border\"> <a href='index.php'> <i class='fa fa-home'></i> Acceuil </a></li>");
+                printf("<li > <a href='projects.php'> <i class='fa fa-tasks'></i> Tout les Projets </a></li>");
                 printf("<li> <a href=\"inscription.php\"> <i class=\"fa fa-edit\"></i> S'inscrire </a></li>");
                 printf("<li> <a href=\"login.php\"> <i class=\"fa fa-tasks\"></i> S'authentifier </a></li>");
               }
@@ -125,6 +124,7 @@ else{
 					  <li class="active"><a data-toggle="tab" href="#user">AddUser</a></li>
 					  <li class=""><a data-toggle="tab" href="#sprints">Sprints</a></li>
 					  <li class=""><a data-toggle="tab" href="#us">User Story</a></li>
+					   <li class=""><a data-toggle="tab" href="#tache">Tâches</a></li>
 					</ul>
 					<div class="tab-content" id="myTabContent">
 						<div id="user" class="tab-pane fade active in">
@@ -137,7 +137,10 @@ else{
 												  <?php
                                                   
 												  $mysql = connect();
-												  $result = get_all_user($mysql); 
+												 // $id_user = $_SESSION["id"];
+												  $id_project= $project["id"];
+												  
+												  $result = get_potential_user_for_project($mysql,$id_project); 
 												  while ($row = $result->fetch_array(MYSQLI_ASSOC)) { 
 
 													$id=$row["id"];   
@@ -178,6 +181,9 @@ else{
 						</div>
 						<div id="us" class="tab-pane fade">
 							<?php include("userStory.php"); ?>
+						</div>
+						<div id="tache" class="tab-pane fade">
+							<?php include("task.php"); ?>
 						</div>
 					
 					</div>
@@ -243,6 +249,30 @@ $('#UpdateSprintModal').on('show.bs.modal', function (event) {
 	modal.find('.modal-body #update_start_Sprint').val(start)
 	modal.find('.modal-body #update_end_Sprint').val(end)
 })
+
+$('#UpdateTaskModal').on('show.bs.modal', function (event) {
+	var button = $(event.relatedTarget) //Getting the Button that launched the event
+	var description = button.data('description') // Getting data from data-* attributes on the button
+	var id_Sprint = button.data('sprint')
+	var id_UserStory = button.data('us')
+	var id_User = button.data('user')
+	var modal = $(this)
+	modal.find('.modal-body #update_description').val(description) //Setting the values to the values that has been sent
+	modal.find('.modal-body #update_sprint').val(id_Sprint)
+	modal.find('.modal-body #update_us').val(id_UserStory)
+	modal.find('.modal-body #update_user').val(id_User)
+
+})
+
+$('#DeleteTaskModal').on('show.bs.modal', function (event) {
+	var button = $(event.relatedTarget)
+	var id_UserStory = button.data('id')
+	var description = button.data('description')
+	var modal = $(this)
+	modal.find('.modal-body #delete_id').val(id_UserStory)
+	modal.find('.modal-body #delete_description').val(description)
+})
+
 $('#DeleteSprintModal').on('show.bs.modal', function (event) {
 	var button = $(event.relatedTarget)
 	var id_Sprint = button.data('id')

@@ -154,19 +154,6 @@ function get_project($mysql, $id_project){
 	$stmt->close();
 	return $result;
 }
-/*
-	Get the project's informations by name
-*/
-function get_project_byName($mysql, $project_name){ 
-	$rqt = "SELECT * FROM Project WHERE name=? ;";
-	$stmt = $mysql->stmt_init();
-	$stmt = $mysql->prepare($rqt);
-	$stmt->bind_param("s", $project_name);
-	$stmt->execute();
-	$result = $stmt->get_result();
-	$stmt->close();
-	return $result;
-}
 
 /*
 	Insert into table, a new project following the arguments
@@ -407,6 +394,50 @@ function delete_us ($mysql, $id){
 	return $result==1;
 }
 
+
+function add_task($mysql,$id_sprint, $id_us, $id_user, $description){
+	$rqt = "INSERT INTO Task(id_sprint,id_us,id_user,description) 
+				VALUES (?,?,?,?);";
+	$stmt = $mysql->prepare($rqt);
+	$stmt->bind_param("isii", $id_sprint, $id_us, $id_user, $description);
+	$stmt->execute();
+	$result = $mysql->error;
+	$stmt->close();
+	return $result=="";
+}
+
+function get_task($mysql){
+	$rqt = "SELECT id,id_sprint,id_us,id_user,description,state FROM Task ;";
+	$stmt = $mysql->stmt_init();
+	$stmt = $mysql->prepare($rqt);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	$stmt->close();
+	return $result;
+}
+
+
+function alter_task($mysql,$id_sprint,$id_us, $id_user, $description){
+	$rqt = "UPDATE Task SET id_sprint=?, id_us=? , id_user=?, description=?";
+	$stmt = $mysql->prepare($rqt);
+	$stmt->bind_param("isii", $id_sprint, $id_us, $id_user, $description);
+	$stmt->execute();
+	$result = $mysql->affected_rows;
+	$stmt->close();
+	return $result==1;
+}
+
+function delete_task ($mysql, $id){
+	$rqt = "DELETE FROM Task 
+			WHERE id=? ;";
+	$stmt = $mysql->prepare($rqt);
+	$stmt->bind_param("i", $id);
+	$stmt->execute();
+	$result = $mysql->affected_rows;
+	$stmt->close();
+	return $result==1;
+}
+
 /*
 	Add a sprint to a project if:
 		- start_date < end_date 
@@ -427,6 +458,10 @@ function add_sprint ($mysql, $id_project, $start_date, $end_date){
 	}
 	return $result=="";
 }
+
+
+
+
 
 function get_sprints($mysql, $id_project){
 	$rqt = "SELECT * 
@@ -462,6 +497,19 @@ function get_currents_sprints ($mysql, $id_project){
 			ORDER BY start_date;";
 	$stmt = $mysql->prepare($rqt);
 	$stmt->bind_param("i", $id_project);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	$stmt->close();
+	return $result;
+}
+
+function get_tasks ($mysql, $id_sprint){
+	$rqt = "SELECT * 
+			FROM Task 
+			WHERE id_sprint=? 
+			ORDER BY id;";
+	$stmt = $mysql->prepare($rqt);
+	$stmt->bind_param("i", $id_sprint);
 	$stmt->execute();
 	$result = $stmt->get_result();
 	$stmt->close();
