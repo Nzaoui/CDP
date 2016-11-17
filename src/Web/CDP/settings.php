@@ -129,43 +129,63 @@ else{
 					<div class="tab-content" id="myTabContent">
 						<div id="user" class="tab-pane fade active in">
 							<div class="form-group">
-							  <br><br><label class="col-sm-2 control-label">Ajout User par login</label>
-							  <div class="col-sm-3">
-							   <form action="#" method="post" enctype="multipart/form-data">
-								<select class="selectpicker" data-style="btn-inverse" name="name">
-							    
-												  <?php
-                                                  
-												  $mysql = connect();
-												 // $id_user = $_SESSION["id"];
-												  $id_project= $project["id"];
-												  
-												  $result = get_potential_user_for_project($mysql,$id_project); 
-												  while ($row = $result->fetch_array(MYSQLI_ASSOC)) { 
+							  <form action="#" method="post" enctype="multipart/form-data">
+							      <table class="table table-striped table-bordered" id="projects">
+          <thead>
+            <tr>
+              <th class="col-md-2">Nom</th>
+              <th class="col-md-2">Prenom</th>
+              <th class="col-md-2"> Action</th>
+              </tr>
+          </thead>
+          <tbody>
 
-													$id=$row["id"];   
-													$thing=$row["login"];   
-
-													  echo "<OPTION VALUE=$id>$thing</option>";
-													} 
-												  ?>
-												
-                                                </select>
-												
-							  </div>
-							  <button type="submit" class="btn btn-primary" name ="submit" value ="submit">Ajouter</button>
-							  </form>
-							  <?php 
-							  if((isset($_POST['submit']))){
-							  $name = $_POST["name"];
+		    <?php
+ 
+          $mysql = connect();
+		  $id_project= $project["id"];
+		  $user = get_developers($mysql, $id_project);
+          while ($row = $user->fetch_array(MYSQLI_ASSOC)){
+            printf("<tr>");
+			$id_user = $row["id"];
+            printf("<td data-title=\"Nom\">%s</td>",$row["last_name"]);
+            printf("<td data-title=\"Prenom\">%s</td>",$row["first_name"]);
+			printf("<td data-title=\"Action\">");
+			echo "<button type='submit' class='btn btn-primary' name ='delete' value ='delete' >Supprimer</button>";
+			printf("</td>");
+			printf("</tr>");
+			}
+			$potential = get_potential_user_for_project($mysql,$id_project);
+			 while ($res = $potential->fetch_array(MYSQLI_ASSOC)){
+				printf("<tr>");
+				$id_puser = $res["id"];
+			    printf("<td data-title=\"Nom\">%s</td>",$res["last_name"]);
+				printf("<td data-title=\"Prenom\">%s</td>",$res["first_name"]);
+				printf("<td data-title=\"Action\">");
+				echo "<button type='submit' class='btn btn-primary' name ='submit' value ='submit'>Ajouter</button>";
+				echo "&nbsp &nbsp &nbsp &nbsp";
+				printf("</td>");
+				printf("</tr>");
+			}
+			
+            
+          
+          
+        ?>
+       </tbody>
+      </table>
+	  </form>
+						<?php 
+						
 							  $project = $project["id"];
-							  
+							  if((isset($_POST['submit']))){
 							  $mysql = connect();
-							  $result = add_user_to_project($mysql,$name,$project); 
+							  $result = add_user_to_project($mysql,$id_puser,$project); 
 							  	if($result == true){
 											echo "<div class=\"alert alert-success\">";
 											echo "<strong>Ajout avec Succes!</strong>";
-											echo "</div>";
+											 echo '<META HTTP-EQUIV="Refresh" Content="0; URL=settings.php?id='.$_GET["id"].'">';
+											echo "</div>";	
 										}
 										else{
 											echo "<div class=\"alert alert-danger\">";
@@ -173,8 +193,28 @@ else{
 											echo "</div>";
 										}
 							  }
+							  if((isset($_POST['delete']))){
+							  $mysql = connect();
+							  $result = delete_user_participation($mysql, $id_user, $project);
+							  	if($result == true){
+											echo "<div class=\"alert alert-success\">";
+											echo "<strong>Suppression avec Succes!</strong>";
+											 echo '<META HTTP-EQUIV="Refresh" Content="0; URL=settings.php?id='.$_GET["id"].'">';
+											echo "</div>";
+										}
+										else{
+											echo "<div class=\"alert alert-danger\">";
+											echo "<strong>Echec de supression!</strong>";
+											echo "</div>";
+										}
+							  }
+							  
+							  
+						
 							  ?>
-							</div><!--/form-group--> 
+							  
+							
+							</div>
 						</div>
 						<div id="sprints" class="tab-pane fade">
 							<?php include("sprints.php"); ?>
@@ -205,6 +245,34 @@ else{
 
 
 <script type="text/javascript" src="https://cdn.datatables.net/r/bs-3.3.5/jqc-1.11.3,dt-1.10.8/datatables.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#projects').DataTable({
+        "language": {        
+          "sProcessing":     "Traitement en cours...",
+          "sSearch":         "Rechercher&nbsp;:",
+            "sLengthMenu":     "Afficher _MENU_ &eacute;l&eacute;ments",
+          "sInfo":           "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+          "sInfoEmpty":      "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
+          "sInfoFiltered":   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+          "sInfoPostFix":    "",
+          "sLoadingRecords": "Chargement en cours...",
+            "sZeroRecords":    "Aucun &eacute;l&eacute;ment &agrave; afficher",
+          "sEmptyTable":     "Aucune donn&eacute;e disponible dans le tableau",
+          "oPaginate": {
+            "sFirst":      "Premier",
+            "sPrevious":   "Pr&eacute;c&eacute;dent",
+            "sNext":       "Suivant",
+            "sLast":       "Dernier"
+          },
+          "oAria": {
+            "sSortAscending":  ": activer pour trier la colonne par ordre croissant",
+            "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
+          }
+        }   
+      });
+    });
+</script>
 
 <script src="js/common-script.js"></script>
 <script src="js/jquery.slimscroll.min.js"></script>
