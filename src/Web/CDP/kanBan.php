@@ -132,7 +132,7 @@ else{
                     }
                     printf("</tr>");
                   }
-                  printf("</tbody></table></div></div>");
+                  printf("</tbody></table></div></div></div></div>");
                 }
               ?>
             </div>
