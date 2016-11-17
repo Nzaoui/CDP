@@ -155,8 +155,7 @@ function get_project($mysql, $id_project){
 	return $result;
 }
 
-/*
- -	Get the project's informations by name
+/*  -	Get the project's informations by name
  */
  function get_project_byName($mysql, $project_name){ 
  	$rqt = "SELECT * FROM Project WHERE name=? ;";
@@ -168,7 +167,8 @@ function get_project($mysql, $id_project){
  	$stmt->close();
  	return $result;
  }
- 
+
+
 /*
 	Insert into table, a new project following the arguments
 	=> Return True if the project is stored
@@ -409,11 +409,11 @@ function delete_us ($mysql, $id){
 }
 
 
-function add_task($mysql,$id_sprint, $id_us, $id_user, $description,$state){
-	$rqt = "INSERT INTO Task(id_sprint,id_us,id_user,description,state) 
-				VALUES (?,?,?,?,?);";
+function add_task($mysql,$id_sprint, $id_us,$description,$state){
+	$rqt = "INSERT INTO Task(id_sprint,id_us,description,state) 
+				VALUES (?,?,?,?);";
 	$stmt = $mysql->prepare($rqt);
-	$stmt->bind_param("isiss", $id_sprint, $id_us, $id_user, $description,$state);
+	$stmt->bind_param("iiss", $id_sprint, $id_us, $description,$state);
 	$stmt->execute();
 	$result = $mysql->error;
 	$stmt->close();
