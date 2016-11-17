@@ -131,60 +131,62 @@ else{
 							<div class="form-group">
 							  <form action="#" method="post" enctype="multipart/form-data">
 							      <table class="table table-striped table-bordered" id="projects">
-          <thead>
-            <tr>
-              <th class="col-md-2">Nom</th>
-              <th class="col-md-2">Prenom</th>
-              <th class="col-md-2"> Action</th>
-              </tr>
-          </thead>
-          <tbody>
+								  <thead>
+									<tr>
+									  <th class="col-md-2">Nom</th>
+									  <th class="col-md-2">Prenom</th>
+									  <th class="col-md-2"> Action</th>
+									  </tr>
+								  </thead>
+								  <tbody>
 
-		    <?php
- 
-          $mysql = connect();
-		  $id_project= $project["id"];
-		  $user = get_developers($mysql, $id_project);
-          while ($row = $user->fetch_array(MYSQLI_ASSOC)){
-            printf("<tr>");
-			$id_user = $row["id"];
-            printf("<td data-title=\"Nom\">%s</td>",$row["last_name"]);
-            printf("<td data-title=\"Prenom\">%s</td>",$row["first_name"]);
-			printf("<td data-title=\"Action\">");
-			echo "<button type='submit' class='btn btn-primary' name ='delete' value ='delete' >Supprimer</button>";
-			printf("</td>");
-			printf("</tr>");
-			}
-			$potential = get_potential_user_for_project($mysql,$id_project);
-			 while ($res = $potential->fetch_array(MYSQLI_ASSOC)){
-				printf("<tr>");
-				$id_puser = $res["id"];
-			    printf("<td data-title=\"Nom\">%s</td>",$res["last_name"]);
-				printf("<td data-title=\"Prenom\">%s</td>",$res["first_name"]);
-				printf("<td data-title=\"Action\">");
-				echo "<button type='submit' class='btn btn-primary' name ='submit' value ='submit'>Ajouter</button>";
-				echo "&nbsp &nbsp &nbsp &nbsp";
-				printf("</td>");
-				printf("</tr>");
-			}
-			
-            
-          
-          
-        ?>
-       </tbody>
-      </table>
-	  </form>
+									<?php
+						 
+								  $mysql = connect();
+								  $id_project= $project["id"];
+								  $user = get_developers($mysql, $id_project);
+								  while ($row = $user->fetch_array(MYSQLI_ASSOC)){
+									printf("<tr>");
+									$id_user = $row["id"];
+									printf("<td data-title=\"Nom\">%s</td>",$row["last_name"]);
+									printf("<td data-title=\"Prenom\">%s</td>",$row["first_name"]);
+									printf("<td data-title=\"Action\">");
+									echo "<button type='submit' class='btn btn-primary' name ='delete' value ='delete' >Supprimer</button>";
+									printf("</td>");
+									printf("</tr>");
+									}
+									$potential = get_potential_user_for_project($mysql,$id_project);
+									 while ($res = $potential->fetch_array(MYSQLI_ASSOC)){
+										printf("<tr>");
+										$id_puser = $res["id"];
+										printf("<td data-title=\"Nom\">%s</td>",$res["last_name"]);
+										printf("<td data-title=\"Prenom\">%s</td>",$res["first_name"]);
+										printf("<td data-title=\"Action\">");
+										echo "<button type='submit' class='btn btn-primary' name ='submit' value ='submit'>Ajouter</button>";
+										echo "&nbsp &nbsp &nbsp &nbsp";
+										printf("</td>");
+										printf("</tr>");
+									}
+									
+									
+								  
+								  
+								?>
+							   </tbody>
+							  </table>
+							  </form>
+	  
 						<?php 
 						
-							  $project = $project["id"];
+							 
 							  if((isset($_POST['submit']))){
 							  $mysql = connect();
+							  $project = $project["id"];
 							  $result = add_user_to_project($mysql,$id_puser,$project); 
 							  	if($result == true){
 											echo "<div class=\"alert alert-success\">";
 											echo "<strong>Ajout avec Succes!</strong>";
-											 echo '<META HTTP-EQUIV="Refresh" Content="0; URL=settings.php?id='.$_GET["id"].'">';
+											echo '<META HTTP-EQUIV="Refresh" Content="0; URL=settings.php?id='.$_GET["id"].'">';
 											echo "</div>";	
 										}
 										else{
@@ -208,12 +210,7 @@ else{
 											echo "</div>";
 										}
 							  }
-							  
-							  
-						
 							  ?>
-							  
-							
 							</div>
 						</div>
 						<div id="sprints" class="tab-pane fade">
