@@ -4,11 +4,11 @@
 									if(!empty($_POST["add_Tdescription"])){
 										$description = $_POST["add_Tdescription"];
 										$id_us = $_POST["add_us"];
-										$id_user = $_POST["add_user"];
+										//$id_user = $_POST["add_user"];
 										$id_sprint = $_POST["add_sprint"];
 										$id_project = $project["id"];
 										$state= "To-Do";
-										$check_addResult = add_task($mysql, $id_sprint, $id_us, $id_user, $description,$state);
+										$check_addResult = add_task($mysql, $id_sprint, $id_us, $description,$state);
 										if($check_addResult == true){
 											echo "<div class=\"alert alert-success\">";
 											echo "<strong>Ajout avec Succes!</strong>";
@@ -75,7 +75,7 @@
 										</thead>
 											<tbody>
 												<?php
-												    $sprints = get_currents_sprints($mysql,$project["id"]);
+												    $sprints = get_sprints($mysql,$project["id"]);
 													while ($sprint = $sprints->fetch_array(MYSQLI_ASSOC)){
 													$tasks = get_tasks($mysql,$sprint["id"]);
 													while ($row = $tasks->fetch_array(MYSQLI_ASSOC)){

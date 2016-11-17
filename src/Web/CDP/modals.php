@@ -210,20 +210,7 @@
                         </select>
 						<br>
 						<br>
-						<select class="selectpicker" data-style="btn-inverse" name="add_user">
-							<?php                
-								$mysql = connect();
-								$result = get_all_user($mysql); 
-								$i=0;
-								while ($row = $result->fetch_array(MYSQLI_ASSOC)) { 
-									
-									$id=$row["id"];   
-									$thing=$row["login"];   
-
-									 echo "<OPTION VALUE=$id>$thing</option>";
-								} 
-							?>	
-                        </select>
+						
 						<input class="btn btn-primary" type="submit" value="Ajouter" name="modale_addTask_submit">
 					</form>
 				</div>
