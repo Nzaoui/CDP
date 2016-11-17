@@ -7,7 +7,8 @@
 										$id_user = $_POST["add_user"];
 										$id_sprint = $_POST["add_sprint"];
 										$id_project = $project["id"];
-										$check_addResult = add_task($mysql, $id_sprint, $id_us, $id_user, $description);
+										$state= "To-Do";
+										$check_addResult = add_task($mysql, $id_sprint, $id_us, $id_user, $description,$state);
 										if($check_addResult == true){
 											echo "<div class=\"alert alert-success\">";
 											echo "<strong>Ajout avec Succes!</strong>";
@@ -63,18 +64,20 @@
 								}
 								?>
 						
-								<br><br><label class="col-sm-2 control-label">Parametres Tâches </label>
+								<br><br><label class="col-sm-2 control-label">Parametres Tâches</label>
 								<div class="col-sm-7" id="tasks">
 									<table class="table table-striped table-bordered" id="tasks">
 										<thead>
 											<tr>
 												<th>Description</th>
-												<th>Action</th>		
+												<th>Action </th>		
 											</tr>
 										</thead>
 											<tbody>
 												<?php
-													$tasks = get_task($mysql);
+												    $sprints = get_currents_sprints($mysql,$project["id"]);
+													while ($sprint = $sprints->fetch_array(MYSQLI_ASSOC)){
+													$tasks = get_tasks($mysql,$sprint["id"]);
 													while ($row = $tasks->fetch_array(MYSQLI_ASSOC)){
 														printf("<tr>");
 														printf("<td data-title=\"Description\">%s</td>",$row['description']);
@@ -85,6 +88,7 @@
 														printf("<button type=\"button\" class=\"btn btn-info\" data-toggle=\"modal\" data-target=\"#DeleteTaskModal\" data-id=\"%d\" data-description=\"%s\">Supprimer</button>",$row['id'],$row['description']);
 														printf("</td>");
 														printf("<tr>");
+													}
 													}
 												?>
 											</tbody>

@@ -409,27 +409,16 @@ function delete_us ($mysql, $id){
 }
 
 
-function add_task($mysql,$id_sprint, $id_us, $id_user, $description){
-	$rqt = "INSERT INTO Task(id_sprint,id_us,id_user,description) 
-				VALUES (?,?,?,?);";
+function add_task($mysql,$id_sprint, $id_us, $id_user, $description,$state){
+	$rqt = "INSERT INTO Task(id_sprint,id_us,id_user,description,state) 
+				VALUES (?,?,?,?,?);";
 	$stmt = $mysql->prepare($rqt);
-	$stmt->bind_param("isis", $id_sprint, $id_us, $id_user, $description);
+	$stmt->bind_param("isiss", $id_sprint, $id_us, $id_user, $description,$state);
 	$stmt->execute();
 	$result = $mysql->error;
 	$stmt->close();
 	return $result=="";
 }
-
-function get_task($mysql){
-	$rqt = "SELECT id,id_sprint,id_us,id_user,description,state FROM Task ;";
-	$stmt = $mysql->stmt_init();
-	$stmt = $mysql->prepare($rqt);
-	$stmt->execute();
-	$result = $stmt->get_result();
-	$stmt->close();
-	return $result;
-}
-
 
 function alter_task($mysql,$id,$id_sprint,$id_us, $id_user, $description){
 	$rqt = "UPDATE Task SET id_sprint=?, id_us=? , id_user=?, description=? 
