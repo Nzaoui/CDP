@@ -197,6 +197,7 @@ else{
 							  }
 							  if((isset($_POST['delete']))){
 							  $mysql = connect();
+							  $project = $project["id"];
 							  $result = delete_user_participation($mysql, $id_user, $project);
 							  	if($result == true){
 											echo "<div class=\"alert alert-success\">";
