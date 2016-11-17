@@ -4,13 +4,15 @@ session_start();
 
 $pseudo = $password = "";
 
-if(!empty($_POST['pseudo']) and !empty ($_POST['password'])){
+if(isset($_POST['submit'])){
 	include("database.php");
 	$mysql = connect();
 	
 	
 	$pseudo = $_POST["pseudo"];
 	$password = $_POST["password"];
+	
+	
 	
 	$result_get_user = get_user_from_login($mysql,$pseudo);
 	$row = $result_get_user->fetch_assoc();
@@ -22,6 +24,7 @@ if(!empty($_POST['pseudo']) and !empty ($_POST['password'])){
 	if(($pseudo == "") || ($password == "")){
 		echo "Warning : Veuillez remplir tout les champs";
 	}
+	
 	else{
 		$check_info_result = check_user_informations($mysql,$pseudo,$password);
 		if($check_info_result->fetch_assoc()){
@@ -42,4 +45,5 @@ if(!empty($_POST['pseudo']) and !empty ($_POST['password'])){
 	
 	close($mysql);
 }
+
 ?>
