@@ -156,6 +156,20 @@ function get_project($mysql, $id_project){
 }
 
 /*
+ -	Get the project's informations by name
+ */
+ function get_project_byName($mysql, $project_name){ 
+ 	$rqt = "SELECT * FROM Project WHERE name=? ;";
+ 	$stmt = $mysql->stmt_init();
+ 	$stmt = $mysql->prepare($rqt);
+ 	$stmt->bind_param("s", $project_name);
+ 	$stmt->execute();
+ 	$result = $stmt->get_result();
+ 	$stmt->close();
+ 	return $result;
+ }
+ 
+/*
 	Insert into table, a new project following the arguments
 	=> Return True if the project is stored
 */
