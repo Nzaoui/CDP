@@ -465,10 +465,6 @@ function add_sprint ($mysql, $id_project, $start_date, $end_date){
 	return $result=="";
 }
 
-
-
-
-
 function get_sprints($mysql, $id_project){
 	$rqt = "SELECT * 
 			FROM Sprint 
@@ -520,6 +516,32 @@ function get_tasks ($mysql, $id_sprint){
 	$result = $stmt->get_result();
 	$stmt->close();
 	return $result;
+}
+
+function get_project_difficulty($mysql,$id_project){
+	$rqt = "SELECT SUM(difficulty) 
+				FROM Project 
+				JOIN UserStory ON UserStory.id_project = Project.id 
+				WHERE Project.id=? ;";
+	$stmt = $mysql->prepare($rqt);
+	$stmt->bind_param("i", $id_project);
+	$stmt->execute();
+	$result = $stmt->get_result()->fetch_array(MYSQLI_NUM)[0];
+	$stmt->close();
+	return $result;
+}
+
+function get_sprint_difficulty ($mysql, $id_sprint){
+	$rqt = "SELECT SUM(difficulty) 
+				FROM Sprint 
+				JOIN UserStory ON UserStory.id_sprint = Sprint.id 
+				WHERE id_sprint=? ;";
+	$stmt = $mysql->prepare($rqt);
+	$stmt->bind_param("i", $id_sprint);
+	$stmt->execute();
+	$result = $stmt->get_result()->fetch_array(MYSQLI_NUM)[0];
+	$stmt->close();
+	return ($result)?$result:0;
 }
 
 /*
