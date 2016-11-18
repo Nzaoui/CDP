@@ -247,6 +247,7 @@ else{
 
 
 
+
 <script type="text/javascript" src="https://cdn.datatables.net/r/bs-3.3.5/jqc-1.11.3,dt-1.10.8/datatables.min.js"></script>
 <script type="text/javascript">
   $(document).ready(function() {
@@ -357,6 +358,23 @@ $('#DeleteSprintModal').on('show.bs.modal', function (event) {
 	modal.find('.modal-body #delete_start_Sprint').val(start)
 	modal.find('.modal-body #delete_end_Sprint').val(end)
 })
+</script>
+
+<script type="text/javascript">
+$('#myTab a').click(function(e) {
+  e.preventDefault();
+  $(this).tab('show');
+});
+
+// store the currently selected tab in the hash value
+$("ul.nav-tabs > li > a").on("shown.bs.tab", function(e) {
+  var id = $(e.target).attr("href").substr(1);
+  window.location.hash = id;
+});
+
+// on load of the page: switch to the currently selected tab
+var hash = window.location.hash;
+$('#myTab a[href="' + hash + '"]').tab('show');
 </script>
 </body>
 </html>

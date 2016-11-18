@@ -11,17 +11,20 @@
 										if($check_addResult == true){
 											echo "<div class=\"alert alert-success\">";
 											echo "<strong>Ajout avec Succes!</strong>";
+											echo '<META HTTP-EQUIV="Refresh" Content="0; URL=settings.php?id='.$_GET["id"].'#us">';
 											echo "</div>";
 										}
 										else{
 											echo "<div class=\"alert alert-danger\">";
 											echo "<strong>Echec d'ajout!</strong>";
+											echo '<META HTTP-EQUIV="Refresh" Content="0; URL=settings.php?id='.$_GET["id"].'#us">';
 											echo "</div>";
 										}
 									}
 									else{
 										echo "<div class=\"alert alert-warning\">";
 										echo "<strong>Echec d'ajout! Tentative d'ajout d'un Element sans Description ou sans Priorite</strong>";
+										echo '<META HTTP-EQUIV="Refresh" Content="0; URL=settings.php?id='.$_GET["id"].'#us">';
 										echo "</div>";
 									}
 								}
@@ -42,17 +45,20 @@
 										if($check_updateResult == true){
 											echo "<div class=\"alert alert-success\">";
 											echo "<strong>Mofication avec Succes!</strong>";
+											echo '<META HTTP-EQUIV="Refresh" Content="0; URL=settings.php?id='.$_GET["id"].'#us">';
 											echo "</div>";
 										}
 										else{
 											echo "<div class=\"alert alert-danger\">";
 											echo "<strong>Echec de Modification!</strong>";
+											echo '<META HTTP-EQUIV="Refresh" Content="0; URL=settings.php?id='.$_GET["id"].'#us">';
 											echo "</div>";
 										}
 									}
 									else{
 										echo "<div class=\"alert alert-warning\">";
 										echo "<strong>Echec de Modification! Tentative de Supprimer la Description, la Priorite ou la Difficulte</strong>";
+										echo '<META HTTP-EQUIV="Refresh" Content="0; URL=settings.php?id='.$_GET["id"].'#us">';
 										echo "</div>";
 									}
 								}
@@ -62,11 +68,13 @@
 									if($check_deleteResult == true){
 											echo "<div class=\"alert alert-success\">";
 											echo "<strong>Suppression avec Succes!</strong>";
+											echo '<META HTTP-EQUIV="Refresh" Content="0; URL=settings.php?id='.$_GET["id"].'#us">';
 											echo "</div>";
 										}
 										else{
 											echo "<div class=\"alert alert-danger\">";
 											echo "<strong>Echec de Suppression!</strong>";
+											echo '<META HTTP-EQUIV="Refresh" Content="0; URL=settings.php?id='.$_GET["id"].'#us">';
 											echo "</div>";
 										}
 								}
