@@ -133,6 +133,7 @@ else{
 							      <table class="table table-striped table-bordered" id="projects">
 								  <thead>
 									<tr>
+									  <th class="col-md-2">Login</th>
 									  <th class="col-md-2">Nom</th>
 									  <th class="col-md-2">Prenom</th>
 									  <th class="col-md-2"> Action</th>
@@ -148,10 +149,11 @@ else{
 								  while ($row = $user->fetch_array(MYSQLI_ASSOC)){
 									printf("<tr>");
 									$id_user = $row["id"];
+									printf("<td data-title=\"Login\">%s</td>",$row["login"]);
 									printf("<td data-title=\"Nom\">%s</td>",$row["last_name"]);
 									printf("<td data-title=\"Prenom\">%s</td>",$row["first_name"]);
 									printf("<td data-title=\"Action\">");
-									echo "<button type='submit' class='btn btn-primary' name ='delete' value ='delete' >Supprimer</button>";
+									echo "<button type='submit' class='btn btn-primary' name ='delete' value ='".$id_user."' >Supprimer</button>";
 									printf("</td>");
 									printf("</tr>");
 									}
@@ -159,29 +161,28 @@ else{
 									 while ($res = $potential->fetch_array(MYSQLI_ASSOC)){
 										printf("<tr>");
 										$id_puser = $res["id"];
+										printf("<td data-title=\"Login\">%s</td>",$res["login"]);
 										printf("<td data-title=\"Nom\">%s</td>",$res["last_name"]);
 										printf("<td data-title=\"Prenom\">%s</td>",$res["first_name"]);
 										printf("<td data-title=\"Action\">");
-										echo "<button type='submit' class='btn btn-primary' name ='submit' value ='submit'>Ajouter</button>";
+										echo "<button type='submit' class='btn btn-primary' name ='submit' value ='".$id_puser."'>Ajouter</button>";
 										echo "&nbsp &nbsp &nbsp &nbsp";
 										printf("</td>");
 										printf("</tr>");
 									}
 									
-									
-								  
-								  
 								?>
 							   </tbody>
 							  </table>
 							  </form>
 	  
-						<?php 
-						
-							 
+							<?php  
+							
 							  if((isset($_POST['submit']))){
+								if($_POST['submit']){
 							  $mysql = connect();
 							  $project = $project["id"];
+							  $id_puser = $_POST['submit'];
 							  $result = add_user_to_project($mysql,$id_puser,$project); 
 							  	if($result == true){
 											echo "<div class=\"alert alert-success\">";
@@ -194,10 +195,13 @@ else{
 											echo "<strong>Echec d'ajout!</strong>";
 											echo "</div>";
 										}
+								  }
 							  }
 							  if((isset($_POST['delete']))){
+								  if($_POST['delete']){
 							  $mysql = connect();
 							  $project = $project["id"];
+							  $id_user = $_POST['delete'];
 							  $result = delete_user_participation($mysql, $id_user, $project);
 							  	if($result == true){
 											echo "<div class=\"alert alert-success\">";
@@ -210,6 +214,7 @@ else{
 											echo "<strong>Echec de supression!</strong>";
 											echo "</div>";
 										}
+								  }
 							  }
 							  ?>
 							</div>
