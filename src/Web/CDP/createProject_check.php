@@ -33,7 +33,7 @@
 					$check_SprintAdd = add_sprint ($mysql, $row["id"], $start_date, $end_date);
 					$start_date = date('Y-m-d', strtotime($end_date. ' + 1 days'));
 					if($check_SprintAdd == true){
-						echo '<META HTTP-EQUIV="Refresh" Content="0; URL=index.html">';
+						printf("<META HTTP-EQUIV=\"Refresh\" Content=\"0; URL=myprofil.php?id=%d\"",$_SESSION["id"]);
 					}
 					else{
 						echo "Error : Creation Sprints  ";
