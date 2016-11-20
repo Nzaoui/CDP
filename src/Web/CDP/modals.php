@@ -55,7 +55,6 @@
 								echo '<input type="hidden" class="form-control" name="update_priority" id="update_priority"><br>';
 							}
 						?>
-						<!--<input type="text" class="form-control" name="update_priority" id="update_priority" disabled><br>-->
 						<label for="update_difficulty">Difficulte:</label>
 						<input type="text" class="form-control" name="update_difficulty" id="update_difficulty"><br>
 						<label for="update_sprint">#Sprint:</label>
