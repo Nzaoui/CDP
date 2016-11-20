@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 include("database.php");
 if( !$_GET["id"] ) {
@@ -28,6 +28,9 @@ else{
     <link href="css/animate.css" rel="stylesheet" type="text/css" />
     <link href="css/admin.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/bs-3.3.5/jq-2.1.4,dt-1.10.8/datatables.min.css"/>
+	<style>
+	.navbar-collapse a { color: #FB5C4A}
+	</style>
   </head>
   <body class="light_theme  fixed_header left_nav_fixed">
     <div class="wrapper">
@@ -71,7 +74,7 @@ else{
              </section>
            </div>
          </div>
-         <nav class="navbar navbar-inverse" role="navigation">
+         <nav class="navbar navbar-default" role="navigation">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
               <span class="icon-bar"></span>
@@ -80,18 +83,17 @@ else{
             </button>
           </div>
           <div class="collapse navbar-collapse">
-            <ul class="nav nav-justified">
+            <ul class="nav nav-pills nav-justified">
               <?php
-              printf("<li class=\"active\"><a href=\"project.php?id=%d\">Accueil</a></li>",$project["id"]);
-              printf("<li><a href=\"backLog.php?id=%d\">BackLog</a></li>",$project["id"]);
-              printf("<li><a href=\"kanBan.php?id=%d\">KanBan</a></li>",$project["id"]);
-              printf("<li><a href=\"burnDownChart.php?id=%d\">BurnDown Chart</a></li>",$project["id"]);
-              printf("<li><a href=\"history.php?id=%d\">Historique</a></li>",$project["id"]);
+              printf("<li><a href=\"project.php?id=%d\" >Accueil</a></li>",$project["id"]);
+              printf("<li><a href=\"backLog.php?id=%d\" >BackLog</a></li>",$project["id"]);
+              printf("<li><a href=\"kanBan.php?id=%d\" >KanBan</a></li>",$project["id"]);
+              printf("<li><a href=\"burnDownChart.php?id=%d\" >BurnDown Chart</a></li>",$project["id"]);
+              printf("<li class=\"active\"><a href=\"history.php?id=%d\">Historique</a></li>",$project["id"]);
               if(isset($_SESSION['id']) && check_user_work_on_project($mysql,$_SESSION['id'],$project["id"]))
-                printf("<li><a href=\"settings.php?id=%d\">Paramètres</a></li>",$project["id"]);
+                printf("<li><a href=\"settings.php?id=%d\" >Paramètres</a></li>",$project["id"]);
               ?>
             </ul>
-
           </div>
         </nav>
         <div class="row">
@@ -103,37 +105,40 @@ else{
                 $sprints = get_sprints($mysql,$project["id"]);
                 $cols = ["To-Do","On Going","Test","Done"];
                 $user_valid = isset($_SESSION['id']) && check_user_work_on_project($mysql,$_SESSION['id'],$project["id"]);
-                while ($sprint = $sprints->fetch_array(MYSQLI_ASSOC)){
+                printf("<div class=\"panel-group\">");
+				while ($sprint = $sprints->fetch_array(MYSQLI_ASSOC)){
                   $tasks = get_tasks($mysql,$sprint["id"]);
                   printf("<div class = \"panel panel-default\">
                             <div class = \"panel-heading\">
                               <h3 class = \"panel-title\">%s / %s</h3>
                           </div>",$sprint["start_date"],$sprint["end_date"]);
                   printf("<div class = \"panel-body\">");
-                  printf("<div class=\"table-bordered\">
-                            <table id=\"tableDnD\" class=\"table table-bordered\">
-                              <thread>
-                                <tr>
-                                  <th>To-Do</th>
-                                  <th>On Going</th>
-                                  <th>Test</th>
-                                  <th>Done</th>
-                                </tr>
-                              </thread>
-                              <tbody>");
+                    printf("<table id=\"tableDnD\" class=\"table table-bordered\">
+								<thread>
+									<tr>
+									  <th>To-Do</th>
+									  <th>On Going</th>
+									  <th>Test</th>
+									  <th>Done</th>
+									</tr>
+								</thread>
+								<tbody>");
                   while ($task = $tasks->fetch_array(MYSQLI_ASSOC)){
                     printf("<tr>");
                     foreach ($cols as $col){
-                      $div = "<div id=\"".$task["id"]."\"".(($user_valid)?" ondragstart=\"drag(event)\" draggable=\"true\">":">").$task["description"]."</div>";
-                      if ($col == $task["state"])
-                        printf("<th id=\"div1\" ondrop=\"drop(event)\" ondragover=\"allowDrop(event)\">%s</th>",$div);
-                      else
-                        printf("<th id=\"div1\" ondrop=\"drop(event)\" ondragover=\"allowDrop(event)\"></th>");
+						if ($col == $task["state"])
+							printf("<th id=\"div1\">%s</th>",$task["description"]);
+						else
+							printf("<th id=\"div1\"></th>");
                     }
                     printf("</tr>");
                   }
-                  printf("</tbody></table></div></div></div></div>");
+                  printf("</tbody>
+						</table>
+					</div>
+				</div>");
                 }
+				printf("</div>"); // </div class = panel-group>
               ?>
             </div>
 

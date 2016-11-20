@@ -29,6 +29,9 @@ else{
     <link href="css/animate.css" rel="stylesheet" type="text/css" />
     <link href="css/admin.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/bs-3.3.5/jq-2.1.4,dt-1.10.8/datatables.min.css"/>
+	<style>
+	.navbar-collapse a { color: #FB5C4A}
+	</style>
   </head>
   <body class="light_theme  fixed_header left_nav_fixed">
     <div class="wrapper">
@@ -86,7 +89,7 @@ else{
              </section>
            </div>
          </div>
-         <nav class="navbar navbar-inverse" role="navigation">
+        <nav class="navbar navbar-default" role="navigation">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
               <span class="icon-bar"></span>
@@ -95,7 +98,7 @@ else{
             </button>
           </div>
           <div class="collapse navbar-collapse">
-            <ul class="nav nav-justified">
+            <ul class="nav nav-pills nav-justified">
               <?php
               printf("<li class=\"active\"><a href=\"project.php?id=%d\">Accueil</a></li>",$project["id"]);
               printf("<li><a href=\"backLog.php?id=%d\">BackLog</a></li>",$project["id"]);
