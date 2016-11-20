@@ -46,8 +46,16 @@
 						<input type='hidden' class='form-control' id='update_id' name='update_id'>
 						<label for="update_description">Description:</label>
 						<textarea class="form-control" name="update_description" id="update_description"></textarea><br>
-						<label for="update_priority">Priorite:</label>
-						<input type="text" class="form-control" name="update_priority" id="update_priority"><br>
+						<?php
+							if($_SESSION['id'] == $project["owner"]){
+								echo'<label for="update_priority">Priorite:</label>';
+								echo '<input type="text" class="form-control" name="update_priority" id="update_priority"><br>';
+							}
+							else{
+								echo '<input type="hidden" class="form-control" name="update_priority" id="update_priority"><br>';
+							}
+						?>
+						<!--<input type="text" class="form-control" name="update_priority" id="update_priority" disabled><br>-->
 						<label for="update_difficulty">Difficulte:</label>
 						<input type="text" class="form-control" name="update_difficulty" id="update_difficulty"><br>
 						<label for="update_sprint">#Sprint:</label>
