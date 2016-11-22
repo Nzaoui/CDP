@@ -147,6 +147,7 @@ var myChart = new Chart(ctx, {
     data: {
         labels: sprints_end_dates,
         datasets: [{
+            lineTension: 0,
             label: "charge estimée",
             data: charge_estimee,
             backgroundColor: [
@@ -157,6 +158,7 @@ var myChart = new Chart(ctx, {
             ],
             borderWidth: 2
         },{
+            lineTension: 0,
             label: "charge réelle",
             data: [project_difficulty],
             backgroundColor: [
