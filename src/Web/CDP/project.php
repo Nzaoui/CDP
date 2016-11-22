@@ -141,9 +141,10 @@ else{
                     <tbody>
                      <?php
                      $developers = get_developers($mysql,$_GET["id"]);
+                     $po = "<li class=\"fa fa-star\" title=\"Propriétaire\">";
                      while ($row = $developers->fetch_array(MYSQLI_ASSOC)){
                       printf("<tr>");
-                      printf ("<td data-title=\"Pseudo\">%s</td>",$row["login"]);
+                      printf ("<td data-title=\"Pseudo\">%s</li>%s</td>",($row["id"]==$project["owner"])?$po:"",$row["login"]);
                       printf ("<td data-title=\"Nom\">%s %s <a href=\"myprofil.php?id=%d\">(Consulter le profil)</a></td>",$row["last_name"],$row["first_name"],$row["id"]);
                       printf ("<td data-title=\"e-mail\">%s</td>",$row["email"]);
                       printf("</tr>");
