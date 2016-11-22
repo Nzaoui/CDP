@@ -505,6 +505,22 @@ function get_currents_sprints ($mysql, $id_project){
 	return $result;
 }
 
+/*
+	Get all passed sprints, including the actuals
+*/
+function get_past_sprints ($mysql, $id_project){
+	$rqt = "SELECT * 
+			FROM Sprint 
+			WHERE id_project=? AND start_date <= CURRENT_DATE  
+			ORDER BY start_date;";
+	$stmt = $mysql->prepare($rqt);
+	$stmt->bind_param("i", $id_project);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	$stmt->close();
+	return $result;
+}
+
 function get_tasks ($mysql, $id_sprint){
 	$rqt = "SELECT * 
 			FROM Task 
