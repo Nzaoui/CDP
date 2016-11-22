@@ -106,12 +106,13 @@ else{
                 $cols = ["To-Do","On Going","Test","Done"];
                 $user_valid = isset($_SESSION['id']) && check_user_work_on_project($mysql,$_SESSION['id'],$project["id"]);
                 printf("<div class=\"panel-group\">");
+                $num = 1;
 				while ($sprint = $sprints->fetch_array(MYSQLI_ASSOC)){
                   $tasks = get_tasks($mysql,$sprint["id"]);
                   printf("<div class = \"panel panel-default\">
                             <div class = \"panel-heading\">
-                              <h3 class = \"panel-title\">%s / %s</h3>
-                          </div>",$sprint["start_date"],$sprint["end_date"]);
+                              <h3 class = \"panel-title\">Sprint #%d (%s / %s)</h3>
+                          </div>",$num++, $sprint["start_date"],$sprint["end_date"]);
                   printf("<div class = \"panel-body\">");
                     printf("<table id=\"tableDnD\" class=\"table table-bordered\">
 								<thread>

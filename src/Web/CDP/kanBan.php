@@ -103,15 +103,23 @@ else{
             <div class="panel-body">
              <div class="container">
               <?php
+                $all_sprints = get_sprints($mysql,$project["id"]);
+                $tab = [];
+                $num = 1;
+                while ($row = $all_sprints->fetch_array(MYSQLI_ASSOC)){
+                  $tab[$row["id"]] = $num++;
+                }
+
                 $sprints = get_currents_sprints($mysql,$project["id"]);
                 $cols = ["To-Do","On Going","Test","Done"];
                 $user_valid = isset($_SESSION['id']) && check_user_work_on_project($mysql,$_SESSION['id'],$project["id"]);
+                
                 while ($sprint = $sprints->fetch_array(MYSQLI_ASSOC)){
                   $tasks = get_tasks($mysql,$sprint["id"]);
                   printf("<div class = \"panel panel-default\">
                             <div class = \"panel-heading\">
-                              <h3 class = \"panel-title\">%s / %s</h3>
-                          </div>",$sprint["start_date"],$sprint["end_date"]);
+                              <h3 class = \"panel-title\">Sprint #%d (%s / %s)</h3>
+                          </div>",$tab[$sprint["id"]], $sprint["start_date"],$sprint["end_date"]);
                   printf("<div class = \"panel-body\">");
                   printf("<div class=\"table-bordered\">
                             <table id=\"tableDnD\" class=\"table table-bordered\">
