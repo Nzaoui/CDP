@@ -135,11 +135,16 @@ else{
                   while ($task = $tasks->fetch_array(MYSQLI_ASSOC)){
                     printf("<tr>");
                     foreach ($cols as $col){
-                      $div = "<div id=\"".$task["id"]."\"".(($user_valid)?" ondragstart=\"drag(event)\" draggable=\"true\">":">").$task["description"]."</div>";
+						echo "<div id ='external-events'>";
+						
+						
+                      $div = "<div class='external-event' id=\"".$task["id"]."\"".(($user_valid)?" ondragstart=\"drag(event)\" draggable=\"true\">":">").$task["description"]."</div>";
                       if ($col == $task["state"])
                         printf("<th id=\"div1\" ondrop=\"drop(event)\" ondragover=\"allowDrop(event)\">%s</th>",$div);
                       else
                         printf("<th id=\"div1\" ondrop=\"drop(event)\" ondragover=\"allowDrop(event)\"></th>");
+					
+						
                     }
                     printf("</tr>");
                   }
@@ -152,6 +157,8 @@ else{
         </section>
       </div>
 
+	  
+	 
 
     </div>
   </div>
@@ -172,6 +179,7 @@ function drop(ev) {
     var data = ev.dataTransfer.getData("text/html");
     ev.target.appendChild(document.getElementById(data));
 }
+
 </script>
 <?php } ?>
 <script src="js/jquery-2.1.0.js"></script>
