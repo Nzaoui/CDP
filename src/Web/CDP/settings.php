@@ -211,9 +211,20 @@ else{
 											echo "</div>";
 										}
 										else{
-											echo "<div class=\"alert alert-danger\">";
-											echo "<strong>Echec de supression!</strong>";
-											echo "</div>";
+											$user = get_project($mysql, $project);
+											while ($row = $user->fetch_array(MYSQLI_ASSOC)){
+											if($id_user == $row["owner"]){
+												echo "<div class=\"alert alert-danger\">";
+												echo "<strong>Echec de supression de PO!</strong>";
+												echo "</div>";
+											}
+											else {
+												echo "<div class=\"alert alert-danger\">";
+												echo "<strong>Echec de supression!</strong>";
+												echo "</div>";
+											}
+											}
+											
 										}
 								  }
 							  }
