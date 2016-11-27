@@ -124,25 +124,30 @@ else{
                   printf("<div class=\"table-bordered\">
                             <table id=\"tableDnD\" class=\"table table-bordered\">
                               <thread>
-                                <tr>
-                                  <th>To-Do</th>
-                                  <th>On Going</th>
-                                  <th>Test</th>
-                                  <th>Done</th>
-                                </tr>
+                                <tr>");
+								
+                                echo" <th>$cols[0]</th>";
+                                   echo" <th>$cols[1]</th>";
+                                   echo" <th>$cols[2]</th>";
+                                   echo" <th>$cols[3]</th>";
+                          printf("</tr>
                               </thread>
                               <tbody>");
                   while ($task = $tasks->fetch_array(MYSQLI_ASSOC)){
+					  
                     printf("<tr>");
                     foreach ($cols as $col){
 						echo "<div id ='external-events'>";
+						$id_task = $task["id"];
+					   $state = $task["state"];
+					
+                      $div = "<div class='external-event' id=\"".$task["id"]."\"".(($user_valid)?" ondragstart=\"drag(event)\" draggable=\"true\" >":">").$task["description"]."</div>";
+                      if ($col == $task["state"]){
 						
-						
-                      $div = "<div class='external-event' id=\"".$task["id"]."\"".(($user_valid)?" ondragstart=\"drag(event)\" draggable=\"true\">":">").$task["description"]."</div>";
-                      if ($col == $task["state"])
-                        printf("<th id=\"div1\" ondrop=\"drop(event)\" ondragover=\"allowDrop(event)\">%s</th>",$div);
+                        printf("<th id=\"$col\" ondrop=\"drop(event)\" ondragover=\"allowDrop(event)\"  >%s</th>",$div);
+					  }
                       else
-                        printf("<th id=\"div1\" ondrop=\"drop(event)\" ondragover=\"allowDrop(event)\"></th>");
+                        printf("<th id=\"$col\" ondrop=\"drop(event)\" ondragover=\"allowDrop(event)\"  ></th>");
 					
 						
                     }
@@ -166,6 +171,7 @@ else{
 </div>
 <?php if ($user_valid) { ?>
 <script>
+
 function allowDrop(ev) {
     ev.preventDefault();
 }
@@ -178,7 +184,23 @@ function drop(ev) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text/html");
     ev.target.appendChild(document.getElementById(data));
+	
+	id_task = <?php echo $id_task; ?>;
+	
+	var e =$(event.target).attr("id");
+	//alert(e);
+	
+	$.ajax({
+                url: 'set_state.php',
+                type: 'POST',
+                data: {id:id_task, state:e},
+                success: function(data) {
+                    //finished
+                }
+            });
 }
+
+
 
 </script>
 <?php } ?>

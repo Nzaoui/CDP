@@ -444,6 +444,18 @@ function delete_task ($mysql, $id){
 	return $result==1;
 }
 
+function alter_state($mysql,$id,$state){
+	$rqt = "UPDATE Task SET state=?
+			WHERE id=? ;";
+	$stmt = $mysql->prepare($rqt);
+	$stmt->bind_param("si", $state, $id);
+	$stmt->execute();
+	$result = $mysql->affected_rows;
+	$stmt->close();
+	return $result==1;
+
+}
+
 /*
 	Add a sprint to a project if:
 		- start_date < end_date 
