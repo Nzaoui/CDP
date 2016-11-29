@@ -135,13 +135,16 @@ else{
                               <tbody>");
                   while ($task = $tasks->fetch_array(MYSQLI_ASSOC)){
 					  
+					
                     printf("<tr>");
                     foreach ($cols as $col){
 						echo "<div id ='external-events'>";
 						$id_task = $task["id"];
-					   $state = $task["state"];
+						$user = get_user($mysql,$task["id_user"]);
+					 
+						$user = $user->fetch_array(MYSQLI_ASSOC);
 					
-                      $div = "<div class='external-event' id=\"".$task["id"]."\"".(($user_valid)?" ondragstart=\"drag(event)\" draggable=\"true\" >":">").$task["description"]."</div>";
+		              $div = "<div class='external-event' id=\"".$id_task."\"".(($user_valid)?" ondragstart=\"drag(event)\" draggable=\"true\" >":">").$task["description"]."<span class='badge pull-right'>".$user["login"]."</span></div>";
                       if ($col == $task["state"]){
 						
                         printf("<th id=\"$col\" ondrop=\"drop(event)\" ondragover=\"allowDrop(event)\"  >%s</th>",$div);
@@ -152,8 +155,11 @@ else{
 						
                     }
                     printf("</tr>");
+					  
                   }
                   printf("</tbody></table></div></div></div></div>");
+				  
+				
                 }
               ?>
             </div>
@@ -178,6 +184,9 @@ function allowDrop(ev) {
 
 function drag(ev) {
     ev.dataTransfer.setData("text/html", ev.target.id);
+	id_task =$(ev.target).attr("id");
+	
+	
 }
 
 function drop(ev) {
@@ -185,10 +194,8 @@ function drop(ev) {
     var data = ev.dataTransfer.getData("text/html");
     ev.target.appendChild(document.getElementById(data));
 	
-	id_task = <?php echo $id_task; ?>;
-	
+	alert(id_task);
 	var e =$(event.target).attr("id");
-	//alert(e);
 	
 	$.ajax({
                 url: 'set_state.php',

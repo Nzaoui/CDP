@@ -82,7 +82,7 @@ else{
                   <div class="profile_bg">
                     <div class="user-profile-sidebar">
                       <div class="row">
-                        <div class="col-md-4"><img src="images/pro.png" /></div>
+                        <div class="col-md-4"><img src="images/p.png" /></div>
                         <div class="col-md-8">
                           <div class="user-identity">
                             <h4><strong><?php echo  $user['last_name']; echo " ";  echo $user['first_name'];?> </strong></h4>
