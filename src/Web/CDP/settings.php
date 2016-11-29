@@ -143,7 +143,7 @@ else{
 								  <tbody>
 
 									<?php
-						 
+
 								  $mysql = connect();
 								  $id_project= $project["id"];
 								  $user = get_developers($mysql, $id_project);
@@ -171,25 +171,25 @@ else{
 										printf("</td>");
 										printf("</tr>");
 									}
-									
+
 								?>
 							   </tbody>
 							  </table>
 							  </form>
-	  
-							<?php  
-							
+
+							<?php
+
 							  if((isset($_POST['submit']))){
 								if($_POST['submit']){
 							  $mysql = connect();
 							  $project = $project["id"];
 							  $id_puser = $_POST['submit'];
-							  $result = add_user_to_project($mysql,$id_puser,$project); 
+							  $result = add_user_to_project($mysql,$id_puser,$project);
 							  	if($result == true){
 											echo "<div class=\"alert alert-success\">";
 											echo "<strong>Ajout avec Succes!</strong>";
 											echo '<META HTTP-EQUIV="Refresh" Content="0; URL=settings.php?id='.$_GET["id"].'">';
-											echo "</div>";	
+											echo "</div>";
 										}
 										else{
 											echo "<div class=\"alert alert-danger\">";
@@ -224,7 +224,7 @@ else{
 												echo "</div>";
 											}
 											}
-											
+
 										}
 								  }
 							  }
@@ -240,7 +240,7 @@ else{
 						<div id="tache" class="tab-pane fade">
 							<?php include("task.php"); ?>
 						</div>
-					
+
 					</div>
 				</div>
 
@@ -264,7 +264,7 @@ else{
 <script type="text/javascript">
   $(document).ready(function() {
     $('#projects').DataTable({
-        "language": {        
+        "language": {
           "sProcessing":     "Traitement en cours...",
           "sSearch":         "Rechercher&nbsp;:",
             "sLengthMenu":     "Afficher _MENU_ &eacute;l&eacute;ments",
@@ -285,14 +285,14 @@ else{
             "sSortAscending":  ": activer pour trier la colonne par ordre croissant",
             "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
           }
-        }   
+        }
       });
     });
 </script>
 
 <script src="js/common-script.js"></script>
 <script src="js/jquery.slimscroll.min.js"></script>
-<script src="js/jPushMenu.js"></script> 
+<script src="js/jPushMenu.js"></script>
 <script src="js/side-chats.js"></script>
 
 <script>
@@ -302,6 +302,7 @@ $('#UpdateUSModal').on('show.bs.modal', function (event) {
 	var id_UserStory = button.data('id')
 	var priority = button.data('priority')
 	var difficulty = button.data('difficulty')
+  var color = button.data('uscolor')
 	var id_Sprint = button.data('sprint')
 	var achievement = button.data('achievement')
 	var commit = button.data('commit')
@@ -310,6 +311,7 @@ $('#UpdateUSModal').on('show.bs.modal', function (event) {
 	modal.find('.modal-body #update_id').val(id_UserStory)
 	modal.find('.modal-body #update_priority').val(priority)
 	modal.find('.modal-body #update_difficulty').val(difficulty)
+  modal.find('.modal-body #update_UScolor').val(color)
 	modal.find('.modal-body #update_sprint').val(id_Sprint)
 	//modal.find('.modal-body #update_sprint option[value='+id_sprint+']').attr('selected','selected')
 	modal.find('.modal-body #update_achievement').val(achievement)

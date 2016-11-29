@@ -44,6 +44,7 @@ CREATE TABLE UserStory (
 	description TEXT NOT NULL,
 	priority INT NULL,
 	difficulty INT NOT NULL,
+	color TEXT NOT NULL,
 	achievement DATE NULL,
 	commit TEXT NULL,
 	PRIMARY KEY (id),

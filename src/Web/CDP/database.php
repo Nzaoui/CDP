@@ -62,9 +62,9 @@ function get_user ($mysql,$id){
 	return $result;
 }
 
-/* 
-	Add an user in the database 
-	=> Return true if the user was created, false otherwise 
+/*
+	Add an user in the database
+	=> Return true if the user was created, false otherwise
 */
 function add_user($mysql,$first_name,$last_name,$login,$email,$passwd){
 	$rqt = "INSERT INTO User(first_name,last_name,login,email,password) VALUES(?,?,?,?,?);";
@@ -78,9 +78,9 @@ function add_user($mysql,$first_name,$last_name,$login,$email,$passwd){
 	return $result == "";
 }
 
-/* 
-	Alter an user in the database 
-	=> Return true if the user was altered, false otherwise 
+/*
+	Alter an user in the database
+	=> Return true if the user was altered, false otherwise
 */
 function alter_user($mysql,$id,$first_name,$last_name,$login,$email,$passwd){
 	$rqt = "UPDATE User SET first_name=?, last_name=?, login=? ,email=? ,password=? WHERE id=? ;";
@@ -94,8 +94,8 @@ function alter_user($mysql,$id,$first_name,$last_name,$login,$email,$passwd){
 	return $result==1;
 }
 
-/* 
-	Check if login ans email are already used 
+/*
+	Check if login ans email are already used
 	=> Return an array with 2 keys "login" and "email"
 	=> if value equal 0 the element is not use
 */
@@ -106,14 +106,14 @@ function check_already_use ($mysql,$login,$email){
 	$stmt->bind_param("s", $login);
 	$stmt->execute();
 	$result["login"] = $stmt->get_result()->num_rows;
-	
+
 	$rqt = "SELECT * FROM User WHERE email=? ;";
 	$stmt = $mysql->prepare($rqt);
 	$stmt->bind_param("s", $email);
 	$stmt->execute();
 	$result["email"] = $stmt->get_result()->num_rows;
 
-	$stmt-> close(); 
+	$stmt-> close();
 	return $result;
 }
 
@@ -131,7 +131,7 @@ function get_all_user ($mysql){
 /*
 	Get all projects in the Table
 */
-function get_projects($mysql){ 
+function get_projects($mysql){
 	$rqt = "SELECT * FROM Project ;";
 	$stmt = $mysql->stmt_init();
 	$stmt = $mysql->prepare($rqt);
@@ -144,7 +144,7 @@ function get_projects($mysql){
 /*
 	Get the project's informations
 */
-function get_project($mysql, $id_project){ 
+function get_project($mysql, $id_project){
 	$rqt = "SELECT * FROM Project WHERE id=? ;";
 	$stmt = $mysql->stmt_init();
 	$stmt = $mysql->prepare($rqt);
@@ -157,7 +157,7 @@ function get_project($mysql, $id_project){
 
 /*  -	Get the project's informations by name
  */
- function get_project_byName($mysql, $project_name){ 
+ function get_project_byName($mysql, $project_name){
  	$rqt = "SELECT * FROM Project WHERE name=? ;";
  	$stmt = $mysql->stmt_init();
  	$stmt = $mysql->prepare($rqt);
@@ -203,14 +203,14 @@ function alter_project ($mysql,$id,$name,$description,$language,$owner){
 	Return all developers's informations working on a project, PO included
 */
 function get_developers($mysql, $id_project){
-	$rqt = "SELECT User.id, first_name,last_name,login,email 
-				FROM Project 
+	$rqt = "SELECT User.id, first_name,last_name,login,email
+				FROM Project
 				JOIN User ON Project.owner=User.id
-				WHERE Project.id = ? 
-				UNION 
-				SELECT User.id,first_name,last_name,login,email 
-				FROM User 
-				JOIN WorkOn ON WorkOn.id_user=User.id 
+				WHERE Project.id = ?
+				UNION
+				SELECT User.id,first_name,last_name,login,email
+				FROM User
+				JOIN WorkOn ON WorkOn.id_user=User.id
 				WHERE WorkOn.id_project = ? ;";
 	$stmt = $mysql->stmt_init();
 	$stmt = $mysql->prepare($rqt);
@@ -225,8 +225,8 @@ function get_developers($mysql, $id_project){
 	Return all projects owned by a user
 */
 function get_user_projects($mysql, $id_user){
-	$rqt = "SELECT * 
-				FROM Project 
+	$rqt = "SELECT *
+				FROM Project
 				WHERE owner = ? ;";
 	$stmt = $mysql->stmt_init();
 	$stmt = $mysql->prepare($rqt);
@@ -242,9 +242,9 @@ function get_user_projects($mysql, $id_user){
 	Return all projects where a user work on, without his projects
 */
 function get_user_participations($mysql, $id_user){
-	$rqt = "SELECT id, name, description, language, owner 
-				FROM Project 
-				JOIN WorkOn ON WorkOn.id_project=Project.id 
+	$rqt = "SELECT id, name, description, language, owner
+				FROM Project
+				JOIN WorkOn ON WorkOn.id_project=Project.id
 				WHERE WorkOn.id_user = ? AND Project.owner != ?;";
 	$stmt = $mysql->stmt_init();
 	$stmt = $mysql->prepare($rqt);
@@ -263,8 +263,8 @@ function get_user_participations($mysql, $id_user){
 */
 function add_user_to_project ($mysql, $id_user, $id_project){
 	$ok = true;
-	$rqt = "SELECT owner 
-			FROM Project 
+	$rqt = "SELECT owner
+			FROM Project
 			WHERE id = ? ;";
 	$stmt = $mysql->stmt_init();
 	$stmt = $mysql->prepare($rqt);
@@ -275,7 +275,7 @@ function add_user_to_project ($mysql, $id_user, $id_project){
 		$ok = false;
 	}
 	else{
-		$rqt = "INSERT INTO WorkOn 
+		$rqt = "INSERT INTO WorkOn
 				VALUES (?,?);";
 		$stmt = $mysql->prepare($rqt);
 		$stmt->bind_param("ii", $id_user, $id_project);
@@ -289,7 +289,7 @@ function add_user_to_project ($mysql, $id_user, $id_project){
 }
 
 function delete_user_participation($mysql, $id_user, $id_project){
-	$rqt = "DELETE FROM WorkOn 
+	$rqt = "DELETE FROM WorkOn
 			WHERE id_user=? AND id_project=? ;";
 	$stmt = $mysql->prepare($rqt);
 	$stmt->bind_param("ii", $id_user, $id_project);
@@ -303,8 +303,8 @@ function delete_user_participation($mysql, $id_user, $id_project){
 	Get all users not working on a project
 */
 function get_potential_user_for_project ($mysql, $id_project){
-	$rqt = "SELECT id, first_name, last_name, login 
-				FROM User 
+	$rqt = "SELECT id, first_name, last_name, login
+				FROM User
 				WHERE id NOT IN (SELECT id_user FROM WorkOn WHERE id_project=?) AND
 					id NOT IN (SELECT owner FROM Project WHERE id = ?);";
 	$stmt = $mysql->stmt_init();
@@ -322,19 +322,19 @@ function get_potential_user_for_project ($mysql, $id_project){
 	=> Return True if is the case, False otherwise
 */
 function check_user_work_on_project ($mysql, $id_user, $id_project){
-	/*$rqt = "SELECT COUNT(id) 
-			FROM Project 
-			JOIN WorkOn ON Project.id=WorkOn.id_project 
+	/*$rqt = "SELECT COUNT(id)
+			FROM Project
+			JOIN WorkOn ON Project.id=WorkOn.id_project
 			WHERE (id_user = ? OR owner = ?) AND id_project = ?;";*/
-	$rqt = "SELECT COUNT(idt) 
-			FROM( 
-				SELECT DISTINCT owner AS idt 
-				FROM Project  
-				WHERE Project.id = ? AND owner = ? 
-				UNION ALL 
-				SELECT DISTINCT id_user AS idt 
-				FROM WorkOn 
-				WHERE id_project = ? AND id_user = ? 
+	$rqt = "SELECT COUNT(idt)
+			FROM(
+				SELECT DISTINCT owner AS idt
+				FROM Project
+				WHERE Project.id = ? AND owner = ?
+				UNION ALL
+				SELECT DISTINCT id_user AS idt
+				FROM WorkOn
+				WHERE id_project = ? AND id_user = ?
 			) x";
 
 	$stmt = $mysql->stmt_init();
@@ -351,11 +351,11 @@ function check_user_work_on_project ($mysql, $id_user, $id_project){
 	Add a User Story on a project
 	Return True if the US was inserted, False otherwise
 */
-function add_us($mysql, $id_project, $id_sprint, $description, $priority, $difficulty){
-	$rqt = "INSERT INTO UserStory(id_project,description,priority,id_sprint,difficulty) 
-				VALUES (?,?,?,?,?);";
+function add_us($mysql, $id_project, $id_sprint, $description, $priority, $difficulty,$color){
+	$rqt = "INSERT INTO UserStory(id_project,description,priority,id_sprint,difficulty,color)
+				VALUES (?,?,?,?,?,?);";
 	$stmt = $mysql->prepare($rqt);
-	$stmt->bind_param("isiii", $id_project, $description, $priority, $id_sprint, $difficulty);
+	$stmt->bind_param("isiiis", $id_project, $description, $priority, $id_sprint, $difficulty,$color);
 	$stmt->execute();
 	$result = $mysql->error;
 	$stmt->close();
@@ -367,11 +367,11 @@ function add_us($mysql, $id_project, $id_sprint, $description, $priority, $diffi
 	The 3 last parameters can be NULL
 	Return True if the US was altered, False otherwise
 */
-function alter_us($mysql, $id, $id_project, $id_sprint, $description, $priority, $difficulty, $achievement, $commit){
-	$rqt = "UPDATE UserStory SET id_project=?, description=?, priority=?, difficulty=?, achievement=?, commit=?, id_sprint=? 
+function alter_us($mysql, $id, $id_project, $id_sprint, $description, $priority, $difficulty, $color, $achievement, $commit){
+	$rqt = "UPDATE UserStory SET id_project=?, description=?, priority=?, difficulty=?, color=?, achievement=?, commit=?, id_sprint=?
 			WHERE id=? ;";
 	$stmt = $mysql->prepare($rqt);
-	$stmt->bind_param("isiissii", $id_project, $description, $priority, $difficulty, $achievement, $commit, $id_sprint, $id);
+	$stmt->bind_param("isiisssii", $id_project, $description, $priority, $difficulty, $color, $achievement, $commit, $id_sprint, $id);
 	$stmt->execute();
 	$result = $mysql->affected_rows;
 	$stmt->close();
@@ -382,9 +382,9 @@ function alter_us($mysql, $id, $id_project, $id_sprint, $description, $priority,
 	Get all User Stories of a project
 */
 function get_us($mysql, $id_project){
-	$rqt = "SELECT * 
-			FROM UserStory 
-			WHERE id_project=? 
+	$rqt = "SELECT *
+			FROM UserStory
+			WHERE id_project=?
 			ORDER BY id;";
 	$stmt = $mysql->prepare($rqt);
 	$stmt->bind_param("i", $id_project);
@@ -398,7 +398,7 @@ function get_us($mysql, $id_project){
 	Delete an User Story
 */
 function delete_us ($mysql, $id){
-	$rqt = "DELETE FROM UserStory 
+	$rqt = "DELETE FROM UserStory
 			WHERE id=? ;";
 	$stmt = $mysql->prepare($rqt);
 	$stmt->bind_param("i", $id);
@@ -410,7 +410,7 @@ function delete_us ($mysql, $id){
 
 
 function add_task($mysql,$id_sprint, $id_us,$description,$state){
-	$rqt = "INSERT INTO Task(id_sprint,id_us,description,state) 
+	$rqt = "INSERT INTO Task(id_sprint,id_us,description,state)
 				VALUES (?,?,?,?);";
 	$stmt = $mysql->prepare($rqt);
 	$stmt->bind_param("iiss", $id_sprint, $id_us, $description,$state);
@@ -421,7 +421,7 @@ function add_task($mysql,$id_sprint, $id_us,$description,$state){
 }
 
 function alter_task($mysql,$id,$id_sprint,$id_us, $id_user, $description){
-	$rqt = "UPDATE Task SET id_sprint=?, id_us=? , id_user=?, description=? 
+	$rqt = "UPDATE Task SET id_sprint=?, id_us=? , id_user=?, description=?
 			WHERE id=? ;";
 	$stmt = $mysql->prepare($rqt);
 	$stmt->bind_param("iiisi", $id_sprint, $id_us, $id_user, $description, $id);
@@ -434,7 +434,7 @@ function alter_task($mysql,$id,$id_sprint,$id_us, $id_user, $description){
 
 
 function delete_task ($mysql, $id){
-	$rqt = "DELETE FROM Task 
+	$rqt = "DELETE FROM Task
 			WHERE id=? ;";
 	$stmt = $mysql->prepare($rqt);
 	$stmt->bind_param("i", $id);
@@ -458,11 +458,11 @@ function alter_state($mysql,$id,$state){
 
 /*
 	Add a sprint to a project if:
-		- start_date < end_date 
+		- start_date < end_date
 		- the date interval is free
 */
 function add_sprint ($mysql, $id_project, $start_date, $end_date){
-	$rqt = "INSERT INTO Sprint(id_project,start_date,end_date) 
+	$rqt = "INSERT INTO Sprint(id_project,start_date,end_date)
 				VALUES (?,?,?);";
 	$s_date = new DateTime($start_date);
 	$e_date = new DateTime($end_date);
@@ -478,9 +478,9 @@ function add_sprint ($mysql, $id_project, $start_date, $end_date){
 }
 
 function get_sprints($mysql, $id_project){
-	$rqt = "SELECT * 
-			FROM Sprint 
-			WHERE id_project=? 
+	$rqt = "SELECT *
+			FROM Sprint
+			WHERE id_project=?
 			ORDER BY start_date;";
 	$stmt = $mysql->prepare($rqt);
 	$stmt->bind_param("i", $id_project);
@@ -494,7 +494,7 @@ function get_sprints($mysql, $id_project){
 	Delete a Sprint
 */
 function delete_spint ($mysql, $id){
-	$rqt = "DELETE FROM Sprint 
+	$rqt = "DELETE FROM Sprint
 			WHERE id=? ;";
 	$stmt = $mysql->prepare($rqt);
 	$stmt->bind_param("i", $id);
@@ -505,9 +505,9 @@ function delete_spint ($mysql, $id){
 }
 
 function get_currents_sprints ($mysql, $id_project){
-	$rqt = "SELECT * 
-			FROM Sprint 
-			WHERE id_project=? AND (start_date <= CURRENT_DATE AND end_date >= CURRENT_DATE)  
+	$rqt = "SELECT *
+			FROM Sprint
+			WHERE id_project=? AND (start_date <= CURRENT_DATE AND end_date >= CURRENT_DATE)
 			ORDER BY start_date;";
 	$stmt = $mysql->prepare($rqt);
 	$stmt->bind_param("i", $id_project);
@@ -521,9 +521,9 @@ function get_currents_sprints ($mysql, $id_project){
 	Get all passed sprints, including the actuals
 */
 function get_past_sprints ($mysql, $id_project){
-	$rqt = "SELECT * 
-			FROM Sprint 
-			WHERE id_project=? AND start_date <= CURRENT_DATE  
+	$rqt = "SELECT *
+			FROM Sprint
+			WHERE id_project=? AND start_date <= CURRENT_DATE
 			ORDER BY start_date;";
 	$stmt = $mysql->prepare($rqt);
 	$stmt->bind_param("i", $id_project);
@@ -534,9 +534,9 @@ function get_past_sprints ($mysql, $id_project){
 }
 
 function get_tasks ($mysql, $id_sprint){
-	$rqt = "SELECT * 
-			FROM Task 
-			WHERE id_sprint=? 
+	$rqt = "SELECT *
+			FROM Task
+			WHERE id_sprint=?
 			ORDER BY id;";
 	$stmt = $mysql->prepare($rqt);
 	$stmt->bind_param("i", $id_sprint);
@@ -547,9 +547,9 @@ function get_tasks ($mysql, $id_sprint){
 }
 
 function get_project_difficulty($mysql,$id_project){
-	$rqt = "SELECT SUM(difficulty) 
-				FROM Project 
-				JOIN UserStory ON UserStory.id_project = Project.id 
+	$rqt = "SELECT SUM(difficulty)
+				FROM Project
+				JOIN UserStory ON UserStory.id_project = Project.id
 				WHERE Project.id=? ;";
 	$stmt = $mysql->prepare($rqt);
 	$stmt->bind_param("i", $id_project);
@@ -560,9 +560,9 @@ function get_project_difficulty($mysql,$id_project){
 }
 
 function get_sprint_difficulty ($mysql, $id_sprint){
-	$rqt = "SELECT SUM(difficulty) 
-				FROM Sprint 
-				JOIN UserStory ON UserStory.id_sprint = Sprint.id 
+	$rqt = "SELECT SUM(difficulty)
+				FROM Sprint
+				JOIN UserStory ON UserStory.id_sprint = Sprint.id
 				WHERE id_sprint=? ;";
 	$stmt = $mysql->prepare($rqt);
 	$stmt->bind_param("i", $id_sprint);

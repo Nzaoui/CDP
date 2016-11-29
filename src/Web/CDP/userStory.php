@@ -1,13 +1,14 @@
 							<div class="form-group">
-							<?php 
+							<?php
 								if(isset($_POST["modale_addUS_submit"])){
 									if((!empty($_POST["add_description"]))&&(!empty($_POST["add_priority"]))){
 										$description = $_POST["add_description"];
 										$priority = $_POST["add_priority"];
 										$difficulty = $_POST["add_difficulty"];
+										$color = $_POST["add_UScolor"];
 										$id_sprint = $_POST["add_sprint"];
 										$id_project = $project["id"];
-										$check_addResult = add_us($mysql, $id_project, $id_sprint, $description, $priority, $difficulty);
+										$check_addResult = add_us($mysql, $id_project, $id_sprint, $description, $priority, $difficulty,$color);
 										if($check_addResult == true){
 											echo "<div class=\"alert alert-success\">";
 											echo "<strong>Ajout avec Succes!</strong>";
@@ -34,6 +35,7 @@
 										$description = $_POST["update_description"];
 										$priority = $_POST["update_priority"];
 										$difficulty = $_POST["update_difficulty"];
+										$color = $_POST["update_UScolor"];
 										$id_sprint = $_POST["update_sprint"];
 										$commit = $_POST["update_commit"];
 										$achievement = $_POST["update_achievement"];
@@ -41,7 +43,7 @@
 											$achievement = null;
 										}
 										$id_project = $project["id"];
-										$check_updateResult = alter_us($mysql, $id_US, $id_project, $id_sprint, $description, $priority, $difficulty, $achievement, $commit);
+										$check_updateResult = alter_us($mysql, $id_US, $id_project, $id_sprint, $description, $priority, $difficulty, $color, $achievement, $commit);
 										if($check_updateResult == true){
 											echo "<div class=\"alert alert-success\">";
 											echo "<strong>Mofication avec Succes!</strong>";
@@ -79,14 +81,14 @@
 										}
 								}
 								?>
-						
+
 								<br><br><label class="col-sm-2 control-label">Parametres User Story</label>
 								<div class="col-sm-7" id="userStories">
 									<table class="table table-striped table-bordered" id="userStories">
 										<thead>
 											<tr>
 												<th>Description</th>
-												<th>Action</th>		
+												<th>Action</th>
 											</tr>
 										</thead>
 											<tbody>
@@ -96,8 +98,8 @@
 														printf("<tr>");
 														printf("<td data-title=\"Description\">%s</td>",$row['description']);
 														printf("<td data-title=\"Action\">");
-														printf("<button type=\"button\" class=\"btn btn-info\" data-toggle=\"modal\" data-target=\"#UpdateUSModal\""); 
-														printf("data-id=\"%d\" data-description=\"%s\" data-priority=\"%d\" data-difficulty=\"%d\" data-sprint=\"%d\" data-achievement=\"%s\" data-commit=\"%s\">Modifier</button>",$row['id'],$row['description'],$row['priority'],$row['difficulty'],$row['id_sprint'],$row['achievement'],$row['commit']);
+														printf("<button type=\"button\" class=\"btn btn-info\" data-toggle=\"modal\" data-target=\"#UpdateUSModal\"");
+														printf("data-id=\"%d\" data-description=\"%s\" data-priority=\"%d\" data-difficulty=\"%d\" data-uscolor=\"%s\" data-sprint=\"%d\" data-achievement=\"%s\" data-commit=\"%s\">Modifier</button>",$row['id'],$row['description'],$row['priority'],$row['difficulty'],$row['color'],$row['id_sprint'],$row['achievement'],$row['commit']);
 														printf("&emsp;");
 														printf("<button type=\"button\" class=\"btn btn-info\" data-toggle=\"modal\" data-target=\"#DeleteUSModal\" data-id=\"%d\" data-description=\"%s\">Supprimer</button>",$row['id'],$row['description']);
 														printf("</td>");
@@ -108,7 +110,4 @@
 									</table>
 								</div>
 								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddUSModal">Ajouter</button>
-							</div><!--/form-group--> 
-							
-							
-							
+							</div><!--/form-group-->
