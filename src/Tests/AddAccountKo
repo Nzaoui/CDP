@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost/" />
+<title>AddAccount</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">AddAccount</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/CDP/index.php</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=S'inscrire</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=Pseudo</td>
+	<td>SeleniumUser</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=inputEmail3</td>
+	<td>Selenium_last</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=prenom</td>
+	<td>Selenium_first</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=email</td>
+	<td>Selenium@localhost.fr</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=password</td>
+	<td>selenium</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=repassword</td>
+	<td>selenium</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertNotLocation</td>
+	<td></td>
+	<td>http://localhost/CDP/inscription.php</td>
+</tr>
+<tr>
+	<td>assertNotValue</td>
+	<td>//div[7]/div</td>
+	<td>Warning : Email ou Login deja utilise</td>
+</tr>
+</tbody></table>
+</body>
+</html>
