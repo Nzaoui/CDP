@@ -61,14 +61,14 @@ INSERT INTO WorkOn VALUES
 	(4,4);
 
 /* Create UserStory */
-INSERT INTO UserStory(id,id_project,id_sprint,description,priority,difficulty) VALUES
-	(1,1,1,"Preparer un gateau",1,3),
-	(2,1,2,"Manger le gateau",2,1),
-	(3,1,2,"Nettoyer",2,1),
-	(4,2,4,"Lorem ipsum dolor sit amet",2,1),
-	(5,2,5,"In bellis e suis et",1,1),
-	(6,2,6,"Mercedis sed amore exigamus liberalesque.",1,3),
-	(7,4,1,"Vrsicinus sui isdem sed accusatores",2,1);
+INSERT INTO UserStory(id,id_project,id_sprint,description,priority,difficulty,color) VALUES
+	(1,1,1,"Preparer un gateau",1,3,"#66CC99"),
+	(2,1,2,"Manger le gateau",2,1,"#22CC99"),
+	(3,1,2,"Nettoyer",2,1,"#66CA19"),
+	(4,2,4,"Lorem ipsum dolor sit amet",2,1,"#6B7C99"),
+	(5,2,5,"In bellis e suis et",1,1,"#668599"),
+	(6,2,6,"Mercedis sed amore exigamus liberalesque.",1,3,"#6F2C99"),
+	(7,4,1,"Vrsicinus sui isdem sed accusatores",2,1,"#66B899");
 
 /* Create Task */
 INSERT INTO Task(id_sprint,id_us,description,state) VALUES 
