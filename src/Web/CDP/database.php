@@ -395,6 +395,22 @@ function get_us($mysql, $id_project){
 }
 
 /*
+	Get a User Story of a project by id
+*/
+function get_us_Byid($mysql, $id_project,$id){
+	$rqt = "SELECT *
+			FROM UserStory
+			WHERE id_project=? AND id=?
+			ORDER BY id;";
+	$stmt = $mysql->prepare($rqt);
+	$stmt->bind_param("ii", $id_project,$id);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	$stmt->close();
+	return $result;
+}
+
+/*
 	Delete an User Story
 */
 function delete_us ($mysql, $id){
@@ -456,6 +472,17 @@ function alter_state($mysql,$id,$state){
 
 }
 
+function alter_taskuser($mysql,$id,$id_user){
+	$rqt = "UPDATE Task SET id_user=?
+			WHERE id=? ;";
+	$stmt = $mysql->prepare($rqt);
+	$stmt->bind_param("ii", $id_user, $id);
+	$stmt->execute();
+	$result = $mysql->affected_rows;
+	$stmt->close();
+	return $result==1;
+
+}
 /*
 	Add a sprint to a project if:
 		- start_date < end_date

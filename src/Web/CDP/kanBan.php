@@ -113,7 +113,7 @@ else{
                 $sprints = get_currents_sprints($mysql,$project["id"]);
                 $cols = ["To-Do","On Going","Test","Done"];
                 $user_valid = isset($_SESSION['id']) && check_user_work_on_project($mysql,$_SESSION['id'],$project["id"]);
-                
+
                 while ($sprint = $sprints->fetch_array(MYSQLI_ASSOC)){
                   $tasks = get_tasks($mysql,$sprint["id"]);
                   printf("<div class = \"panel panel-default\">
@@ -125,7 +125,7 @@ else{
                             <table id=\"tableDnD\" class=\"table table-bordered\">
                               <thread>
                                 <tr>");
-								
+
                                 echo" <th>$cols[0]</th>";
                                    echo" <th>$cols[1]</th>";
                                    echo" <th>$cols[2]</th>";
@@ -134,32 +134,38 @@ else{
                               </thread>
                               <tbody>");
                   while ($task = $tasks->fetch_array(MYSQLI_ASSOC)){
-					  
-					
+
+
                     printf("<tr>");
                     foreach ($cols as $col){
 						echo "<div id ='external-events'>";
 						$id_task = $task["id"];
+
+            /*
+            $userStory = get_us_Byid($mysql,$project["id"],$task["id_us"])->fetch_array(MYSQLI_ASSOC);
+            style=\"background:".$userStory['color'].";\"
+            */
+
 						$user = get_user($mysql,$task["id_user"]);
-					 
+
 						$user = $user->fetch_array(MYSQLI_ASSOC);
-					
-		              $div = "<div class='external-event' id=\"".$id_task."\"".(($user_valid)?" ondragstart=\"drag(event)\" draggable=\"true\" >":">").$task["description"]."<span class='badge pull-right'>".$user["login"]."</span></div>";
+
+		              $div = "<div class='external-event'  id=\"".$id_task."\"".(($user_valid)?" ondragstart=\"drag(event)\" draggable=\"true\" >":">").$task["description"]."<span class='badge pull-right'>".$user["login"]."</span></div>";
                       if ($col == $task["state"]){
-						
+
                         printf("<th id=\"$col\" ondrop=\"drop(event)\" ondragover=\"allowDrop(event)\"  >%s</th>",$div);
 					  }
                       else
                         printf("<th id=\"$col\" ondrop=\"drop(event)\" ondragover=\"allowDrop(event)\"  ></th>");
-					
-						
+
+
                     }
                     printf("</tr>");
-					  
+
                   }
                   printf("</tbody></table></div></div></div></div>");
-				  
-				
+
+
                 }
               ?>
             </div>
@@ -168,8 +174,8 @@ else{
         </section>
       </div>
 
-	  
-	 
+
+
 
     </div>
   </div>
@@ -185,24 +191,24 @@ function allowDrop(ev) {
 function drag(ev) {
     ev.dataTransfer.setData("text/html", ev.target.id);
 	id_task =$(ev.target).attr("id");
-	
-	
+
+
 }
 
 function drop(ev) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text/html");
     ev.target.appendChild(document.getElementById(data));
-	
-	alert(id_task);
+
+	//alert(id_task);
 	var e =$(event.target).attr("id");
-	
+  var usr = <?php echo $_SESSION['id'];?>;
 	$.ajax({
                 url: 'set_state.php',
                 type: 'POST',
-                data: {id:id_task, state:e},
+                data: {id:id_task, state:e, user:usr},
                 success: function(data) {
-                    //finished
+                    location.reload();
                 }
             });
 }
@@ -215,7 +221,7 @@ function drop(ev) {
 <script src="js/bootstrap.min.js"></script>
 <script src="js/common-script.js"></script>
 <script src="js/jquery.slimscroll.min.js"></script>
-<script src="js/jPushMenu.js"></script> 
+<script src="js/jPushMenu.js"></script>
 <script src="js/side-chats.js"></script>
 </body>
 </html>
