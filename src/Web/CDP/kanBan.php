@@ -103,6 +103,7 @@ else{
             <div class="panel-body">
              <div class="container">
               <?php
+                $kanbanKey = "";
                 $all_sprints = get_sprints($mysql,$project["id"]);
                 $tab = [];
                 $num = 1;
@@ -125,7 +126,6 @@ else{
                             <table id=\"tableDnD\" class=\"table table-bordered\">
                               <thread>
                                 <tr>");
-
                                 echo" <th>$cols[0]</th>";
                                    echo" <th>$cols[1]</th>";
                                    echo" <th>$cols[2]</th>";
@@ -134,49 +134,33 @@ else{
                               </thread>
                               <tbody>");
                   while ($task = $tasks->fetch_array(MYSQLI_ASSOC)){
-
-
+                    $userStory = get_us_Byid($mysql,$project["id"],$task["id_us"])->fetch_array(MYSQLI_ASSOC);
+                    $kanbanKey = $kanbanKey."<div><span class=\"badge\" style=\"background:".$userStory['color'].";\">".$userStory['description']."<span></div>";
                     printf("<tr>");
                     foreach ($cols as $col){
 						echo "<div id ='external-events'>";
 						$id_task = $task["id"];
-
-            /*
-            $userStory = get_us_Byid($mysql,$project["id"],$task["id_us"])->fetch_array(MYSQLI_ASSOC);
-            style=\"background:".$userStory['color'].";\"
-            */
-
-						$user = get_user($mysql,$task["id_user"]);
-
+  					$user = get_user($mysql,$task["id_user"]);
 						$user = $user->fetch_array(MYSQLI_ASSOC);
-
-		              $div = "<div class='external-event'  id=\"".$id_task."\"".(($user_valid)?" ondragstart=\"drag(event)\" draggable=\"true\" >":">").$task["description"]."<span class='badge pull-right'>".$user["login"]."</span></div>";
+            $div = "<div class='external-event' id=\"".$id_task."\"".(($user_valid)?" ondragstart=\"drag(event)\" draggable=\"true\" >":">").$task["description"]."<span   style=\"background:".$userStory['color'].";\" class='badge pull-right'>UserStory</span><span class='badge pull-right'>".$user["login"]."</span></div>";
                       if ($col == $task["state"]){
 
                         printf("<th id=\"$col\" ondrop=\"drop(event)\" ondragover=\"allowDrop(event)\"  >%s</th>",$div);
 					  }
                       else
                         printf("<th id=\"$col\" ondrop=\"drop(event)\" ondragover=\"allowDrop(event)\"  ></th>");
-
-
                     }
                     printf("</tr>");
-
                   }
-                  printf("</tbody></table></div></div></div></div>");
-
-
+                  printf("</tbody></table></div>");
+                  printf("<br><div><h4>Indices des couleurs des User Stories:</h4>%s</div>",$kanbanKey);
+                  printf("</div></div></div>");
                 }
               ?>
             </div>
-
           </div>
         </section>
       </div>
-
-
-
-
     </div>
   </div>
 </div>
@@ -203,6 +187,7 @@ function drop(ev) {
 	//alert(id_task);
 	var e =$(event.target).attr("id");
   var usr = <?php echo $_SESSION['id'];?>;
+  //alert(usr);
 	$.ajax({
                 url: 'set_state.php',
                 type: 'POST',
