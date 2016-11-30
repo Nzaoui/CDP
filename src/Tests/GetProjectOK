@@ -13,7 +13,7 @@
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>/CDP/index.php</td>
+	<td>index.php</td>
 	<td></td>
 </tr>
 <tr>
@@ -29,7 +29,7 @@
 <tr>
 	<td>assertNotLocation</td>
 	<td></td>
-	<td>http://localhost/CDP/project.php?id=1</td>
+	<td>project.php?id=1</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -39,7 +39,7 @@
 <tr>
 	<td>assertNotLocation</td>
 	<td></td>
-	<td>http://localhost/CDP/backLog.php?id=1</td>
+	<td>backLog.php?id=1</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -49,7 +49,7 @@
 <tr>
 	<td>assertNotLocation</td>
 	<td></td>
-	<td>http://localhost/CDP/kanBan.php?id=1</td>
+	<td>kanBan.php?id=1</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -59,7 +59,7 @@
 <tr>
 	<td>assertNotLocation</td>
 	<td></td>
-	<td>http://localhost/CDP/burnDownChart.php?id=1</td>
+	<td>burnDownChart.php?id=1</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -69,7 +69,7 @@
 <tr>
 	<td>assertNotLocation</td>
 	<td></td>
-	<td>http://localhost/CDP/history.php?id=1</td>
+	<td>history.php?id=1</td>
 </tr>
 <tr>
 	<td>verifyElementNotPresent</td>

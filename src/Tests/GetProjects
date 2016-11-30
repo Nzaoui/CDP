@@ -13,7 +13,7 @@
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>/CDP/index.php</td>
+	<td>index.php</td>
 	<td></td>
 </tr>
 <tr>
@@ -24,7 +24,7 @@
 <tr>
 	<td>assertNotLocation</td>
 	<td></td>
-	<td>http://localhost/CDP/projects.php</td>
+	<td>projects.php</td>
 </tr>
 <tr>
 	<td>verifyElementPresent</td>

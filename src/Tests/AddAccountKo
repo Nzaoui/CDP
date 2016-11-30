@@ -13,7 +13,7 @@
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>/CDP/index.php</td>
+	<td>index.php</td>
 	<td></td>
 </tr>
 <tr>
@@ -59,7 +59,7 @@
 <tr>
 	<td>assertNotLocation</td>
 	<td></td>
-	<td>http://localhost/CDP/inscription.php</td>
+	<td>inscription.php</td>
 </tr>
 <tr>
 	<td>assertNotValue</td>

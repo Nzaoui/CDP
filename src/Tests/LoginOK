@@ -13,7 +13,7 @@
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>/CDP/index.php</td>
+	<td>index.php</td>
 	<td></td>
 </tr>
 <tr>
@@ -39,7 +39,7 @@
 <tr>
 	<td>assertNotLocation</td>
 	<td></td>
-	<td>http://localhost/CDP/myprofil.php</td>
+	<td>myprofil.php</td>
 </tr>
 <tr>
 	<td>pause</td>
