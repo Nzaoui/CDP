@@ -185,7 +185,7 @@ function drop(ev) {
     ev.target.appendChild(document.getElementById(data));
 
 	//alert(id_task);
-	var e =$(event.target).attr("id");
+	var e =$(ev.target).attr("id");
   var usr = <?php echo $_SESSION['id'];?>;
   //alert(usr);
 	$.ajax({
