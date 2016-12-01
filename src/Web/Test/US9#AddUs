@@ -3,17 +3,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="selenium.base" href="http://localhost/CDP/" />
-<title>US8#AddDev</title>
+<title>US9#AddUs</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">US8#AddDev</td></tr>
+<tr><td rowspan="1" colspan="3">US9#AddUs</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>index.php</td>
+	<td>/CDP/index.php</td>
 	<td></td>
 </tr>
 <tr>
@@ -52,24 +51,49 @@
 	<td></td>
 </tr>
 <tr>
-	<td>type</td>
-	<td>css=input.form-control.input-sm</td>
-	<td>sel</td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>name=submit</td>
+	<td>click</td>
+	<td>link=User Story</td>
 	<td></td>
 </tr>
 <tr>
-	<td>pause</td>
-	<td>500</td>
+	<td>click</td>
+	<td>css=div.form-group &gt; button.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=add_description</td>
+	<td>Une US de test</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=add_priority</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=add_difficulty</td>
+	<td>5</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=add_UScolor</td>
+	<td>#003fff</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=modale_addUS_submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=User Story</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>xpath=(//button[@name='delete'])[5]</td>
-	<td>Supprimer</td>
+	<td>//table[@id='userStories']/tbody/tr[7]/td</td>
+	<td>Une US de test</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>

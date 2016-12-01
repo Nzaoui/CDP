@@ -3,17 +3,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="selenium.base" href="http://localhost/CDP/" />
-<title>US8#AddDev</title>
+<title>US12#DevTask</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">US8#AddDev</td></tr>
+<tr><td rowspan="1" colspan="3">US12#DevTask</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>index.php</td>
+	<td>/CDP/index.php</td>
 	<td></td>
 </tr>
 <tr>
@@ -52,24 +51,49 @@
 	<td></td>
 </tr>
 <tr>
-	<td>type</td>
-	<td>css=input.form-control.input-sm</td>
-	<td>sel</td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>name=submit</td>
+	<td>click</td>
+	<td>link=Tâches</td>
 	<td></td>
 </tr>
 <tr>
-	<td>pause</td>
-	<td>500</td>
+	<td>click</td>
+	<td>xpath=(//button[@type='button'])[19]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//button[@type='button'])[19]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=update_user</td>
+	<td>label=erey</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=update_user</td>
+	<td>label=erey</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=modale_updateTask_submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=modale_updateTask_submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=KanBan</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>xpath=(//button[@name='delete'])[5]</td>
-	<td>Supprimer</td>
+	<td>//div[@id='10']/span[2]</td>
+	<td>erey</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>

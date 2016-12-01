@@ -20,6 +20,9 @@
 <tr><td><a href="ModifyProfil">ModifyProfil</a></td></tr>
 <tr><td><a href="US7#CreateProject">US7#CreateProject</a></td></tr>
 <tr><td><a href="US8#AddDev">US8#AddDev</a></td></tr>
+<tr><td><a href="US9#AddUs">US9#AddUs</a></td></tr>
+<tr><td><a href="US11#AddTask">US11#AddTask</a></td></tr>
+<tr><td><a href="US12#DevTask">US12#DevTask</a></td></tr>
 </tbody></table>
 </body>
 </html>
