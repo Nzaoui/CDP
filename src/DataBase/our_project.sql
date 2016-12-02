@@ -2,12 +2,12 @@ USE GestionDeProjet;
 
 SET FOREIGN_KEY_CHECKS = 0;
 
-REPLACE INTO User VALUES 
+REPLACE INTO User VALUES
 	(1,"Emile","Rey","erey","erey@localhost",SHA2("erey",256)),
 	(98,"Chaimae","ELASSAOUI","cela","cela@localhost",SHA2("cela",256)),
 	(97,"Naji","ZAOUI","nzao","nzao@localhost",SHA2("nzao",256));
 
-REPLACE INTO Project VALUES 
+REPLACE INTO Project VALUES
 	(99,"Projet de CDP","<p>Bienvenue dans notre projet de CDP.</p>
 <p>Nous sommes 3 &#233;tudiants de M2-GL.</p>
 <p>Le but de ce projet est la cr&#233;ation d&#145;un site internet permettant la gestion d&#145;un projet avec SCRUM.</p>
@@ -16,7 +16,7 @@ REPLACE INTO Project VALUES
 <li><a href='https://github.com/Nzaoui/Cdp_Clean' rel='external'>GitHub Clean</a></li></ul></p>
 ","HTML/CSS/PHP/SQL",1);
 
-REPLACE INTO Sprint VALUES 
+REPLACE INTO Sprint VALUES
 	(97,99,"2016-10-24","2016-11-4"),
 	(98,99,"2016-11-7","2016-11-18"),
 	(99,99,"2016-11-21","2016-12-02");
@@ -41,13 +41,53 @@ REPLACE INTO UserStory(id,id_project,id_sprint,description,priority,difficulty,c
 	(98,99,99,"En tant que d&#233;veloppeur travaillant sur un projet, je souhaite pouvoir faire avancer l&#145;&#233;tat d&#145;une t&#226;che d&#145;un sprint, afin de mettre &#224; jour son &#233;tat.",3,2,"#6FD899","9f5fd2f98fb2dd6fd3f7e9d9a5c9ff26482de084"),
 	(99,99,99,"En tant que PO, je souhaite pouvoir d&#233;finir la priorit&#233; d&#145;une US.",2,1,"#6F28C9","bf0ea57240513941477f03894d55ec02789cc5e9");
 
-REPLACE INTO Task(id_sprint,id_us,description,state) VALUES 
+
+REPLACE INTO Task(id_sprint,id_us,description,state) VALUES
+
 	(97,86,"Atque, ut Tullius ait, ut etiam ferae fame monitae","Done"),
-	(97,86,"Pandente itaque viam fatorum sorte tristissima","Done"),
-	(97,86,"Denique Antiochensis ordinis vertices sub uno","Done"),
-	(97,86,"Cum autem commodis intervallata temporibus","Done"),
-	(97,86,"Nemo quaeso miretur, si post exsudatos labores","Done"),
-	(97,86,"Denique Antiochensis ordinis temporibus","Done");	
+	(97,87,"Pandente itaque viam fatorum sorte tristissima","Done"),
+	(97,88,"Denique Antiochensis ordinis vertices sub uno","Done"),
+	(97,91,"Cum autem commodis intervallata temporibus","Done"),
+	(97,92,"Nemo quaeso miretur, si post exsudatos labores","Done"),
+	(97,NULL,"Creation Template","Done"),
+	(97,NULL,"Ecriture requêtes SQL","Done"),
+	(97,NULL,"Creation Base de données","Done"),
+
+
+	(98,89,"Denique Antiochensis ordinis vertices sub uno","Done"),
+	(98,89,"Cum autem commodis intervallata temporibus","Done"),
+	(98,89,"Nemo quaeso miretur, si post exsudatos labores","Done"),
+	(98,89,"Atque, ut Tullius ait, ut etiam ferae fame monitae","Done"),
+	(98,89,"Pandente itaque viam fatorum sorte tristissima","Done"),
+	(98,89,"Denique Antiochensis ordinis vertices sub uno","Done"),
+	(98,90,"Cum autem commodis intervallata temporibus","Done"),
+	(98,NULL,"Requêtes SQL","Done"),
+	(98,NULL,"Modification BD","Done"),
+	(98,92,"Pandente itaque viam fatorum sorte tristissima","Done"),
+	(98,93,"Denique Antiochensis ordinis vertices sub uno","Done"),
+	(98,93,"Cum autem commodis intervallata temporibus","Done"),
+	(98,93,"Nemo quaeso miretur, si post exsudatos labores","Done"),
+	(98,94,"Atque, ut Tullius ait, ut etiam ferae fame monitae","Done"),
+	(98,94,"Pandente itaque viam fatorum sorte tristissima","Done"),
+	(98,94,"Denique Antiochensis ordinis vertices sub uno","Done"),
+	(98,94,"Cum autem commodis intervallata temporibus","Done"),
+	(98,95,"Nemo quaeso miretur, si post exsudatos labores","Done"),
+	(98,96,"Atque, ut Tullius ait, ut etiam ferae fame monitae","Done"),
+	(98,96,"Pandente itaque viam fatorum sorte tristissima","Done"),
+
+	(99,89,"Denique Antiochensis ordinis vertices sub uno","Done"),
+	(99,89,"Cum autem commodis intervallata temporibus","Done"),
+	(99,89,"Nemo quaeso miretur, si post exsudatos labores","Done"),
+	(99,89,"Atque, ut Tullius ait, ut etiam ferae fame monitae","Done"),
+	(99,89,"Pandente itaque viam fatorum sorte tristissima","Done"),
+	(99,89,"Denique Antiochensis ordinis vertices sub uno","Done"),
+	(99,98,"Cum autem commodis intervallata temporibus","Done"),
+	(99,97,"Nemo quaeso miretur, si post exsudatos labores","Done"),
+	(99,NULL,"Atque, ut Tullius ait, ut etiam ferae fame monitae","Done"),
+	(99,NULL,"Pandente itaque viam fatorum sorte tristissima","Done"),
+	(99,NULL,"Denique Antiochensis ordinis vertices sub uno","Done"),
+	(99,99,"Cum autem commodis intervallata temporibus","Done");
+
 
 
 	SET FOREIGN_KEY_CHECKS = 1;
