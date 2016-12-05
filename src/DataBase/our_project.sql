@@ -12,8 +12,8 @@ REPLACE INTO Project VALUES
 <p>Nous sommes 3 &#233;tudiants de M2-GL.</p>
 <p>Le but de ce projet est la cr&#233;ation d&#145;un site internet permettant la gestion d&#145;un projet avec SCRUM.</p>
 <p>Quelques liens :<ul>
-<li><a href='https://github.com/Nzaoui/CDP' rel='external'>GitHub de Dev</a></li>
-<li><a href='https://github.com/Nzaoui/Cdp_Clean' rel='external'>GitHub Clean</a></li></ul></p>
+<li><a href=&#145;https://github.com/Nzaoui/CDP&#145; rel=&#145;external&#145;>GitHub de Dev</a></li>
+<li><a href=&#145;https://github.com/Nzaoui/Cdp_Clean&#145; rel=&#145;external&#145;>GitHub Clean</a></li></ul></p>
 ","HTML/CSS/PHP/SQL",1);
 
 REPLACE INTO Sprint VALUES
@@ -44,50 +44,48 @@ REPLACE INTO UserStory(id,id_project,id_sprint,description,priority,difficulty,c
 
 REPLACE INTO Task(id_sprint,id_us,description,state) VALUES
 
-	(97,86,"Atque, ut Tullius ait, ut etiam ferae fame monitae","Done"),
-	(97,87,"Pandente itaque viam fatorum sorte tristissima","Done"),
-	(97,88,"Denique Antiochensis ordinis vertices sub uno","Done"),
-	(97,91,"Cum autem commodis intervallata temporibus","Done"),
-	(97,92,"Nemo quaeso miretur, si post exsudatos labores","Done"),
+	(97,86,"Formulaire de Cr&#233;ation de USER","Done"),
+	(97,87,"Formulaire d&#145;authentification de USER","Done"),
+	(97,88,"Cr&#233;ation de la page projects.php qui liste tous les projets","Done"),
+	(97,91,"Affichage du profil du d&#233;veloppeur","Done"),
+	(97,92,"Cr&#233;ation d&#145;un projet","On Going"),
 	(97,NULL,"Creation Template","Done"),
-	(97,NULL,"Ecriture requêtes SQL","Done"),
-	(97,NULL,"Creation Base de données","Done"),
+	(97,NULL,"Ecriture requ&#234;tes SQL","Done"),
+	(97,NULL,"Creation Base de donn&#233;es","Done"),
 
 
-	(98,89,"Denique Antiochensis ordinis vertices sub uno","Done"),
-	(98,89,"Cum autem commodis intervallata temporibus","Done"),
-	(98,89,"Nemo quaeso miretur, si post exsudatos labores","Done"),
-	(98,89,"Atque, ut Tullius ait, ut etiam ferae fame monitae","Done"),
-	(98,89,"Pandente itaque viam fatorum sorte tristissima","Done"),
-	(98,89,"Denique Antiochensis ordinis vertices sub uno","Done"),
-	(98,90,"Cum autem commodis intervallata temporibus","Done"),
-	(98,NULL,"Requêtes SQL","Done"),
+	(98,89,"Page Historique.php","Done"),
+	(98,89,"Page Backlog.php","Done"),
+	(98,89,"Page Kanban.php","Done"),
+	(98,89,"Affichage d&#145;un projet","Done"),
+	(98,89,"Modifier un projet","Done"),
+	(98,89,"Affichage du backlog d&#145;un projet","Done"),
+	(98,90,"Modification Profil user","Done"),
+	(98,NULL,"Requ&#234;tes SQL","Done"),
 	(98,NULL,"Modification BD","Done"),
-	(98,92,"Pandente itaque viam fatorum sorte tristissima","Done"),
-	(98,93,"Denique Antiochensis ordinis vertices sub uno","Done"),
-	(98,93,"Cum autem commodis intervallata temporibus","Done"),
-	(98,93,"Nemo quaeso miretur, si post exsudatos labores","Done"),
-	(98,94,"Atque, ut Tullius ait, ut etiam ferae fame monitae","Done"),
-	(98,94,"Pandente itaque viam fatorum sorte tristissima","Done"),
-	(98,94,"Denique Antiochensis ordinis vertices sub uno","Done"),
-	(98,94,"Cum autem commodis intervallata temporibus","Done"),
-	(98,95,"Nemo quaeso miretur, si post exsudatos labores","Done"),
-	(98,96,"Atque, ut Tullius ait, ut etiam ferae fame monitae","Done"),
-	(98,96,"Pandente itaque viam fatorum sorte tristissima","Done"),
+	(98,92,"CreateProject.php","Done"),
+	(98,93,"Ajout d&#145;un dev. &#224; un projet","Done"),
+	(98,93,"Suppression d&#145;un dev.  d&#145;un projet","Done"),
+	(98,93,"AddUser : Tableau au lieu d&#145;une liste avec bouton ajouter et supprimer","Done"),
+	(98,94,"settings.php => onglet user story","Done"),
+	(98,94,"Ajout d&#145;une US dans un projet","Done"),
+	(98,94,"Modifier une US dans un projet","Done"),
+	(98,94,"Suppression d&#145;une US d&#145;un projet","Done"),
+	(98,95,"Affichage des sprints uniquement","Done"),
+	(98,96,"Enlever l&#145;affectation d&#145;un user lors de la cr&#233;ation d&#145;une tache","Done"),
+	(98,96,"settings.php => onglet taches","Done"),
 
-	(99,89,"Denique Antiochensis ordinis vertices sub uno","Done"),
-	(99,89,"Cum autem commodis intervallata temporibus","Done"),
-	(99,89,"Nemo quaeso miretur, si post exsudatos labores","Done"),
-	(99,89,"Atque, ut Tullius ait, ut etiam ferae fame monitae","Done"),
-	(99,89,"Pandente itaque viam fatorum sorte tristissima","Done"),
-	(99,89,"Denique Antiochensis ordinis vertices sub uno","Done"),
-	(99,98,"Cum autem commodis intervallata temporibus","Done"),
-	(99,97,"Nemo quaeso miretur, si post exsudatos labores","Done"),
-	(99,NULL,"Atque, ut Tullius ait, ut etiam ferae fame monitae","Done"),
-	(99,NULL,"Pandente itaque viam fatorum sorte tristissima","Done"),
-	(99,NULL,"Denique Antiochensis ordinis vertices sub uno","Done"),
-	(99,99,"Cum autem commodis intervallata temporibus","Done");
-
-
+	(99,89,"BurnDown Chart","Done"),
+	(99,89,"rectification probleme visuel: Historique.php","Done"),
+	(99,89,"Changer la couleur de la nav bar","Done"),
+	(99,89,"Finalisation KanBan","Done"),
+	(99,89,"Modifier backlog pour afficher num&#233;ro de sprint &#224; la place de l&#145;id","Done"),
+	(99,89,"Historique afficher num&#233;ro sprint pour une meilleure visibilit&#233;","Done"),
+	(99,98,"Drag & Drop Kanban: faire avancer l&#145;etat d&#145;une tache","Done"),
+	(99,97,"Drag & Drop Kanban: s&#145;auto-affecter &#224; une tache","Done"),
+	(99,99,"Modification de la priorit&#233; seulement par le PO","Done"),
+	(99,NULL,"Ajout Champ Couleur US","Done"),
+	(99,NULL,"Matrice de tra&#231;abilit&#233;","Done"),
+(99,NULL,"Tests de Validation","Done");
 
 	SET FOREIGN_KEY_CHECKS = 1;

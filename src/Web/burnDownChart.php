@@ -49,7 +49,7 @@ function compute_estimated_sprints_difficulty(){
   return $graph;
 }
 
-function compute_past_sprints_difficulty(){
+/*function compute_past_sprints_difficulty(){
   global $mysql,$project;
   $stories = get_us($mysql,$project["id"]);
   $tab_stories = [];
@@ -79,6 +79,46 @@ function compute_past_sprints_difficulty(){
       $sprint_difficulty+=$tab_stories[$value];
     }
     array_push($graph["data"],$sprint_difficulty);
+  }while($sprint = $sprints->fetch_array(MYSQLI_ASSOC));
+
+  return $graph;
+}*/
+
+function compute_past_sprints_difficulty(){
+  global $mysql,$project;
+  $stories = get_us($mysql,$project["id"]);
+  $tab_stories = [];
+  while ($story = $stories->fetch_array(MYSQLI_ASSOC)){
+    $tab_stories[$story["id"]] = $story["difficulty"];
+  }
+  $sprints = get_past_sprints($mysql,$project["id"]);
+  $graph = [];
+  $graph["label"] = [];
+  $graph["data"] = [];
+  $past_us = [];
+  $project_difficulty = get_project_difficulty($mysql,$project["id"]);
+  $sprint = $sprints->fetch_array(MYSQLI_ASSOC);
+  array_push($graph["label"],$sprint["start_date"]);
+  array_push($graph["data"],$project_difficulty);
+  do{
+    array_push($graph["label"],$sprint["end_date"]);
+    $tasks = get_tasks($mysql,$sprint["id"]);
+    $us_not_done = [];
+    $us_done = [];
+    while ($task = $tasks->fetch_array(MYSQLI_ASSOC)) {
+      if((strcmp($task["state"],"Done")!=0) && !in_array($task["id_us"], $us_not_done))
+        array_push($us_not_done, $task["id_us"]);
+      if (!in_array($task["id_us"], $us_done))
+        array_push($us_done, $task["id_us"]);
+    }
+    foreach ($us_done as $key => $value) {
+      if (!in_array($value, $us_not_done) && !in_array($value, $past_us)){
+        $project_difficulty -= $tab_stories[$value];
+        array_push($past_us, $value);
+        
+      }
+    }
+    array_push($graph["data"],$project_difficulty);
   }while($sprint = $sprints->fetch_array(MYSQLI_ASSOC));
 
   return $graph;
