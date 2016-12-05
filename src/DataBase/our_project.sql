@@ -43,7 +43,6 @@ REPLACE INTO UserStory(id,id_project,id_sprint,description,priority,difficulty,c
 
 
 REPLACE INTO Task(id_sprint,id_us,description,state) VALUES
-
 	(97,86,"Formulaire de Cr&#233;ation de USER","Done"),
 	(97,87,"Formulaire d&#145;authentification de USER","Done"),
 	(97,88,"Cr&#233;ation de la page projects.php qui liste tous les projets","Done"),
@@ -57,6 +56,7 @@ REPLACE INTO Task(id_sprint,id_us,description,state) VALUES
 	(98,89,"Page Historique.php","Done"),
 	(98,89,"Page Backlog.php","Done"),
 	(98,89,"Page Kanban.php","Done"),
+
 	(98,89,"Affichage d&#145;un projet","Done"),
 	(98,89,"Modifier un projet","Done"),
 	(98,89,"Affichage du backlog d&#145;un projet","Done"),
@@ -79,6 +79,20 @@ REPLACE INTO Task(id_sprint,id_us,description,state) VALUES
 	(99,89,"rectification probleme visuel: Historique.php","Done"),
 	(99,89,"Changer la couleur de la nav bar","Done"),
 	(99,89,"Finalisation KanBan","Done"),
+	(99,89,"Modifier backlog pour afficher numéro de sprint à la place de l'id","Done"),
+	(99,89,"Historique afficher numéro sprint pour une meilleure visibilité","Done"),
+	(99,98,"Drag & Drop Kanban: faire avancer l'etat d'une tache","Done"),
+	(99,97,"Drag & Drop Kanban: s'auto-affecter à une tache","Done"),
+	(99,99,"Modification de la priorité seulement par le PO","Done"),
+	(99,NULL,"Ajout Champ Couleur US","Done"),
+	(99,NULL,"Matrice de traçabilité","Done"),
+	(99,NULL,"Tests de Validation","Done"),
+
+
+	(99,89,"BurnDown Chart","Done"),
+	(99,89,"rectification probleme visuel: Historique.php","Done"),
+	(99,89,"Changer la couleur de la nav bar","Done"),
+	(99,89,"Finalisation KanBan","Done"),
 	(99,89,"Modifier backlog pour afficher num&#233;ro de sprint &#224; la place de l&#145;id","Done"),
 	(99,89,"Historique afficher num&#233;ro sprint pour une meilleure visibilit&#233;","Done"),
 	(99,98,"Drag & Drop Kanban: faire avancer l&#145;etat d&#145;une tache","Done"),
@@ -86,6 +100,6 @@ REPLACE INTO Task(id_sprint,id_us,description,state) VALUES
 	(99,99,"Modification de la priorit&#233; seulement par le PO","Done"),
 	(99,NULL,"Ajout Champ Couleur US","Done"),
 	(99,NULL,"Matrice de tra&#231;abilit&#233;","Done"),
-(99,NULL,"Tests de Validation","Done");
+	(99,NULL,"Tests de Validation","Done");
 
 	SET FOREIGN_KEY_CHECKS = 1;
